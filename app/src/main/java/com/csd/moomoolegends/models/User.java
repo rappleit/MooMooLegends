@@ -42,12 +42,12 @@ public class User extends UserFirestore{
             User.rollsLeft = ((Number) user.get("rollsLeft")).intValue();
             User.coins = ((Number) user.get("coins")).intValue();
             User.roomCode = (String) user.get("roomCode");
-
             User.inRoom = !Objects.equals(User.roomCode, "");
 
             User.weeklyThreshold = ((Number) user.get("weeklyThreshold")).floatValue();
             User.currentCarbonFootprint = ((Number) user.get("currentCarbonFootprint")).floatValue();
             Object userCowsObj = user.get("userCows");
+
             if (userCowsObj == null) {
                 User.userCows = new ArrayList<>();
             } else {
@@ -55,7 +55,21 @@ public class User extends UserFirestore{
             }
             User.userDoc = userDoc;
 
-            callback.onFirestoreComplete(true, "User successfully created");
+            if (User.inRoom){
+                RoomFirestore.getInstance().getRoom(User.roomCode, new OnFirestoreCompleteCallback() {
+                    @Override
+                    public void onFirestoreComplete(boolean success, String message) {
+                        if (success){
+                            Log.d("Debug", message);
+                            callback.onFirestoreComplete(true, "User successfully created");
+                        }else{
+                            Log.d("Debug", message);
+                        }
+                    }
+                });
+            } else {
+                callback.onFirestoreComplete(true, "User successfully created");
+            }
 
         } catch (NullPointerException e) {
             callback.onFirestoreComplete(false, "Failed to create user " + e.getMessage());

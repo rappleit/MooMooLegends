@@ -27,6 +27,7 @@ public class APIsExample extends AppCompatActivity {
     private AppCompatButton createRoom;
     private AppCompatToggleButton publicOrPrivateRoom;
     private AppCompatButton joinRoom;
+    private AppCompatButton leaveRoom;
     private FirebaseAuth mAuth;
     private final Activity activity = this;
 
@@ -77,7 +78,7 @@ public class APIsExample extends AppCompatActivity {
         });
 
 
-        //API call for signing up
+        // API call for signing up
         signup.setOnClickListener(v -> {
             String email = emailInput.getText().toString();
             String password = passwordInput.getText().toString();
@@ -110,7 +111,7 @@ public class APIsExample extends AppCompatActivity {
         });
 
 
-        //API call for creating room
+        // API call for creating room
         createRoom = findViewById(R.id.createRoom);
         createRoom.setOnClickListener(v -> {
             // Create room function params:
@@ -124,7 +125,7 @@ public class APIsExample extends AppCompatActivity {
                         Log.d("Debug", message);
                         //Update UI/Go to next activity
                         //Messages are: "Room created successfully"
-                        Log.d("Debug", User.getRoomCode());
+                        Log.d("Debug", "New user creating roomcode: " + User.getRoomCode());
                     } else {
                         //Room creation failed
                         Log.d("Debug", message);
@@ -136,7 +137,7 @@ public class APIsExample extends AppCompatActivity {
         });
 
 
-        //Toggle for setting room privacy
+        // Toggle for setting room privacy
         publicOrPrivateRoom = findViewById(R.id.privateOrPublic);
         publicOrPrivateRoom.setOnCheckedChangeListener((buttonView, isChecked) -> {
             // Set room privacy function params:
@@ -163,6 +164,7 @@ public class APIsExample extends AppCompatActivity {
             });
         });
 
+        // API call for joining room
         joinRoom = findViewById(R.id.joinRoom);
         roomCodeInput = findViewById(R.id.roomCode);
         joinRoom.setOnClickListener(v -> {
@@ -180,12 +182,38 @@ public class APIsExample extends AppCompatActivity {
                         Log.d("Debug", message);
                         //Update UI/Go to next activity
                         //Messages are: "Room joined successfully"
-                        Log.d("Debug", User.getRoomCode());
+                        Log.d("Debug", "New user joining roomcode: " + User.getRoomCode());
                     } else {
                         //Room join failed
                         Log.d("Debug", message);
                         //End loading screen
                         //Messages are: "Room does not exist" or "Failed to join room"
+                    }
+                }
+            });
+        });
+
+
+        // API call for leaving room
+        leaveRoom = findViewById(R.id.leaveRoom);
+        leaveRoom.setOnClickListener(v -> {
+            // Leave room function params:
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
+            RoomFirestore.getInstance().leaveRoom(new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if(success){
+                        //Room left successfully
+                        Log.d("Debug", message);
+                        //Update UI/Go to next activity
+                        //Messages are: "Room left successfully"
+                        Log.d("Debug", "New user leaving roomcode: " + User.getRoomCode());
+                    } else {
+                        //Room leave failed
+                        Log.d("Debug", message);
+                        //End loading screen
+                        //Messages are: "Failed to leave room"
                     }
                 }
             });
