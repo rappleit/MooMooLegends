@@ -9,6 +9,7 @@ import android.util.Log;
 
 import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
 import com.csd.moomoolegends.models.SignUpLoginFirestore;
+import com.csd.moomoolegends.models.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -56,6 +57,7 @@ public class LoginandSignupExample extends AppCompatActivity {
                         Log.d("Debug", message);
                         //Update UI/Go to next activity
                         //Messages are: "Login successful"
+
                     } else {
                         //Login failed
                         Log.d("Debug", message);
@@ -86,6 +88,7 @@ public class LoginandSignupExample extends AppCompatActivity {
                         Log.d("Debug", message);
                         //Update UI/Go to next activity
                         //Messages are: "User registered successfully"
+                        Log.d("Debug", String.valueOf(User.getUserCows()));
                     } else {
                         //Signup failed
                         Log.d("Debug", message);

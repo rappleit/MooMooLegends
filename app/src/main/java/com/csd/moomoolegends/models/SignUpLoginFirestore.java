@@ -73,7 +73,7 @@ public class SignUpLoginFirestore extends FirestoreInstance{
         user.put("rollsLeft", 0);
         user.put("coins", 0);
         user.put("roomCode", "");
-        user.put("userCows", new ArrayList<>());
+        user.put("userCows", new ArrayList<Map<String, Object>>());
         user.put("weeklyThreshold", 0.0);
         user.put("currentCarbonFootprint", 0.0);
         Log.d("SignUpFirestore", "user created");
@@ -84,12 +84,22 @@ public class SignUpLoginFirestore extends FirestoreInstance{
                     db.collection("users").document(uid).collection("recordsCollection").document(getWeekYearNumber()).set(new HashMap<>())
                             .addOnSuccessListener(documentReference -> {
                                 Log.d("SignUpFirestore", "successfully added user and initialized recordsCollection");
-                                callback.onFirestoreComplete(true, "User registered successfully");
+                                new User(user, db.collection("users").document(uid), new OnFirestoreCompleteCallback() {
+                                    @Override
+                                    public void onFirestoreComplete(boolean success, String message) {
+                                        if (success){
+                                            Log.d("SignUpFirestore", message);
+                                            callback.onFirestoreComplete(true, "User registered successfully");
+                                        }else{
+                                            Log.d("SignUpFirestore", message);
+                                            callback.onFirestoreComplete(false, "Failed to register user, please try again.");
+                                        }
+                                    }
+                                });
                             })
                             .addOnFailureListener(e -> {
                                 Log.d("SignUpFirestore", "Failed to initialize recordsCollection");
                             });
-                    UserDataFirestore.getInstance().initializeUser(user);
                 })
                 .addOnFailureListener(e -> callback.onFirestoreComplete(false, "Failed to register user, please try again."));
     }
@@ -126,8 +136,23 @@ public class SignUpLoginFirestore extends FirestoreInstance{
                                     .addOnSuccessListener(documentSnapshot -> {
                                         if (documentSnapshot.exists()){
                                             Log.d("Debug", "user exists");
-                                            UserDataFirestore.getInstance().initializeUser(documentSnapshot.getData());
-                                            callback.onFirestoreComplete(true, "Login successful");
+                                            if (documentSnapshot.getData() != null){
+                                                new User(documentSnapshot.getData(), documentSnapshot.getReference(), new OnFirestoreCompleteCallback() {
+                                                    @Override
+                                                    public void onFirestoreComplete(boolean success, String message) {
+                                                        if (success){
+                                                            Log.d("Debug", message);
+                                                            callback.onFirestoreComplete(true, "Login successful");
+                                                        }else{
+                                                            Log.d("Debug", message);
+                                                            callback.onFirestoreComplete(false, "User data not found");
+                                                        }
+                                                    }
+                                                });
+                                            } else {
+                                                Log.d("Debug", "user data is null");
+                                                callback.onFirestoreComplete(false, "User data not found");
+                                            }
                                         } else {
                                             Log.d("Debug", "user data does not exist");
                                             callback.onFirestoreComplete(false, "User does not exist");
