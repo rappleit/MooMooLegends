@@ -33,6 +33,12 @@ public class Room {
         this.roomIsFull = roomIsFull;
     }
 
+    public Room(String roomCode, String roomName, int roomCurrentSize) {
+        this.roomCode = roomCode;
+        this.roomName = roomName;
+        this.roomCurrentSize = roomCurrentSize;
+    }
+
     public Room(){};
 
     public String getRoomCode() {

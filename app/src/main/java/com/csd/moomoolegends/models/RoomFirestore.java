@@ -5,12 +5,12 @@ import android.util.Log;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.Objects;
 import java.util.Random;
 
 public class RoomFirestore extends FirestoreInstance{
@@ -18,6 +18,7 @@ public class RoomFirestore extends FirestoreInstance{
     private static RoomFirestore instance = null;
     private static final String ALPHANUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private ListenerRegistration roomListener;
+    public ArrayList<Room> publicRooms = new ArrayList<>();
 
 
     public RoomFirestore() {
@@ -234,19 +235,27 @@ public class RoomFirestore extends FirestoreInstance{
         initializeRoomListener(roomCode, (success, message) -> Log.d("Debug", message));
     }
 
-    public void getRoom(String roomCode, OnFirestoreCompleteCallback callback){
-        db.collection("rooms").document(roomCode).get()
-                .addOnSuccessListener(documentSnapshot -> {
-                    if (documentSnapshot.exists()){
-                        Room room = documentSnapshot.toObject(Room.class);
-                        User.setRoom(room);
-                        callback.onFirestoreComplete(true, "Room retrieved successfully");
-                    }else{
-                        callback.onFirestoreComplete(false, "Room does not exist");
+    public void getAllPublicRooms(OnFirestoreCompleteCallback callback){
+        db.collection("rooms").whereEqualTo("roomIsPrivate", false).whereEqualTo("roomIsFull", false).get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        publicRooms.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            // Now you can use the room object
+                            String roomCode = document.getId();
+                            Number roomSize = (Number) document.get("roomCurrentSize");
+                            if (roomSize == null) {
+                                continue;
+                            }
+                            int roomCurrentSize = roomSize.intValue();
+                            String roomName = document.getString("roomName");
+                            Room room = new Room(roomCode, roomName, roomCurrentSize);
+                            publicRooms.add(room);
+                        }
+                        callback.onFirestoreComplete(true, "Public rooms retrieved successfully");
+                    } else {
+                        callback.onFirestoreComplete(false, "Failed to retrieve public rooms");
                     }
-                })
-                .addOnFailureListener(e -> {
-                    callback.onFirestoreComplete(false, "Failed to retrieve room");
                 });
     }
 

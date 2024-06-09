@@ -98,8 +98,8 @@
         android:id="@+id/leaveRoom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/joinRoom"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/roomCode"
+        app:layout_constraintStart_toEndOf="@id/joinRoom"
         android:text="Leave Room" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -109,5 +109,13 @@
         app:layout_constraintTop_toBottomOf="@id/leaveRoom"
         app:layout_constraintStart_toStartOf="parent"
         android:text="Stop listener" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/publicRooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/stopListener"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Get all rooms" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

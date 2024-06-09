@@ -30,6 +30,7 @@ public class APIsExample extends AppCompatActivity {
     private AppCompatButton leaveRoom;
     private AppCompatButton stopListener;
     private AppCompatButton logout;
+    private AppCompatButton getPublicRooms;
     private FirebaseAuth mAuth;
     private final Activity activity = this;
 
@@ -232,13 +233,43 @@ public class APIsExample extends AppCompatActivity {
             });
         });
 
-        // API call for stopping listener
+        // API call for stopping current room listener
         stopListener = findViewById(R.id.stopListener);
         stopListener.setOnClickListener(v -> {
             // Stop listener function params:
             // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
 
             RoomFirestore.getInstance().stopRoomListener();
+        });
+
+        // API call for getting all public rooms
+        // Should implement so that it runs the function on refresh as I did not attach a listener to it
+        getPublicRooms = findViewById(R.id.publicRooms);
+        getPublicRooms.setOnClickListener(v -> {
+            // Get public rooms function params:
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
+            RoomFirestore.getInstance().getAllPublicRooms(new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if(success){
+                        //Public rooms retrieved successfully
+                        Log.d("Debug", message);
+                        //Update UI/Go to next activity
+                        //Messages are: "Public rooms retrieved successfully"
+                        for (int i = 0; i < RoomFirestore.getInstance().publicRooms.size(); i++) {
+                            Log.d("Debug", "Room Code: " + RoomFirestore.getInstance().publicRooms.get(i).getRoomCode());
+                            Log.d("Debug", "Room Name: " + RoomFirestore.getInstance().publicRooms.get(i).getRoomName());
+                            Log.d("Debug", "Room Current Size: " + RoomFirestore.getInstance().publicRooms.get(i).getRoomCurrentSize());
+                        }
+                    } else {
+                        //Public rooms retrieval failed
+                        Log.d("Debug", message);
+                        //End loading screen
+                        //Messages are: "Failed to retrieve public rooms"
+                    }
+                }
+            });
         });
     }
 
