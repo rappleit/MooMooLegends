@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/username"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:hint="passowrd">
+        android:hint="password">
     </com.google.android.material.textfield.TextInputEditText>
 
     <androidx.appcompat.widget.AppCompatButton
@@ -67,6 +67,23 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="Public"
          />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/roomCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/privateOrPublic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:hint="Room Code">
+    </com.google.android.material.textfield.TextInputEditText>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/joinRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/roomCode"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Join Room" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

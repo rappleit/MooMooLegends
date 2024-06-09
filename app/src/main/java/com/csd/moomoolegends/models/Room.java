@@ -11,8 +11,8 @@ public class Room {
     private DocumentReference roomOwner;
     private float roomCarbonFootprint;
     private float roomWeeklyThreshold;
-    private final Date startDate;
-    private final Date endDate;
+    private Date startDate;
+    private Date endDate;
     private final int roomMaxSize = 5;
     private int roomCurrentSize;
     private ArrayList<DocumentReference> roomMembers;
@@ -32,6 +32,8 @@ public class Room {
         this.roomIsPrivate = roomIsPrivate;
         this.roomIsFull = roomIsFull;
     }
+
+    public Room(){};
 
     public String getRoomCode() {
         return roomCode;

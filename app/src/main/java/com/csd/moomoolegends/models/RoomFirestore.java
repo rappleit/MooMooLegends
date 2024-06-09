@@ -75,6 +75,45 @@ public class RoomFirestore extends FirestoreInstance{
         });
     }
 
+    public void joinRoom(String roomCode, OnFirestoreCompleteCallback callback){
+        DocumentReference docRef = db.collection("rooms").document(roomCode);
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult().exists()) {
+                    Room room = task.getResult().toObject(Room.class);
+                    if (room != null){
+                        room.getRoomMembers().add(User.getUserDoc());
+                        room.setRoomCurrentSize(room.getRoomCurrentSize() + 1);
+
+                        if (room.getRoomCurrentSize() == room.getRoomMaxSize()) {
+                            room.setRoomIsFull(true);
+                            docRef.update("roomIsFull", true).addOnFailureListener(e -> {
+                                Log.d("Debug", "Failed to update roomIsFull in Firestore");
+                                callback.onFirestoreComplete(false, "Failed to join room");
+                            });
+                        }
+
+                        docRef.update("roomMembers", room.getRoomMembers()).addOnSuccessListener(aVoid -> {
+                            docRef.update("roomCurrentSize", room.getRoomCurrentSize()).addOnSuccessListener(aVoid1 -> {
+                                updateUserDoc(room, roomCode, callback);
+                            }).addOnFailureListener(e -> {
+                                Log.d("Debug", "Failed to update roomCurrentSize in Firestore");
+                                callback.onFirestoreComplete(false, "Failed to join room");
+                            });
+                        }).addOnFailureListener(e -> {
+                            Log.d("Debug", "Failed to update roomMembers in Firestore");
+                            callback.onFirestoreComplete(false, "Failed to join room");
+                        });
+                    }
+                } else {
+                    callback.onFirestoreComplete(false, "Room does not exist");
+                }
+            } else {
+                callback.onFirestoreComplete(false, "Failed to check room code");
+            }
+        });
+    }
+
     private void updateUserDoc(Room room, String roomCode, OnFirestoreCompleteCallback callback){
         UserFirestore.getInstance().editRoomCode(User.getUserId(), roomCode, new OnFirestoreCompleteCallback() {
             @Override
@@ -84,7 +123,7 @@ public class RoomFirestore extends FirestoreInstance{
                     User.setRoom(room);
                     User.setInRoom(true);
                     User.setRoomCode(roomCode);
-                    callback.onFirestoreComplete(true, "Room created successfully");
+                    callback.onFirestoreComplete(true, "Room created/joined successfully");
                 } else {
                     Log.d("Debug", message);
                     callback.onFirestoreComplete(false, "Failed to create/join room.");

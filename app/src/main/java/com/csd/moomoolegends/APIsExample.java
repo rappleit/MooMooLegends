@@ -21,10 +21,12 @@ public class APIsExample extends AppCompatActivity {
     private TextInputEditText emailInput;
     private TextInputEditText passwordInput;
     private TextInputEditText usernameInput;
+    private TextInputEditText roomCodeInput;
     private AppCompatButton login;
     private AppCompatButton signup;
     private AppCompatButton createRoom;
     private AppCompatToggleButton publicOrPrivateRoom;
+    private AppCompatButton joinRoom;
     private FirebaseAuth mAuth;
     private final Activity activity = this;
 
@@ -156,6 +158,34 @@ public class APIsExample extends AppCompatActivity {
                         Log.d("Debug", message);
                         //End loading screen
                         //Messages are: "Failed to set room privacy, please try again."
+                    }
+                }
+            });
+        });
+
+        joinRoom = findViewById(R.id.joinRoom);
+        roomCodeInput = findViewById(R.id.roomCode);
+        joinRoom.setOnClickListener(v -> {
+            String roomCode = roomCodeInput.getText().toString();
+
+            // Join room function params:
+            // roomCode: String room code
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
+            RoomFirestore.getInstance().joinRoom(roomCode, new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if(success){
+                        //Room joined successfully
+                        Log.d("Debug", message);
+                        //Update UI/Go to next activity
+                        //Messages are: "Room joined successfully"
+                        Log.d("Debug", User.getRoomCode());
+                    } else {
+                        //Room join failed
+                        Log.d("Debug", message);
+                        //End loading screen
+                        //Messages are: "Room does not exist" or "Failed to join room"
                     }
                 }
             });
