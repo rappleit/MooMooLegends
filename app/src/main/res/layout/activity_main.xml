@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginandSignupExample">
+    tools:context=".APIsExample">
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/email"
@@ -50,5 +50,23 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="signup">
     </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/createRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/signup"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Create Room" />
+
+    <androidx.appcompat.widget.AppCompatToggleButton
+        android:id="@+id/privateOrPublic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/createRoom"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Public"
+         />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

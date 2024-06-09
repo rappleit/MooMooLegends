@@ -2,25 +2,29 @@ package com.csd.moomoolegends;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatToggleButton;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 
 import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
+import com.csd.moomoolegends.models.RoomFirestore;
 import com.csd.moomoolegends.models.SignUpLoginFirestore;
 import com.csd.moomoolegends.models.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginandSignupExample extends AppCompatActivity {
+public class APIsExample extends AppCompatActivity {
 
     private TextInputEditText emailInput;
     private TextInputEditText passwordInput;
     private TextInputEditText usernameInput;
     private AppCompatButton login;
     private AppCompatButton signup;
+    private AppCompatButton createRoom;
+    private AppCompatToggleButton publicOrPrivateRoom;
     private FirebaseAuth mAuth;
     private final Activity activity = this;
 
@@ -38,6 +42,8 @@ public class LoginandSignupExample extends AppCompatActivity {
         login = findViewById(R.id.login);
         signup = findViewById(R.id.signup);
 
+
+        // API call for logging in
         login.setOnClickListener(v -> {
             String email = emailInput.getText().toString();
             String password = passwordInput.getText().toString();
@@ -68,6 +74,8 @@ public class LoginandSignupExample extends AppCompatActivity {
             });
         });
 
+
+        //API call for signing up
         signup.setOnClickListener(v -> {
             String email = emailInput.getText().toString();
             String password = passwordInput.getText().toString();
@@ -94,6 +102,60 @@ public class LoginandSignupExample extends AppCompatActivity {
                         Log.d("Debug", message);
                         //End loading screen
                         //Messages are: "Username taken, please choose another one." or "Failed to register user, please try again."
+                    }
+                }
+            });
+        });
+
+
+        //API call for creating room
+        createRoom = findViewById(R.id.createRoom);
+        createRoom.setOnClickListener(v -> {
+            // Create room function params:
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
+            RoomFirestore.getInstance().createRoom(new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if(success){
+                        //Room created successfully
+                        Log.d("Debug", message);
+                        //Update UI/Go to next activity
+                        //Messages are: "Room created successfully"
+                        Log.d("Debug", User.getRoomCode());
+                    } else {
+                        //Room creation failed
+                        Log.d("Debug", message);
+                        //End loading screen
+                        //Messages are: "Failed to create room, please try again."
+                    }
+                }
+            });
+        });
+
+
+        //Toggle for setting room privacy
+        publicOrPrivateRoom = findViewById(R.id.privateOrPublic);
+        publicOrPrivateRoom.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            // Set room privacy function params:
+            // roomCode: String room code
+            // isChecked: boolean for room privacy
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
+            RoomFirestore.getInstance().toggleRoomPrivacy(User.getRoomCode(), isChecked, new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if(success){
+                        //Room privacy set successfully
+                        Log.d("Debug", message);
+                        //Update UI/Go to next activity
+                        //Messages are: "Room privacy set successfully"
+                        Log.d("Debug", String.valueOf(User.getRoom().getRoomIsPrivate()));
+                    } else {
+                        //Room privacy set failed
+                        Log.d("Debug", message);
+                        //End loading screen
+                        //Messages are: "Failed to set room privacy, please try again."
                     }
                 }
             });

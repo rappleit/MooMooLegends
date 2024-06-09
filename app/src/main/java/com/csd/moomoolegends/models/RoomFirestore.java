@@ -1,0 +1,115 @@
+package com.csd.moomoolegends.models;
+
+import android.util.Log;
+
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collections;
+import java.util.Date;
+import java.util.Objects;
+import java.util.Random;
+
+public class RoomFirestore extends FirestoreInstance{
+    private FirebaseFirestore db = getFirestore();
+    private static RoomFirestore instance = null;
+    private static final String ALPHANUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+
+    public RoomFirestore() {
+    }
+
+    public static RoomFirestore getInstance(){
+        if (instance == null){
+            instance = new RoomFirestore();
+        }
+        return instance;
+    }
+
+    private String generateRandomCode(){
+        StringBuilder builder = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < 5; i++) {
+            builder.append(ALPHANUMERIC_STRING.charAt(random.nextInt(ALPHANUMERIC_STRING.length())));
+        }
+        return builder.toString();
+    }
+
+    public void createRoom(OnFirestoreCompleteCallback callback){
+
+        String roomCode = generateRandomCode();
+        DocumentReference docRef = db.collection("rooms").document(roomCode);
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                if (task.getResult().exists()) {
+                    // If the room code already exists, recursively call the method to generate a new one
+                    createRoom(callback);
+                } else {
+                    // If the room code does not exist, create the room
+                    Room room = new Room.RoomBuilder().setRoomCode(roomCode)
+                                    .setRoomName(User.getUsername() + " Room")
+                                    .setRoomOwner(User.getUserDoc())
+                                    .setRoomCarbonFootprint((float) 0)
+                                    .setRoomWeeklyThreshold(User.getWeeklyThreshold())
+                                    .setRoomCurrentSize(1)
+                                    .setRoomIsFull(false)
+                                    .setRoomIsPrivate(false)
+                                    .setRoomMembers(new ArrayList<>(Collections.singletonList(User.getUserDoc())))
+                                    .setStartDate(new Date())
+                                    .setEndDate(addOneWeek(new Date()))
+                                    .build();
+
+                    docRef.set(room)
+                            .addOnSuccessListener(aVoid -> {
+                                updateUserDoc(room, roomCode, callback);
+                            })
+                            .addOnFailureListener(e -> {
+                                callback.onFirestoreComplete(false, "Failed to create room");
+                            });
+                }
+            } else {
+                callback.onFirestoreComplete(false, "Failed to check room code");
+            }
+        });
+    }
+
+    private void updateUserDoc(Room room, String roomCode, OnFirestoreCompleteCallback callback){
+        UserFirestore.getInstance().editRoomCode(User.getUserId(), roomCode, new OnFirestoreCompleteCallback() {
+            @Override
+            public void onFirestoreComplete(boolean success, String message) {
+                if (success) {
+                    Log.d("Debug", message);
+                    User.setRoom(room);
+                    User.setInRoom(true);
+                    User.setRoomCode(roomCode);
+                    callback.onFirestoreComplete(true, "Room created successfully");
+                } else {
+                    Log.d("Debug", message);
+                    callback.onFirestoreComplete(false, "Failed to create/join room.");
+                }
+            }
+        });
+    }
+
+    public void toggleRoomPrivacy(String roomCode, boolean isPrivate, OnFirestoreCompleteCallback callback){
+        db.collection("rooms").document(roomCode).update("roomIsPrivate", isPrivate)
+                .addOnSuccessListener(aVoid -> {
+                    User.getRoom().setRoomIsPrivate(isPrivate);
+                    callback.onFirestoreComplete(true, "Room privacy updated successfully");
+                })
+                .addOnFailureListener(e -> {
+                    callback.onFirestoreComplete(false, "Failed to update room privacy");
+                });
+    }
+
+    public Date addOneWeek(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.add(Calendar.DATE, 7); // adding 7 days
+        return calendar.getTime(); // new date
+    }
+
+
+}
