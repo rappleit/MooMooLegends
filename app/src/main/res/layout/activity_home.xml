@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/full_grass_patch"
+    tools:context=".home.HomeActivity">
+
+    <LinearLayout
+        android:id="@+id/layoutRecord"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/rounded_btn_with_fill_bg"
+        android:gravity="start|center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_margin="3dp"
+            android:contentDescription="@string/record_btn_desc"
+            android:src="@drawable/records_icon" />
+
+        <TextView
+            android:id="@+id/textViewRecord"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/pixeloid_sans"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/record_btn_label"
+            android:textColor="@color/dark_brown"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutShop"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/rounded_btn_with_fill_bg"
+        android:gravity="start|center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewShop"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_margin="3dp"
+            android:contentDescription="@string/shop_btn_desc"
+            android:src="@drawable/shop_icon" />
+
+        <TextView
+            android:id="@+id/textViewShop"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/pixeloid_sans"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/shop_btn_label"
+            android:textColor="@color/dark_brown"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutRecommendations"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:animateLayoutChanges="true"
+        android:background="@drawable/rounded_btn_with_fill_bg"
+        android:gravity="start|center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageViewRecommendations"
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_margin="3dp"
+            android:contentDescription="@string/recommend_btn_desc"
+            android:src="@drawable/recommendation_icon" />
+
+        <TextView
+            android:id="@+id/textViewRecommendations"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/pixeloid_sans"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/recommend_btn_label"
+            android:textColor="@color/dark_brown"
+            android:textSize="12sp" />
+    </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/imageBtnMenu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@drawable/rounded_btn_with_fill_bg"
+        android:contentDescription="@string/menu_btn_desc"
+        android:padding="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_menu_36" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewMain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:elevation="2dp"
+        app:cardBackgroundColor="@color/gold"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewCarbonMain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pixeloid_sans"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/carbon_label"
+                    android:textColor="@color/brown"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/textViewLabelMain"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/pixeloid_sans"
+                    android:gravity="center_vertical|end"
+                    android:maxLines="2"
+                    android:text="@string/solo_label"
+                    android:textColor="@color/brown"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/linearProgressMain"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:indeterminate="false"
+                app:indicatorColor="@color/bermuda"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:trackCornerRadius="8dp"
+                app:trackThickness="20dp" />
+
+            <TextView
+                android:id="@+id/textViewWeekMain"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="center_vertical|end"
+                android:text="@string/week_label"
+                android:textColor="@color/brown"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardViewSolo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:cardBackgroundColor="@color/gold"
+        app:cardCornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewMain">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textViewCarbonSolo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pixeloid_sans"
+                    android:gravity="start|center_vertical"
+                    android:text="@string/carbon_label"
+                    android:textColor="@color/brown"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/textViewLabelSolo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/pixeloid_sans"
+                    android:gravity="center_vertical|end"
+                    android:maxLines="2"
+                    android:text="@string/solo_label"
+                    android:textColor="@color/brown"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/linearProgressSolo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:indeterminate="false"
+                app:indicatorColor="@color/bermuda"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:trackCornerRadius="8dp"
+                app:trackThickness="20dp" />
+
+            <TextView
+                android:id="@+id/textViewWeekSolo"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="center_vertical|end"
+                android:text="@string/week_label"
+                android:textColor="@color/brown"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="3dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardViewSolo">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:elevation="2dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/pixeloid_sans"
+                    android:gravity="center_vertical|end"
+                    android:maxLines="1"
+                    android:text="@string/coins_label"
+                    android:textColor="@color/brown"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/textViewCoins"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/pixeloid_sans"
+                    android:gravity="center_vertical|end"
+                    android:text="@string/coins_template"
+                    android:textColor="@color/brown"
+                    android:textSize="11sp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewRoomBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:elevation="2dp"
+            app:cardBackgroundColor="@color/gold"
+            app:cardCornerRadius="8dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingStart="12dp"
+                android:paddingTop="8dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="8dp">
+
+                <TextView
+                    android:id="@+id/textViewRoomBtn"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/pixeloid_sans"
+                    android:gravity="center"
+                    android:text="@string/join_room"
+                    android:textColor="@color/brown"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewCows"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="3dp"
+        android:fontFamily="@font/pixeloid_sans"
+        android:text="@string/cows_label"
+        android:textColor="@color/white"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayout" />
+
+    <LinearLayout
+        android:id="@+id/layoutLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="36dp"
+        android:background="@drawable/rounded_btn_with_fill_bg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingStart="24dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="6dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/pixeloid_sans"
+            android:gravity="center"
+            android:padding="3dp"
+            android:text="@string/log_btn_label"
+            android:textColor="@color/dark_brown"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="36dp"
+            android:layout_margin="3dp"
+            android:contentDescription="@string/record_btn_desc"
+            android:src="@drawable/view_log_icon" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
