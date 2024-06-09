@@ -170,6 +170,10 @@ public class SignUpLoginFirestore extends FirestoreInstance{
                 });
     }
 
+    public void logOut(){
+        mAuth.signOut();
+    }
+
     private String getWeekYearNumber(){
         LocalDate date = LocalDate.now();
         WeekFields weekFields = WeekFields.of(Locale.getDefault());

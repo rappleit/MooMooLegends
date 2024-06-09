@@ -43,6 +43,15 @@
     </androidx.appcompat.widget.AppCompatButton>
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintStart_toEndOf="@id/login"
+        android:text="Logout">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,5 +102,12 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="Leave Room" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/stopListener"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/leaveRoom"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Stop listener" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +17,7 @@ public class RoomFirestore extends FirestoreInstance{
     private FirebaseFirestore db = getFirestore();
     private static RoomFirestore instance = null;
     private static final String ALPHANUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    private ListenerRegistration roomListener;
 
 
     public RoomFirestore() {
@@ -63,7 +65,7 @@ public class RoomFirestore extends FirestoreInstance{
 
                     docRef.set(room)
                             .addOnSuccessListener(aVoid -> {
-                                updateUserDoc(room, roomCode, callback);
+                                updateUserDoc(roomCode, callback);
                             })
                             .addOnFailureListener(e -> {
                                 callback.onFirestoreComplete(false, "Failed to create room");
@@ -95,7 +97,7 @@ public class RoomFirestore extends FirestoreInstance{
 
                         docRef.update("roomMembers", room.getRoomMembers()).addOnSuccessListener(aVoid -> {
                             docRef.update("roomCurrentSize", room.getRoomCurrentSize()).addOnSuccessListener(aVoid1 -> {
-                                updateUserDoc(room, roomCode, callback);
+                                updateUserDoc(roomCode, callback);
                             }).addOnFailureListener(e -> {
                                 Log.d("Debug", "Failed to update roomCurrentSize in Firestore");
                                 callback.onFirestoreComplete(false, "Failed to join room");
@@ -117,78 +119,100 @@ public class RoomFirestore extends FirestoreInstance{
     public void leaveRoom(OnFirestoreCompleteCallback callback){
         DocumentReference docRef = db.collection("rooms").document(User.getRoomCode());
         docRef.get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                if (task.getResult().exists()) {
-                    Room room = User.getRoom();
-                    if (room != null){
-                        room.getRoomMembers().remove(User.getUserDoc());
-                        room.setRoomCurrentSize(room.getRoomCurrentSize() - 1);
-
-                        if (room.getRoomCurrentSize() == 0) {
-                            docRef.delete().addOnSuccessListener(aVoid -> {
-                                User.setRoom(null);
-                                User.setInRoom(false);
-                                User.setRoomCode(null);
-                                callback.onFirestoreComplete(true, "Room deleted successfully");
-                            }).addOnFailureListener(e -> {
-                                Log.d("Debug", "Failed to delete room in Firestore");
-                                callback.onFirestoreComplete(false, "Failed to leave room");
-                            });
-                        } else {
-                            if (room.getRoomOwner().getId().equals(User.getUserId())) {
-                                room.setRoomOwner(room.getRoomMembers().get(0));
-                                docRef.update("roomOwner", room.getRoomOwner()).addOnFailureListener(e -> {
-                                    Log.d("Debug", "Failed to update roomOwner in Firestore");
-                                    callback.onFirestoreComplete(false, "Failed to leave room");
-                                });
-                            }
-
-                            docRef.update("roomMembers", room.getRoomMembers()).addOnSuccessListener(aVoid -> {
-                                docRef.update("roomCurrentSize", room.getRoomCurrentSize()).addOnSuccessListener(aVoid1 -> {
-                                    UserFirestore.getInstance().editRoomCode(User.getUserId(), "", new OnFirestoreCompleteCallback() {
-                                        @Override
-                                        public void onFirestoreComplete(boolean success, String message) {
-                                            if (success) {
-                                                Log.d("Debug", message);
-                                                User.setRoom(null);
-                                                User.setInRoom(false);
-                                                User.setRoomCode(null);
-                                                callback.onFirestoreComplete(true, "Room left successfully");
-                                            } else {
-                                                Log.d("Debug", message);
-                                                callback.onFirestoreComplete(false, "Failed to leave room");
-                                            }
-                                        }
-                                    });
-                                }).addOnFailureListener(e -> {
-                                    Log.d("Debug", "Failed to update roomCurrentSize in Firestore");
-                                    callback.onFirestoreComplete(false, "Failed to leave room");
-                                });
-                            }).addOnFailureListener(e -> {
-                                Log.d("Debug", "Failed to update roomMembers in Firestore");
-                                callback.onFirestoreComplete(false, "Failed to leave room");
-                            });
-                        }
-                    }
-                } else {
-                    callback.onFirestoreComplete(false, "Room does not exist");
+            if (task.isSuccessful() && task.getResult().exists()) {
+                Room room = User.getRoom();
+                if (room != null){
+                    handleRoomLeave(room, docRef, callback);
                 }
             } else {
-                callback.onFirestoreComplete(false, "Failed to check room code");
+                callback.onFirestoreComplete(false, "Room does not exist");
             }
         });
     }
 
-    private void updateUserDoc(Room room, String roomCode, OnFirestoreCompleteCallback callback){
+    private void handleRoomLeave(Room room, DocumentReference docRef, OnFirestoreCompleteCallback callback) {
+        room.getRoomMembers().remove(User.getUserDoc());
+        room.setRoomCurrentSize(room.getRoomCurrentSize() - 1);
+        stopRoomListener();
+
+        if (room.getRoomCurrentSize() == 0) {
+            deleteRoom(docRef, callback);
+        } else {
+            updateRoom(room, docRef, callback);
+        }
+    }
+
+    private void deleteRoom(DocumentReference docRef, OnFirestoreCompleteCallback callback) {
+        docRef.delete().addOnSuccessListener(aVoid -> {
+            resetUserRoom(callback);
+        }).addOnFailureListener(e -> {
+            callback.onFirestoreComplete(false, "Failed to delete room in Firestore");
+        });
+    }
+
+    private void updateRoom(Room room, DocumentReference docRef, OnFirestoreCompleteCallback callback) {
+
+        if (room.getRoomOwner().getId().equals(User.getUserId())) {
+            room.setRoomOwner(room.getRoomMembers().get(0));
+            docRef.update("roomOwner", room.getRoomOwner()).addOnFailureListener(e -> {
+                callback.onFirestoreComplete(false, "Failed to update roomOwner in Firestore");
+            });
+        }
+
+        docRef.update("roomMembers", room.getRoomMembers()).addOnSuccessListener(aVoid -> {
+            docRef.update("roomCurrentSize", room.getRoomCurrentSize()).addOnSuccessListener(aVoid1 -> {
+                resetUserRoom(callback);
+            }).addOnFailureListener(e -> {
+                callback.onFirestoreComplete(false, "Failed to update roomCurrentSize in Firestore");
+            });
+        }).addOnFailureListener(e -> {
+            callback.onFirestoreComplete(false, "Failed to update roomMembers in Firestore");
+        });
+    }
+
+    private void resetUserRoom(OnFirestoreCompleteCallback callback) {
+        UserFirestore.getInstance().editRoomCode(User.getUserId(), "", new OnFirestoreCompleteCallback() {
+            @Override
+            public void onFirestoreComplete(boolean success, String message) {
+                if (success) {
+                    User.setRoom(null);
+                    User.setInRoom(false);
+                    User.setRoomCode(null);
+                    callback.onFirestoreComplete(true, "Room left successfully");
+                } else {
+                    initializeRoomListener(User.getRoomCode(), new OnFirestoreCompleteCallback() {
+                        @Override
+                        public void onFirestoreComplete(boolean success, String message) {
+                            Log.d("Debug", message);
+                            callback.onFirestoreComplete(false, "Failed to leave room");
+                        }
+                    });
+                }
+            }
+        });
+    }
+
+    private void updateUserDoc(String roomCode, OnFirestoreCompleteCallback callback){
+        stopRoomListener();
         UserFirestore.getInstance().editRoomCode(User.getUserId(), roomCode, new OnFirestoreCompleteCallback() {
             @Override
             public void onFirestoreComplete(boolean success, String message) {
                 if (success) {
                     Log.d("Debug", message);
-                    User.setRoom(room);
-                    User.setInRoom(true);
-                    User.setRoomCode(roomCode);
-                    callback.onFirestoreComplete(true, "Room created/joined successfully");
+                    initializeRoomListener(roomCode, new OnFirestoreCompleteCallback() {
+                        @Override
+                        public void onFirestoreComplete(boolean success, String message) {
+                            if (success){
+                                Log.d("Debug", message);
+                                User.setInRoom(true);
+                                User.setRoomCode(roomCode);
+                                callback.onFirestoreComplete(true, "Room created/joined successfully");
+                            } else {
+                                Log.d("Debug", message);
+                                callback.onFirestoreComplete(false, "Failed to create/join room.");
+                            }
+                        }
+                    });
                 } else {
                     Log.d("Debug", message);
                     callback.onFirestoreComplete(false, "Failed to create/join room.");
@@ -198,6 +222,7 @@ public class RoomFirestore extends FirestoreInstance{
     }
 
     public void toggleRoomPrivacy(String roomCode, boolean isPrivate, OnFirestoreCompleteCallback callback){
+        stopRoomListener();
         db.collection("rooms").document(roomCode).update("roomIsPrivate", isPrivate)
                 .addOnSuccessListener(aVoid -> {
                     User.getRoom().setRoomIsPrivate(isPrivate);
@@ -206,6 +231,7 @@ public class RoomFirestore extends FirestoreInstance{
                 .addOnFailureListener(e -> {
                     callback.onFirestoreComplete(false, "Failed to update room privacy");
                 });
+        initializeRoomListener(roomCode, (success, message) -> Log.d("Debug", message));
     }
 
     public void getRoom(String roomCode, OnFirestoreCompleteCallback callback){
@@ -231,5 +257,32 @@ public class RoomFirestore extends FirestoreInstance{
         return calendar.getTime(); // new date
     }
 
+     public void initializeRoomListener(String roomCode, OnFirestoreCompleteCallback callback) {
+         roomListener = db.collection("rooms").document(roomCode).addSnapshotListener((value, error) -> {
+             if (error != null) {
+                 Log.w("Debug", "Listen failed.", error);
+                 callback.onFirestoreComplete(false, "Failed to listen for room members");
+                 return;
+             }
+
+             if (value != null && value.exists()) {
+                 Room room = value.toObject(Room.class);
+                 User.setRoom(room);
+                 Log.d("Debug", "Listen started");
+                 callback.onFirestoreComplete(true, "Room listen successful");
+             } else {
+                 Log.d("Debug", "Current data: null");
+                 callback.onFirestoreComplete(false, "Room does not exist");
+             }
+         });
+     }
+
+     public void stopRoomListener(){
+        if (roomListener != null){
+            roomListener.remove();
+            Log.d("Debug", "Listen stopped");
+            roomListener = null;
+        }
+     }
 
 }

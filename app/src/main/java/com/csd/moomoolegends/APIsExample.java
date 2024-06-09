@@ -28,6 +28,8 @@ public class APIsExample extends AppCompatActivity {
     private AppCompatToggleButton publicOrPrivateRoom;
     private AppCompatButton joinRoom;
     private AppCompatButton leaveRoom;
+    private AppCompatButton stopListener;
+    private AppCompatButton logout;
     private FirebaseAuth mAuth;
     private final Activity activity = this;
 
@@ -75,6 +77,17 @@ public class APIsExample extends AppCompatActivity {
                     }
                 }
             });
+        });
+
+
+        // API for logging out
+        logout = findViewById(R.id.logout);
+        logout.setOnClickListener(v -> {
+            // Logout function params:
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
+            SignUpLoginFirestore.getInstance().logOut();
+            Log.d("Debug", "User logged out");
         });
 
 
@@ -217,6 +230,15 @@ public class APIsExample extends AppCompatActivity {
                     }
                 }
             });
+        });
+
+        // API call for stopping listener
+        stopListener = findViewById(R.id.stopListener);
+        stopListener.setOnClickListener(v -> {
+            // Stop listener function params:
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
+            RoomFirestore.getInstance().stopRoomListener();
         });
     }
 

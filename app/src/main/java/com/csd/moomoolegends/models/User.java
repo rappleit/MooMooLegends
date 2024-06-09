@@ -56,14 +56,13 @@ public class User extends UserFirestore{
             User.userDoc = userDoc;
 
             if (User.inRoom){
-                RoomFirestore.getInstance().getRoom(User.roomCode, new OnFirestoreCompleteCallback() {
+                RoomFirestore.getInstance().initializeRoomListener((String) user.get("roomCode"), new OnFirestoreCompleteCallback() {
                     @Override
                     public void onFirestoreComplete(boolean success, String message) {
                         if (success){
-                            Log.d("Debug", message);
                             callback.onFirestoreComplete(true, "User successfully created");
                         }else{
-                            Log.d("Debug", message);
+                            callback.onFirestoreComplete(false, "Failed to create user " + message);
                         }
                     }
                 });
