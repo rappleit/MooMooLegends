@@ -119,7 +119,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:text="Next Challenge Starting in"
-        android:fontFamily="@font/pixeloidsans"
+        android:fontFamily="@font/pixeloid_sans"
         android:gravity="center_horizontal"
         android:textSize="24sp"
         android:textColor="#000000"
