@@ -300,9 +300,15 @@ public class APIsExample extends AppCompatActivity {
             }
         });
 
+
+        // API call for getting all cows
         getAllCows = findViewById(R.id.getAllCows);
         cowImage = findViewById(R.id.cowImage);
         getAllCows.setOnClickListener(v -> {
+
+            // Get all cows function params:
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
             CowFirestore.getInstance().getAllCows(new OnFirestoreCompleteCallback() {
                 @Override
                 public void onFirestoreComplete(boolean success, String message) {
@@ -312,13 +318,20 @@ public class APIsExample extends AppCompatActivity {
                         //Update UI/Go to next activity
                         //Messages are: "Cows retrieved successfully"
                         Log.d("Debug", CowFirestore.getListOfCows().toString());
+
+                        // Getting image of first cow in list
                         int drawableId = getResources().getIdentifier(CowFirestore.getListOfCows().get(0).getImageName(), "drawable", getPackageName());
+
+                        // If image found, set it to the image view
                         if (drawableId != 0){
                             Log.d("Debug", "Drawable found");
                             cowImage.setImageResource(drawableId);
                         } else {
+                            // If image not found, log it
                             Log.d("Debug", "Drawable not found");
                         }
+
+
                     } else {
                         //Cows retrieval failed
                         Log.d("Debug", message);
@@ -329,11 +342,18 @@ public class APIsExample extends AppCompatActivity {
             });
         });
 
+
+        // API call for adding cow
         addCow = findViewById(R.id.addCow);
         addCow.setOnClickListener(v -> {
             Random rand = new Random();
             int randomIndex = rand.nextInt(CowFirestore.getListOfCows().size());
             Cow cow = CowFirestore.getListOfCows().get(randomIndex);
+
+            // Add cow function params:
+            // cow: Cow object to be added
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
             User.addCow(cow, new OnFirestoreCompleteCallback() {
                 @Override
                 public void onFirestoreComplete(boolean success, String message) {
@@ -353,9 +373,16 @@ public class APIsExample extends AppCompatActivity {
             });
         });
 
+
+        // API call for removing cow
         removeCow = findViewById(R.id.removeCow);
         removeCow.setOnClickListener(v -> {
             Cow cow = User.getUserCows().get(0);
+
+            // Remove cow function params:
+            // cow: Cow object to be removed
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
             User.removeCow(cow, new OnFirestoreCompleteCallback() {
                 @Override
                 public void onFirestoreComplete(boolean success, String message) {
@@ -375,8 +402,14 @@ public class APIsExample extends AppCompatActivity {
             });
         });
 
+
+        // API call for removing random cow
         removeRandomCow = findViewById(R.id.removeRandomCow);
         removeRandomCow.setOnClickListener(v -> {
+
+            // Remove random cow function params:
+            // callback: OnCowRemoval for handling onSuccess or onFailure
+
             User.removeRandomCow(new OnCowRemoval() {
                 @Override
                 public void onCowRemoved(boolean success, Cow cow) {
@@ -385,6 +418,7 @@ public class APIsExample extends AppCompatActivity {
                         Log.d("Debug", "Cow removed");
                         //Update UI/Go to next activity
                         //Messages are: "Cow removed"
+                        //cow is the Cow object that is removed
                         Log.d("Debug", "Cow removed: " + cow.getName());
                         Log.d("Debug", User.getUserCows().toString());
                     } else {

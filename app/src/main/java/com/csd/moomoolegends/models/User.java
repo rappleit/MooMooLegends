@@ -9,6 +9,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class User extends UserFirestore{
 
@@ -38,6 +41,8 @@ public class User extends UserFirestore{
 
     public User(Map<String, Object> user, DocumentReference userDoc, OnFirestoreCompleteCallback callback) {
         try {
+            CountDownLatch latch = new CountDownLatch(2);
+            ExecutorService executor = Executors.newFixedThreadPool(2);
             User.username = (String) user.get("username");
             User.email = (String) user.get("email");
             User.userId = (String) user.get("uid");
@@ -57,20 +62,51 @@ public class User extends UserFirestore{
             }
             User.userDoc = userDoc;
 
-            if (User.inRoom){
-                RoomFirestore.getInstance().initializeRoomListener((String) user.get("roomCode"), new OnFirestoreCompleteCallback() {
+            executor.execute(() -> {
+                if (User.inRoom){
+                    RoomFirestore.getInstance().initializeRoomListener((String) user.get("roomCode"), new OnFirestoreCompleteCallback() {
+                        @Override
+                        public void onFirestoreComplete(boolean success, String message) {
+                            if (success){
+                                Log.d("Debug", message);
+                                latch.countDown();
+                            }else{
+                                callback.onFirestoreComplete(false, message);
+                            }
+                        }
+                    });
+                } else {
+                    Log.d("Debug", "User is not in a room");
+                    latch.countDown();
+                }
+            });
+
+            executor.execute(() -> {
+                WeeklyRecords.getWeeklyRecords(userDoc, new OnFirestoreCompleteCallback() {
                     @Override
                     public void onFirestoreComplete(boolean success, String message) {
                         if (success){
-                            callback.onFirestoreComplete(true, "User successfully created");
+                            Log.d("Debug", message);
+                            latch.countDown();
                         }else{
-                            callback.onFirestoreComplete(false, "Failed to create user " + message);
+                            callback.onFirestoreComplete(false, message);
                         }
                     }
                 });
-            } else {
-                callback.onFirestoreComplete(true, "User successfully created");
-            }
+            });
+
+            executor.execute(() -> {
+                try {
+                    Log.d("Firestore", "User object waiting");
+                    latch.await();
+                    Log.d("Firestore", "User object initialized");
+                    callback.onFirestoreComplete(true, "User object initialized");
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    e.printStackTrace();
+                    callback.onFirestoreComplete(false, "Failed to create user " + e.getMessage());
+                }
+            });
 
         } catch (NullPointerException e) {
             callback.onFirestoreComplete(false, "Failed to create user " + e.getMessage());
