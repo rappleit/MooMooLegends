@@ -113,6 +113,8 @@
         android:fontFamily="@font/pixeloid_sans"
         android:textSize = "24sp"
         android:textColor= "#FFFFFF"
+        android:gravity="center"
+        android:text="Test Text"
         />
 
 

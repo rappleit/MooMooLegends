@@ -137,8 +137,7 @@
         android:layout_marginTop="15dp"
         android:fontFamily="@font/pixeloid_sans"
         android:gravity="center_horizontal"
-        android:textSize="24sp"
-        android:textColor="#000000"
         android:text="Test"
-        />
+        android:textColor="#FFFFFF"
+        android:textSize="24sp" />
 </RelativeLayout>
