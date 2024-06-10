@@ -45,11 +45,13 @@
             android:id="@+id/Current_coins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="9dp"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="8.5dp"
             android:fontFamily="@font/pixeloid_sans"
             android:textColor="#000000"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:text = "1000"
+            />
     </FrameLayout>
 
     <!-- Cow Image with Shadow -->
@@ -137,5 +139,6 @@
         android:gravity="center_horizontal"
         android:textSize="24sp"
         android:textColor="#000000"
+        android:text="Test"
         />
 </RelativeLayout>
