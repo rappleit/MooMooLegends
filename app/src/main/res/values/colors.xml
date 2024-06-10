@@ -2,4 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="weekly_back_green">#327C5D</color>
+    <color name="weekly_tab">#60CB9E</color>
+    <color name="weekly_tab_indicator">#48A37D</color>
 </resources>
