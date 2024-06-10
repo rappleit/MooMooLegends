@@ -2,119 +2,135 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/rootLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/full_grass_patch"
     tools:context=".home.HomeActivity">
 
-    <LinearLayout
-        android:id="@+id/layoutRecord"
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:animateLayoutChanges="true"
-        android:background="@drawable/rounded_btn_with_fill_bg"
-        android:gravity="start|center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:visibility="gone"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/cowLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageViewRecord"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_margin="3dp"
-            android:contentDescription="@string/record_btn_desc"
-            android:src="@drawable/records_icon" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/textViewRecord"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/pixeloid_sans"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/record_btn_label"
-            android:textColor="@color/dark_brown"
-            android:textSize="12sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/layoutShop"
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/menuLayout"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:animateLayoutChanges="true"
-        android:background="@drawable/rounded_btn_with_fill_bg"
-        android:gravity="start|center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:visibility="gone"
+        android:layout_marginTop="70dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageViewShop"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_margin="3dp"
-            android:contentDescription="@string/shop_btn_desc"
-            android:src="@drawable/shop_icon" />
+        <LinearLayout
+            android:id="@+id/layoutRecord"
+            android:layout_width="fill_parent"
+            android:layout_height="42dp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/rounded_btn_with_fill_bg"
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textViewShop"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/pixeloid_sans"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/shop_btn_label"
-            android:textColor="@color/dark_brown"
-            android:textSize="12sp" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageViewRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_margin="3dp"
+                android:contentDescription="@string/record_btn_desc"
+                android:src="@drawable/records_icon" />
 
-    <LinearLayout
-        android:id="@+id/layoutRecommendations"
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:animateLayoutChanges="true"
-        android:background="@drawable/rounded_btn_with_fill_bg"
-        android:gravity="start|center_vertical"
-        android:orientation="horizontal"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:visibility="gone"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/textViewRecord"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="@string/record_btn_label"
+                android:textColor="@color/dark_brown"
+                android:textSize="12sp" />
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/imageViewRecommendations"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_margin="3dp"
-            android:contentDescription="@string/recommend_btn_desc"
-            android:src="@drawable/recommendation_icon" />
+        <LinearLayout
+            android:id="@+id/layoutShop"
+            android:layout_width="fill_parent"
+            android:layout_height="42dp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/rounded_btn_with_fill_bg"
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textViewRecommendations"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:fontFamily="@font/pixeloid_sans"
-            android:gravity="center"
-            android:padding="3dp"
-            android:text="@string/recommend_btn_label"
-            android:textColor="@color/dark_brown"
-            android:textSize="12sp" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageViewShop"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_margin="3dp"
+                android:contentDescription="@string/shop_btn_desc"
+                android:src="@drawable/shop_icon" />
+
+            <TextView
+                android:id="@+id/textViewShop"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="start|center_vertical"
+                android:padding="3dp"
+                android:text="@string/shop_btn_label"
+                android:textColor="@color/dark_brown"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutRecommendations"
+            android:layout_width="fill_parent"
+            android:layout_height="42dp"
+            android:animateLayoutChanges="true"
+            android:background="@drawable/rounded_btn_with_fill_bg"
+            android:gravity="start|center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/imageViewRecommendations"
+                android:layout_width="wrap_content"
+                android:layout_height="36dp"
+                android:layout_margin="3dp"
+                android:contentDescription="@string/recommend_btn_desc"
+                android:src="@drawable/recommendation_icon" />
+
+            <TextView
+                android:id="@+id/textViewRecommendations"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="center"
+                android:padding="3dp"
+                android:text="@string/recommend_btn_label"
+                android:textColor="@color/dark_brown"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageButton
         android:id="@+id/imageBtnMenu"
@@ -188,7 +204,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:trackCornerRadius="8dp"
+                app:trackCornerRadius="10dp"
                 app:trackThickness="20dp" />
 
             <TextView
@@ -265,7 +281,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:trackCornerRadius="8dp"
+                app:trackCornerRadius="10dp"
                 app:trackThickness="20dp" />
 
             <TextView
@@ -290,7 +306,7 @@
         android:layout_marginEnd="3dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardViewSolo">
+        app:layout_constraintTop_toBottomOf="@+id/cardViewSolo">
 
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
@@ -356,7 +372,7 @@
                     android:id="@+id/textViewRoomBtn"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:fontFamily="@font/pixeloid_sans"
+                    android:fontFamily="@font/pixeloid_sans_bold"
                     android:gravity="center"
                     android:text="@string/join_room"
                     android:textColor="@color/brown"
