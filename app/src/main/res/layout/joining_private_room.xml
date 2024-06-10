@@ -26,6 +26,7 @@
         />
 
     <!-- Coins Display Frame -->
+    <!-- Coins Display Frame -->
     <FrameLayout
         android:id="@+id/coins_display"
         android:layout_width="99dp"
@@ -47,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="9dp"
-            android:fontFamily="@font/pixeloidsans"
+            android:fontFamily="@font/pixeloid_sans"
             android:textColor="#000000"
             android:textSize="14dp" />
     </FrameLayout>
@@ -61,11 +62,11 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="334dp"
         android:text="Enter Room Code"
-        android:fontFamily="@font/pixeloidsans"
+        android:fontFamily="@font/pixeloid_sans"
         android:gravity="center_horizontal|top"
         android:textSize = "24sp"
         android:textColor = "#FFFFFF"
-        >
+        />
 
 
 

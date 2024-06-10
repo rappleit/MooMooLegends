@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="35dp"
             android:layout_marginTop="9dp"
-            android:fontFamily="@font/pixeloidsans"
+            android:fontFamily="@font/pixeloid_sans"
             android:textColor="#000000"
             android:textSize="14dp" />
     </FrameLayout>
@@ -71,7 +71,7 @@
         android:layout_below="@id/cow_w_shadow"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:fontFamily="@font/pixeloidsans"
+        android:fontFamily="@font/pixeloid_sans"
         android:gravity="center_horizontal"
         android:text="Community Challenge"
         android:textColor="#FFFEFE"
@@ -133,7 +133,7 @@
         android:layout_below="@id/next_challenge_countdown_text"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
-        android:fontFamily="@font/pixeloidsans"
+        android:fontFamily="@font/pixeloid_sans"
         android:gravity="center_horizontal"
         android:textSize="24sp"
         android:textColor="#000000"
