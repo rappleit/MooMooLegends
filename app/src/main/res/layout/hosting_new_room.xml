@@ -55,7 +55,25 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/room_name_text"
+        android:id="@+id/jonas_room"
+        android:layout_width="155dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="137dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="135dp"
+        android:text="Test"
+        android:fontFamily="@font/pixeloid_sans"
+        android:gravity="center_horizontal|top"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/room_code"
         android:layout_width="285dp"
         android:layout_height="75dp"
         android:layout_centerHorizontal="true"
