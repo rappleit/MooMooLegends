@@ -41,8 +41,8 @@ public class User extends UserFirestore{
 
     public User(Map<String, Object> user, DocumentReference userDoc, OnFirestoreCompleteCallback callback) {
         try {
-            CountDownLatch latch = new CountDownLatch(2);
-            ExecutorService executor = Executors.newFixedThreadPool(2);
+            CountDownLatch latch = new CountDownLatch(3);
+            ExecutorService executor = Executors.newFixedThreadPool(3);
             User.username = (String) user.get("username");
             User.email = (String) user.get("email");
             User.userId = (String) user.get("uid");
@@ -87,6 +87,23 @@ public class User extends UserFirestore{
                     public void onFirestoreComplete(boolean success, String message) {
                         if (success){
                             Log.d("Debug", message);
+                            latch.countDown();
+                        }else{
+                            callback.onFirestoreComplete(false, message);
+                        }
+                    }
+                });
+            });
+
+            executor.execute(() -> {
+                Shop.getInstance().initializeShop(new OnFirestoreCompleteCallback() {
+                    @Override
+                    public void onFirestoreComplete(boolean success, String message) {
+                        if (success){
+                            Log.d("Debug", message);
+                            Log.d("Debug", Shop.oneRoll.toString());
+                            Log.d("Debug", Shop.twoRolls.toString());
+                            Log.d("Debug", Shop.threeRolls.toString());
                             latch.countDown();
                         }else{
                             callback.onFirestoreComplete(false, message);

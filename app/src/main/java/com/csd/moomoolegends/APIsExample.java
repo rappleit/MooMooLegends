@@ -16,6 +16,7 @@ import com.csd.moomoolegends.models.CowFirestore;
 import com.csd.moomoolegends.models.OnCowRemoval;
 import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
 import com.csd.moomoolegends.models.RoomFirestore;
+import com.csd.moomoolegends.models.Shop;
 import com.csd.moomoolegends.models.SignUpLoginFirestore;
 import com.csd.moomoolegends.models.User;
 import com.csd.moomoolegends.models.WeeklyRecords;
