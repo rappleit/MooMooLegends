@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#60CB9E">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"/>
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="118dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="23dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:elevation="4dp"
+        android:background="@drawable/back_button"
+        />
+
+    <!-- Coins Display Frame -->
+    <FrameLayout
+        android:id="@+id/coins_display"
+        android:layout_width="99dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="21dp">
+
+        <ImageView
+            android:id="@+id/coins_display_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/coins_display" />
+
+        <TextView
+            android:id="@+id/Current_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="9dp"
+            android:fontFamily="@font/pixeloid_sans"
+            android:textColor="#000000"
+            android:textSize="14dp" />
+    </FrameLayout>
+
+    <!-- Cow Image with Shadow -->
+    <ImageView
+        android:id="@+id/cow_w_shadow"
+        android:layout_width="128dp"
+        android:layout_height="131dp"
+        android:layout_below="@id/coins_display"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="120dp"
+        android:src="@drawable/cow_w_shadow_2"
+        />
+
+    <!-- Community Challenge Text -->
+    <TextView
+        android:id="@+id/community_c"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cow_w_shadow"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:fontFamily="@font/pixeloid_sans"
+        android:gravity="center_horizontal"
+        android:text="@string/community_challenge"
+        android:textColor="#FFFEFE"
+        android:textSize="28sp" />
+
+    <ImageView
+        android:id="@+id/group_59"
+        android:layout_width="335dp"
+        android:layout_height="86dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="409dp"
+        android:src="@drawable/no_cow"
+        />
+
+
+
+</RelativeLayout>
