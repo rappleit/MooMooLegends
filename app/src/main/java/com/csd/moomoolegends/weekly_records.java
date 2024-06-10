@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Spannable;
@@ -17,10 +18,17 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
 
+import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.data.PieData;
+import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 import com.google.android.material.tabs.TabLayout;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+
 public class weekly_records extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
@@ -43,7 +51,30 @@ public class weekly_records extends AppCompatActivity {
 
         // Prepare view pager
         prepareViewPager(viewPager,arrayList);
+        pieChartInit();
     }
+
+    private void pieChartInit() {
+        PieChart weekly=(PieChart) findViewById(R.id.weeklyPie);
+        List<PieEntry> pieEntries= new ArrayList<>();
+        pieEntries.add(new PieEntry(18f,"Meat"));
+        pieEntries.add(new PieEntry(18f,"Diary"));
+        pieEntries.add(new PieEntry(18f,"Carbs"));
+        pieEntries.add(new PieEntry(18f,"Veg"));
+        pieEntries.add(new PieEntry(18f,"Seafood"));
+        PieDataSet weeklyPieSet=new PieDataSet(pieEntries,"Food Type");
+        weeklyPieSet.setColors(Color.parseColor("#C9EAD4"));
+        PieData pieData= new PieData(weeklyPieSet);
+        weekly.setData(pieData);
+        weekly.invalidate();
+        weekly.setDrawHoleEnabled(false);
+        weekly.setUsePercentValues(true);
+        weekly.setDrawCenterText(false);
+        weekly.setTransparentCircleColor(Color.parseColor("#C9EAD4"));
+        weekly.setOutlineAmbientShadowColor(Color.parseColor("#C9EAD4"));
+        weekly.setDescription(new Description());
+    }
+
     private void prepareViewPager(ViewPager viewPager, ArrayList<String> arrayList) {
         // Initialize main adapter
         MainAdapter adapter=new MainAdapter(getSupportFragmentManager());

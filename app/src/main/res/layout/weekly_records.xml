@@ -16,7 +16,13 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/flower_background"/>
+        android:background="@drawable/flower_background">
+
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/weeklyPie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
 
     <!-- Bottom half for the tabbed content -->
     <LinearLayout
