@@ -57,16 +57,41 @@
         android:id="@+id/enter_room_code_text"
         android:layout_width="222dp"
         android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="103dp"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="334dp"
-        android:text="Enter Room Code"
+        android:text="@string/enter_room_code"
         android:fontFamily="@font/pixeloid_sans"
         android:gravity="center_horizontal|top"
         android:textSize = "24sp"
         android:textColor = "#FFFFFF"
         />
+    <ImageButton
+        android:id="@+id/join_room_button"
+        android:layout_width="285dp"
+        android:layout_height="52dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="497dp"
+        android:background="@drawable/join_room_button"
+        />
+    <EditText
+        android:id="@+id/room_code_input"
+        android:layout_width="285dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="409dp"
+        android:hint="@string/type_here"
+        android:fontFamily="@font/pixeloid_sans"
+        android:background="@drawable/enter_room_code_background"
+        android:paddingStart="20dp"
+
+        />
+
+
+
+
 
 
 

@@ -19,4 +19,8 @@
     <string name="view_room">View Room</string>
     <string name="cows_label">XX cows</string>
     <string name="log_btn_label">New Log</string>
+    <string name="next_challenge_starting_in">Next Challenge Starting in</string>
+    <string name="community_challenge">Community Challenge</string>
+    <string name="enter_room_code">Enter Room Code</string>
+    <string name="type_here">Type here</string>
 </resources>

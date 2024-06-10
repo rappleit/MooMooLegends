@@ -73,7 +73,7 @@
         android:layout_marginTop="30dp"
         android:fontFamily="@font/pixeloid_sans"
         android:gravity="center_horizontal"
-        android:text="Community Challenge"
+        android:text="@string/community_challenge"
         android:textColor="#FFFEFE"
         android:textSize="28sp" />
 
@@ -118,7 +118,7 @@
         android:layout_below="@id/join_public_room"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="Next Challenge Starting in"
+        android:text="@string/next_challenge_starting_in"
         android:fontFamily="@font/pixeloid_sans"
         android:gravity="center_horizontal"
         android:textSize="24sp"
