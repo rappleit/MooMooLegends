@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.content.Intent;
 import android.widget.TextView;
 
+import com.csd.moomoolegends.MainActivity;
 import com.csd.moomoolegends.R;
 
 public class JoinPrivateRoomActivity extends Activity {
@@ -17,7 +18,7 @@ public class JoinPrivateRoomActivity extends Activity {
     ImageButton joinRoomButton;
     EditText roomCodeInput;
 
-    TextView Current_Coins;
+    TextView Current_coins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class JoinPrivateRoomActivity extends Activity {
                     return;
                 }
                 else {
-                    Intent intent = new Intent(JoinPrivateRoomActivity.this, JoinRoomActivity.class);
+                    Intent intent = new Intent(JoinPrivateRoomActivity.this, MainActivity.class);
                     // Pass the room code to the next activity
                     //TODO: Implement this by Linking sending the code to firestore and pulling the room data and redirecting to the room
 
@@ -58,7 +59,7 @@ public class JoinPrivateRoomActivity extends Activity {
             }
         });
 
-        Current_coints = (TextView) findViewById(R.id.Current_coins);
-        
+        Current_coins = (TextView) findViewById(R.id.Current_coins);
+        Current_coins.setText("1");
     }
 }

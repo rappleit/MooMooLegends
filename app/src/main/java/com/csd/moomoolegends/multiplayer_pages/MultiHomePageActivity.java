@@ -39,7 +39,7 @@ public class MultiHomePageActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // Intent to go to CreateRoomActivity
-                Intent intent = new Intent(MultiHomePageActivity.this, CreateRoomActivity.class);
+                Intent intent = new Intent(MultiHomePageActivity.this, MultiHomePageActivity.class);
                 startActivity(intent);
             }
         });
@@ -61,7 +61,7 @@ public class MultiHomePageActivity extends Activity {
             @Override
             public void onClick(View v) {
                 // Intent to go to JoinPublicRoomActivity
-                Intent intent = new Intent(MultiHomePageActivity.this, JoinPublicRoomActivity.class);
+                Intent intent = new Intent(MultiHomePageActivity.this, MultiHomePageActivity.class);
                 startActivity(intent);
             }
         });
