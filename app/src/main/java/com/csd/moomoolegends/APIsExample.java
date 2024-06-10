@@ -18,6 +18,7 @@ import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
 import com.csd.moomoolegends.models.RoomFirestore;
 import com.csd.moomoolegends.models.SignUpLoginFirestore;
 import com.csd.moomoolegends.models.User;
+import com.csd.moomoolegends.models.WeeklyRecords;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,6 +47,10 @@ public class APIsExample extends AppCompatActivity {
     private AppCompatButton getAllCows;
     private AppCompatImageView cowImage;
     private AppCompatTextView countdown;
+    private TextInputEditText ingredientName;
+    private TextInputEditText category;
+    private TextInputEditText carbonFootprint;
+    private AppCompatButton addRecord;
     private FirebaseAuth mAuth;
     private final Activity activity = this;
 
@@ -426,6 +431,48 @@ public class APIsExample extends AppCompatActivity {
                         Log.d("Debug", "Failed to remove cow");
                         //End loading screen
                         //Messages are: "Failed to remove cow"
+                    }
+                }
+            });
+        });
+
+// API call for adding record
+        addRecord = findViewById(R.id.addRecord);
+        ingredientName = findViewById(R.id.ingredientName);
+        category = findViewById(R.id.category);
+        carbonFootprint = findViewById(R.id.carbonFootprint);
+        addRecord.setOnClickListener(v -> {
+            String ingredient = ingredientName.getText().toString();
+            String categoryString = category.getText().toString();
+            float carbon = Float.parseFloat(carbonFootprint.getText().toString());
+
+            // Add record function params:
+            // ingredient: String ingredient name
+            // category: String category name
+            // carbon: float carbon footprint
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+
+            WeeklyRecords.addRecord(categoryString, ingredient, carbon);
+            Log.d("Debug", "Record added");
+            Log.d("Debug", "Total Carbon Footprint: " + WeeklyRecords.getTotalCarbonFootprint());
+
+            // Update firestore function params:
+            // callback: OnFirestoreCompleteCallback for handling onSuccess or onFailure
+            WeeklyRecords.updateFirestore(new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if (success) {
+                        //Record added successfully
+                        Log.d("Debug", message);
+                        //Update UI/Go to next activity
+                        //Messages are: "Record added"
+                        Log.d("Debug", "Total Carbon Footprint: " + WeeklyRecords.getTotalCarbonFootprint());
+                        Log.d("Debug", WeeklyRecords.getCarbs().toString());
+                    } else {
+                        //Record add failed
+                        Log.d("Debug", message);
+                        //End loading screen
+                        //Messages are: "Failed to add record"
                     }
                 }
             });

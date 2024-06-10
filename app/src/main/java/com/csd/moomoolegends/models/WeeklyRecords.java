@@ -17,21 +17,14 @@ import java.util.Locale;
 import java.util.Map;
 
 public class WeeklyRecords extends FirestoreInstance{
-    private static Map<String, Object> dairy;
-    private static Map<String, Object> meat;
-    private static Map<String, Object> carbs;
-    private static Map<String, Object> veg;
-    private static Map<String, Object> seafood;
+    private static Map<String, Map<String, Number>> categoryData  = new HashMap<>();
     private static String[] categories = {"dairy", "meat", "carbs", "veg", "seafood"};
     private static LocalDate date;
+    private static Date endDate;
+    private static Date startDate;
+    private static float totalCarbonFootprint;
 
-    public WeeklyRecords(Map<String, Object> dairy, Map<String, Object> meat, Map<String, Object> carbs, Map<String, Object> veg, Map<String, Object> seafood) {
-        WeeklyRecords.dairy = dairy;
-        WeeklyRecords.meat = meat;
-        WeeklyRecords.carbs = carbs;
-        WeeklyRecords.veg = veg;
-        WeeklyRecords.seafood = seafood;
-    }
+    public WeeklyRecords() {}
 
     public static void getWeeklyRecords(DocumentReference userDoc, OnFirestoreCompleteCallback callback){
         Log.d("WeeklyRecords", "Getting weekly records");
@@ -45,19 +38,30 @@ public class WeeklyRecords extends FirestoreInstance{
         LocalDate endOfWeek = date.with(TemporalAdjusters.nextOrSame(weekFields.getFirstDayOfWeek().plus(7)));
         Date endDate = Date.from(endOfWeek.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
-        Query query = userDoc.collection("recordsCollection").whereEqualTo("weekYear", weekYear);
-        query.get().addOnCompleteListener(task -> {
+        if (startDate == null || endDate == null){
+            callback.onFirestoreComplete(false, "Failed to get start and end date");
+            return;
+        }
+
+        userDoc.collection("recordsCollection").document(weekYear).get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
-                if (task.getResult().isEmpty()){
+                if (task.getResult().exists()){
+                    Log.d("WeeklyRecords", "Weekly records exist");
+                    retrieveData(task.getResult(), callback);
+                } else {
                     Map<String, Object> newData = new HashMap<>();
                     newData.put("startDate", startDate);
                     newData.put("endDate", endDate);
                     newData.put("totalCarbonFootprint", 0);
+                    for (String category : categories){
+                        Map<String, Number> newCategoryData = new HashMap<>();
+                        newCategoryData.put("categoryCarbonFootprint", 0);
+                        newData.put(category, newCategoryData);
+                        categoryData.put(category, newCategoryData);
+                    }
 
                     userDoc.collection("recordsCollection").document(weekYear).set(newData);
                     callback.onFirestoreComplete(true, "New weekly record created");;
-                } else {
-                    retrieveData(task.getResult().getDocuments().get(0), callback);
                 }
             } else {
                 callback.onFirestoreComplete(false, "Failed to get weekly records");
@@ -67,32 +71,18 @@ public class WeeklyRecords extends FirestoreInstance{
     }
 
     public static void retrieveData(DocumentSnapshot document, OnFirestoreCompleteCallback callback){
-        Map<String, Map<String, Object>> categoryData = new HashMap<>();
-        Date endDate = document.getDate("endDate");
-        Date startDate = document.getDate("startDate");
-        Number totalCarbonFootprint = document.getDouble("totalCarbonFootprint");
+        endDate = document.getDate("endDate");
+        startDate = document.getDate("startDate");
+        totalCarbonFootprint = document.getDouble("totalCarbonFootprint").floatValue();
 
-        for (String category : categories) {
-            Map<String, Object> data = (Map<String, Object>) document.get(category);
-            Map<String, Number> foodItems = new HashMap<>();
-            Number categoryCarbonFootprint = 0;
-
-            if (data != null){
-                // Iterate over the data for each category
-                for (Map.Entry<String, Object> entry : data.entrySet()) {
-                    if (entry.getValue() instanceof Map && entry.getValue() != null) {
-                        foodItems = (Map<String, Number>) entry.getValue();
-                    } else if (entry.getKey().equals("categoryCarbonFootprint")) {
-                        categoryCarbonFootprint = (Number) entry.getValue();
-                    }
-                }
+        for (String currentCategory : categories) {
+            Map<String, Number> category = (Map<String, Number>) document.get(currentCategory);
+            if (category != null && !category.isEmpty()){
+                categoryData.put(currentCategory, category);
+            } else {
+                categoryData.put(currentCategory, new HashMap<>());
             }
 
-            // Store the food items and total carbon footprint in the category data
-            data.put("foodItems", foodItems);
-            data.put("totalCarbonFootprint", categoryCarbonFootprint);
-            categoryData.put(category, data);
-            callback.onFirestoreComplete(true, "Weekly records retrieved");
         }
 
         Log.d("WeeklyRecords", "Data retrieved");
@@ -109,4 +99,68 @@ public class WeeklyRecords extends FirestoreInstance{
         int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
         return weekNumber + String.valueOf(year).substring(2);
     }
+
+    public static float getTotalCarbonFootprint() {
+        return totalCarbonFootprint;
+    }
+
+    public static Map<String, Number> getCarbs() {
+        return categoryData.get("carbs");
+    }
+
+    public static Map<String, Number> getDairy() {
+        return categoryData.get("dairy");
+    }
+
+    public static Map<String, Number> getMeat() {
+        return categoryData.get("meat");
+    }
+
+    public static Map<String, Number> getSeafood() {
+        return categoryData.get("seafood");
+    }
+
+    public static Map<String, Number> getVeg() {
+        return categoryData.get("veg");
+    }
+
+    public static void addRecord(String category, String ingredientName, float carbonFootprint){
+        Log.d("WeeklyRecords", categoryData.toString());
+        if (categoryData.get(category).get(ingredientName) != null){
+            Number currentCarbonFootprint = categoryData.get(category).get(ingredientName);
+            float currentFloatCarbonFootprint = currentCarbonFootprint.floatValue() + carbonFootprint;
+            categoryData.get(category).put(ingredientName, currentFloatCarbonFootprint);
+        } else {
+            Map<String, Number> newIngredient = new HashMap<>();
+            newIngredient.put(ingredientName, carbonFootprint);
+            categoryData.get(category).put(ingredientName, carbonFootprint);
+        }
+
+        totalCarbonFootprint += carbonFootprint;
+
+        Number currentCategoryCarbonFootprint = categoryData.get(category).get("categoryCarbonFootprint");
+        float currentFloatCategoryCarbonFootprint = currentCategoryCarbonFootprint.floatValue() + carbonFootprint;
+        categoryData.get(category).put("categoryCarbonFootprint", currentFloatCategoryCarbonFootprint);
+    }
+
+    public static void updateTotalCarbonFootprint(float carbonFootprint){
+        totalCarbonFootprint += carbonFootprint;
+    }
+
+    public static void updateFirestore(OnFirestoreCompleteCallback callback){
+        DocumentReference userDoc = User.getUserDoc();
+        Map<String, Object> newData = new HashMap<>();
+        newData.put("endDate", endDate);
+        newData.put("startDate", startDate);
+        newData.put("totalCarbonFootprint", totalCarbonFootprint);
+
+        for (String category : categories){
+            newData.put(category, categoryData.get(category));
+        }
+
+        userDoc.collection("recordsCollection").document(getWeekYearNumber()).set(newData);
+        callback.onFirestoreComplete(true, "Weekly records updated");
+    }
+
 }
+
