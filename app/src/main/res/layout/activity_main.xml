@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".APIsExample">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:hint="email">
+    </com.google.android.material.textfield.TextInputEditText>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:hint="username">
+    </com.google.android.material.textfield.TextInputEditText>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/username"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:hint="password">
+    </com.google.android.material.textfield.TextInputEditText>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Login">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/password"
+        app:layout_constraintStart_toEndOf="@id/login"
+        android:text="Logout">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/login"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="signup">
+    </androidx.appcompat.widget.AppCompatButton>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/createRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/signup"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Create Room" />
+
+    <androidx.appcompat.widget.AppCompatToggleButton
+        android:id="@+id/privateOrPublic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/createRoom"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Public"
+         />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/roomCode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/privateOrPublic"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:hint="Room Code">
+    </com.google.android.material.textfield.TextInputEditText>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/joinRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/roomCode"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Join Room" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/leaveRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/roomCode"
+        app:layout_constraintStart_toEndOf="@id/joinRoom"
+        android:text="Leave Room" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/stopListener"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/leaveRoom"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Stop listener" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/publicRooms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/stopListener"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Get all rooms" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/startCountdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/stopListener"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Start countdown" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/stopListener"
+        app:layout_constraintStart_toEndOf="@id/startCountdown"
+        android:text="Countdown here"
+        >
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addCow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add cow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/startCountdown" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/removeCow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove cow"
+        app:layout_constraintStart_toEndOf="@id/addCow"
+        app:layout_constraintTop_toBottomOf="@id/startCountdown" />
+
+    <androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/removeRandomCow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Remove random cow"
+    app:layout_constraintStart_toEndOf="@id/removeCow"
+    app:layout_constraintTop_toBottomOf="@id/startCountdown" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/getAllCows"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get all cows"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addCow" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/cowImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/addCow"
+        app:layout_constraintStart_toEndOf="@id/getAllCows">
+    </androidx.appcompat.widget.AppCompatImageView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
