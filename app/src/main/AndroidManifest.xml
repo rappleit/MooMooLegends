@@ -28,6 +28,15 @@
         android:theme="@style/Theme.MooMooLegends"
         tools:targetApi="31">
         <activity
+            android:name=".foodlogger.LoggerResultsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".foodlogger.CarbonFootprintCalculatorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".foodlogger.IngredientsListActivity"
+            android:exported="false" />
+        <activity
             android:name=".foodlogger.ScannerLoaderActivity"
             android:exported="false" />
         <activity
@@ -46,7 +55,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="true"
-            tools:ignore="LockedOrientationActivity"></activity>
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>

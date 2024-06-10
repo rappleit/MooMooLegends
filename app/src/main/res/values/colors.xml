@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gold">#FFF1C75D</color>
     <color name="bermuda">#FF7AE1B6</color>
+    <color name="dark_bermuda">#FF327C5D</color>
     <color name="brown">#FF7F4C00</color>
     <color name="dark_brown">#FF422C00</color>
 </resources>
