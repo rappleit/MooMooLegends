@@ -11,6 +11,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -24,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.csd.moomoolegends.R;
+import com.csd.moomoolegends.explore.ExploreActivity;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.Random;
@@ -95,7 +97,8 @@ public class HomeActivity extends AppCompatActivity {
             // TODO call explicit intent to shop activity
         });
         layoutRecos.setOnClickListener(view -> {
-            // TODO call explicit intent to recommendations activity
+            Intent intent = new Intent(this, ExploreActivity.class);
+            startActivity(intent);
         });
 
         // Handle menu click

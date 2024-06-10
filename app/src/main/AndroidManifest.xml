@@ -25,7 +25,7 @@
         android:theme="@style/Theme.MooMooLegends"
         tools:targetApi="31">
         <activity
-            android:name=".home.HomeActivity"
+            android:name=".explore.ExploreActivity"
             android:exported="true"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
@@ -34,10 +34,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".home.HomeActivity"
             android:exported="true"
             tools:ignore="LockedOrientationActivity">
         </activity>
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            tools:ignore="LockedOrientationActivity" />
     </application>
 
 </manifest>
