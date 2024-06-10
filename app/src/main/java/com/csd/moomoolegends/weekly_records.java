@@ -11,18 +11,26 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 
+import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.tabs.TabLayout;
 
 import java.lang.reflect.Array;
@@ -32,6 +40,7 @@ import java.util.List;
 public class weekly_records extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
+    ArrayList arrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +48,7 @@ public class weekly_records extends AppCompatActivity {
         tabLayout=findViewById(R.id.tab_layout);
         viewPager=findViewById(R.id.view_pager);
 
-        ArrayList<String> arrayList=new ArrayList<>(0);
+        arrayList=new ArrayList<>(0);
 
         // Add title in array list
         arrayList.add("Basic");
@@ -63,17 +72,45 @@ public class weekly_records extends AppCompatActivity {
         pieEntries.add(new PieEntry(18f,"Veg"));
         pieEntries.add(new PieEntry(18f,"Seafood"));
         PieDataSet weeklyPieSet=new PieDataSet(pieEntries,"Food Type");
-        weeklyPieSet.setColors(Color.parseColor("#C9EAD4"));
+
+        ArrayList<Integer> colors = new ArrayList<>();
+        colors.add(Color.parseColor("#67C587"));
+        colors.add(Color.parseColor("#88D1A1"));
+        colors.add(Color.parseColor("#A9DEBA"));
+        colors.add(Color.parseColor("#C9EAD4"));
+        colors.add(Color.parseColor("#EAF6ED"));
+        weeklyPieSet.setColors(colors);
+        weeklyPieSet.setSliceSpace(2f);
+
+        weeklyPieSet.setDrawValues(false);
+
+
         PieData pieData= new PieData(weeklyPieSet);
+        pieData.setValueFormatter(new PercentFormatter());
+        pieData.setValueTextSize(11f);
+        pieData.setValueTextColor(Color.parseColor("#7F4C00"));
+        pieData.setValueTypeface(getResources().getFont(R.font.pixeloidsans));
+        pieData.setValueTextSize(15f);
         weekly.setData(pieData);
-        weekly.invalidate();
+
+        weekly.setEntryLabelTypeface(getResources().getFont(R.font.pixeloidsans));
+        weekly.setEntryLabelColor(Color.parseColor("#7F4C00"));
+        weekly.setEntryLabelTextSize(20f);
         weekly.setDrawHoleEnabled(false);
         weekly.setUsePercentValues(true);
-        weekly.setDrawCenterText(false);
-        weekly.setTransparentCircleColor(Color.parseColor("#C9EAD4"));
-        weekly.setOutlineAmbientShadowColor(Color.parseColor("#C9EAD4"));
-        weekly.setDescription(new Description());
+        weekly.getDescription().setEnabled(false);
+        weekly.setRotationAngle(0);
+        // enable rotation of the chart by touch
+        weekly.setRotationEnabled(true);
+        weekly.setHighlightPerTapEnabled(true);
+        weekly.animateY(1400, Easing.EaseInOutQuad);
+        weekly.getLegend().setEnabled(false);
+
+
+
+        weekly.invalidate();
     }
+
 
     private void prepareViewPager(ViewPager viewPager, ArrayList<String> arrayList) {
         // Initialize main adapter
@@ -95,7 +132,7 @@ public class weekly_records extends AppCompatActivity {
             dairy_tab.setArguments(bundle);
 
             // Add fragment
-            adapter.addFragment(dairy_tab,arrayList.get(i));
+            adapter.addFragment(dairy_tab, arrayList.get(i));
             dairy_tab=new dairy();
         }
         // set adapter

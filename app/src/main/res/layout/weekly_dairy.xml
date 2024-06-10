@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:background="@color/weekly_tab"
-    tools:context=".weekly_records">
+    tools:context=".dairy">
 
     <!-- Add your UI elements here -->
     <TextView

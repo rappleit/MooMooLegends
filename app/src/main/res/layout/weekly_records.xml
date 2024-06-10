@@ -8,20 +8,41 @@
     tools:context=".weekly_records">
 
     <!-- Top half for the pie chart -->
+
+
+
     <FrameLayout
         android:id="@+id/chart_container"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="450dp"
         android:layout_weight="1"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="8dp"
         android:background="@drawable/flower_background">
 
-        <com.github.mikephil.charting.charts.PieChart
-            android:id="@+id/weeklyPie"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/pixeloidsans"
+                android:gravity="center"
+                android:text="28 kg CO2e\nthis week"
+                android:textColor="@color/white"
+                android:textSize="30dp" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/weeklyPie"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@id/textView">
+
+            </com.github.mikephil.charting.charts.PieChart>
+
+        </RelativeLayout>
+
     </FrameLayout>
 
     <!-- Bottom half for the tabbed content -->
