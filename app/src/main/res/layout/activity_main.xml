@@ -118,4 +118,62 @@
         app:layout_constraintStart_toStartOf="parent"
         android:text="Get all rooms" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/startCountdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/stopListener"
+        app:layout_constraintStart_toStartOf="parent"
+        android:text="Start countdown" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/stopListener"
+        app:layout_constraintStart_toEndOf="@id/startCountdown"
+        android:text="Countdown here"
+        >
+    </androidx.appcompat.widget.AppCompatTextView>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addCow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add cow"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/startCountdown" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/removeCow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove cow"
+        app:layout_constraintStart_toEndOf="@id/addCow"
+        app:layout_constraintTop_toBottomOf="@id/startCountdown" />
+
+    <androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/removeRandomCow"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Remove random cow"
+    app:layout_constraintStart_toEndOf="@id/removeCow"
+    app:layout_constraintTop_toBottomOf="@id/startCountdown" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/getAllCows"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get all cows"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addCow" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/cowImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/addCow"
+        app:layout_constraintStart_toEndOf="@id/getAllCows">
+    </androidx.appcompat.widget.AppCompatImageView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

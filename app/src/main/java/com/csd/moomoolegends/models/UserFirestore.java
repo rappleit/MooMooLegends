@@ -1,5 +1,6 @@
 package com.csd.moomoolegends.models;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -60,7 +61,7 @@ public class UserFirestore extends FirestoreInstance{
         });
     }
 
-    protected void editUserCows(String uid, ArrayList<Map<String, Object>> userCows, OnFirestoreCompleteCallback callback){
+    protected void editUserCows(String uid, ArrayList<Cow> userCows, OnFirestoreCompleteCallback callback){
         db.collection("users").document(uid).update("userCows", userCows).addOnSuccessListener(aVoid -> {
             callback.onFirestoreComplete(true, "User cows updated successfully");
         }).addOnFailureListener(e -> {

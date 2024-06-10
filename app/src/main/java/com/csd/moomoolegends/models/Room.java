@@ -1,9 +1,14 @@
 package com.csd.moomoolegends.models;
 
+import android.os.CountDownTimer;
+
+import androidx.appcompat.widget.AppCompatTextView;
+
 import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class Room {
     private String roomCode;
@@ -123,6 +128,33 @@ public class Room {
 
     public boolean getRoomIsPrivate() {
         return roomIsPrivate;
+    }
+
+    public String getDifferenceString() {
+        long diffInMillies = Math.abs(endDate.getTime() - new Date().getTime());
+        long days = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        diffInMillies -= TimeUnit.MILLISECONDS.convert(days, TimeUnit.DAYS);
+        long hours = TimeUnit.HOURS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        diffInMillies -= TimeUnit.MILLISECONDS.convert(hours, TimeUnit.HOURS);
+        long minutes = TimeUnit.MINUTES.convert(diffInMillies, TimeUnit.MILLISECONDS);
+        return days + " days " + hours + " hours " + minutes + " minutes";
+    }
+
+    public long getTimeDifference() {
+        return Math.abs(endDate.getTime() - new Date().getTime());
+    }
+
+    public void startCountdown(AppCompatTextView countdown) {
+        new CountDownTimer(User.getRoom().getTimeDifference(), 60000) { // Update every minute
+
+            public void onTick(long millisUntilFinished) {
+                countdown.setText(getDifferenceString());
+            }
+
+            public void onFinish() {
+                countdown.setText("done!");
+            }
+        }.start();
     }
 
     public static class RoomBuilder {

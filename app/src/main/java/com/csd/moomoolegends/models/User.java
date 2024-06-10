@@ -5,8 +5,10 @@ import android.util.Log;
 import com.google.firebase.firestore.DocumentReference;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Random;
 
 public class User extends UserFirestore{
 
@@ -29,7 +31,7 @@ public class User extends UserFirestore{
     private static float currentCarbonFootprint;
 
     //Cows info
-    private static ArrayList<Map<String, Object>> userCows;
+    private static ArrayList<Cow> userCows;
 
     //User document reference
     private static DocumentReference userDoc;
@@ -51,7 +53,7 @@ public class User extends UserFirestore{
             if (userCowsObj == null) {
                 User.userCows = new ArrayList<>();
             } else {
-                User.userCows = (ArrayList<Map<String, Object>>) userCowsObj;
+                User.userCows = (ArrayList<Cow>) userCowsObj;
             }
             User.userDoc = userDoc;
 
@@ -113,7 +115,7 @@ public class User extends UserFirestore{
         return currentCarbonFootprint;
     }
 
-    public static ArrayList<Map<String, Object>> getUserCows() {
+    public static ArrayList<Cow> getUserCows() {
         return userCows;
     }
 
@@ -194,17 +196,33 @@ public class User extends UserFirestore{
         });
     }
 
-    public static void setUserCows(ArrayList<Map<String, Object>> userCows) {
-        User.userCows = userCows;
-        UserFirestore.getInstance().editUserCows(userId, userCows, new OnFirestoreCompleteCallback() {
+    public static void addCow(Cow cow, OnFirestoreCompleteCallback callback){
+        userCows.add(cow);
+        editFirestoreCow(callback);
+    }
+
+    public static void removeCow(Cow cow, OnFirestoreCompleteCallback callback){
+        userCows.remove(cow);
+        editFirestoreCow(callback);
+    }
+
+    public static void removeRandomCow(OnCowRemoval callback){
+        Random rand = new Random();
+        int index = rand.nextInt(userCows.size());
+        Cow removedCow = userCows.remove(index);
+        editFirestoreCow(new OnFirestoreCompleteCallback() {
             @Override
             public void onFirestoreComplete(boolean success, String message) {
-                if (success) {
-                    Log.d("Debug", message);
-                } else {
-                    Log.d("Debug", message);
+                if (success){
+                    callback.onCowRemoved(true, removedCow);
+                }else{
+                    callback.onCowRemoved(false, null);
                 }
             }
         });
+    }
+
+    public static void editFirestoreCow(OnFirestoreCompleteCallback callback){
+        UserFirestore.getInstance().editUserCows(userId, userCows, callback);
     }
 }

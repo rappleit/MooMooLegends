@@ -2,12 +2,18 @@ package com.csd.moomoolegends;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.AppCompatToggleButton;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.util.Log;
 
+import com.csd.moomoolegends.models.Cow;
+import com.csd.moomoolegends.models.CowFirestore;
+import com.csd.moomoolegends.models.OnCowRemoval;
 import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
 import com.csd.moomoolegends.models.RoomFirestore;
 import com.csd.moomoolegends.models.SignUpLoginFirestore;
@@ -15,6 +21,8 @@ import com.csd.moomoolegends.models.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Random;
 
 public class APIsExample extends AppCompatActivity {
 
@@ -31,6 +39,13 @@ public class APIsExample extends AppCompatActivity {
     private AppCompatButton stopListener;
     private AppCompatButton logout;
     private AppCompatButton getPublicRooms;
+    private AppCompatButton startCountdown;
+    private AppCompatButton addCow;
+    private AppCompatButton removeCow;
+    private AppCompatButton removeRandomCow;
+    private AppCompatButton getAllCows;
+    private AppCompatImageView cowImage;
+    private AppCompatTextView countdown;
     private FirebaseAuth mAuth;
     private final Activity activity = this;
 
@@ -271,6 +286,117 @@ public class APIsExample extends AppCompatActivity {
                 }
             });
         });
+
+        // API call for starting countdown
+        startCountdown = findViewById(R.id.startCountdown);
+        countdown = findViewById(R.id.countdown);
+        startCountdown.setOnClickListener(v -> {
+            // Start countdown
+            Log.d("Debug", User.getRoom().getRoomCode());
+            if (User.getRoom() != null){
+                User.getRoom().startCountdown(countdown);
+            } else {
+                countdown.setText("No room joined");
+            }
+        });
+
+        getAllCows = findViewById(R.id.getAllCows);
+        cowImage = findViewById(R.id.cowImage);
+        getAllCows.setOnClickListener(v -> {
+            CowFirestore.getInstance().getAllCows(new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if(success){
+                        //Cows retrieved successfully
+                        Log.d("Debug", message);
+                        //Update UI/Go to next activity
+                        //Messages are: "Cows retrieved successfully"
+                        Log.d("Debug", CowFirestore.getListOfCows().toString());
+                        int drawableId = getResources().getIdentifier(CowFirestore.getListOfCows().get(0).getImageName(), "drawable", getPackageName());
+                        if (drawableId != 0){
+                            Log.d("Debug", "Drawable found");
+                            cowImage.setImageResource(drawableId);
+                        } else {
+                            Log.d("Debug", "Drawable not found");
+                        }
+                    } else {
+                        //Cows retrieval failed
+                        Log.d("Debug", message);
+                        //End loading screen
+                        //Messages are: "Failed to retrieve cows"
+                    }
+                }
+            });
+        });
+
+        addCow = findViewById(R.id.addCow);
+        addCow.setOnClickListener(v -> {
+            Random rand = new Random();
+            int randomIndex = rand.nextInt(CowFirestore.getListOfCows().size());
+            Cow cow = CowFirestore.getListOfCows().get(randomIndex);
+            User.addCow(cow, new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if (success) {
+                        //Cow added successfully
+                        Log.d("Debug", message);
+                        //Update UI/Go to next activity
+                        //Messages are: "Cow added"
+                        Log.d("Debug", User.getUserCows().toString());
+                    } else {
+                        //Cow add failed
+                        Log.d("Debug", message);
+                        //End loading screen
+                        //Messages are: "Failed to add cow"
+                    }
+                }
+            });
+        });
+
+        removeCow = findViewById(R.id.removeCow);
+        removeCow.setOnClickListener(v -> {
+            Cow cow = User.getUserCows().get(0);
+            User.removeCow(cow, new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if (success) {
+                        //Cow removed successfully
+                        Log.d("Debug", message);
+                        //Update UI/Go to next activity
+                        //Messages are: "Cow removed"
+                        Log.d("Debug", User.getUserCows().toString());
+                    } else {
+                        //Cow remove failed
+                        Log.d("Debug", message);
+                        //End loading screen
+                        //Messages are: "Failed to remove cow"
+                    }
+                }
+            });
+        });
+
+        removeRandomCow = findViewById(R.id.removeRandomCow);
+        removeRandomCow.setOnClickListener(v -> {
+            User.removeRandomCow(new OnCowRemoval() {
+                @Override
+                public void onCowRemoved(boolean success, Cow cow) {
+                    if (success) {
+                        //Cow removed successfully
+                        Log.d("Debug", "Cow removed");
+                        //Update UI/Go to next activity
+                        //Messages are: "Cow removed"
+                        Log.d("Debug", "Cow removed: " + cow.getName());
+                        Log.d("Debug", User.getUserCows().toString());
+                    } else {
+                        //Cow remove failed
+                        Log.d("Debug", "Failed to remove cow");
+                        //End loading screen
+                        //Messages are: "Failed to remove cow"
+                    }
+                }
+            });
+        });
+
     }
 
     @Override
