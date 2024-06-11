@@ -12,8 +12,8 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.res.Resources;
-import android.graphics.Rect;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,24 +27,23 @@ import com.csd.moomoolegends.R;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class HomeActivity extends AppCompatActivity {
 
+    private LinearLayout cowLayout;
     private LinearProgressIndicator linearProgressMain;
     private LinearProgressIndicator linearProgressSolo;
 
+    private static Handler handler;
+
     private final static int CARBON_THRESHOLD = 35;
     private final static int ANIM_DURATION_MS = 250;
-    private final static int COWS_ALLOWED = 10;
-    // private final static int MENU_ITEMS_LAYOUT_MARGIN = 6;
+    private final static int COWS_ALLOWED = 8;
     private final static String LOG_TAG = "LOGCAT_HomeActivity";
 
     // TODO: replace with user / room variables
     private final boolean inRoom = true;
-    private final int numCows = 5;
+    private final int numCows = 15;
     private final int roomPersons = 5;
     private final int currCarbonSolo = 20;
     private final int currCarbonRoom = 150;
@@ -54,6 +53,9 @@ public class HomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        cowLayout = findViewById(R.id.cowLayout);
+        handler = new Handler();
 
         // Handle progress bar UIs
         linearProgressMain = (LinearProgressIndicator) findViewById(R.id.linearProgressMain);
@@ -141,7 +143,8 @@ public class HomeActivity extends AppCompatActivity {
                 AnimatorSet animatorSet = new AnimatorSet();
                 animatorSet.playTogether(translateRecord, translateShop, translateRecos, fadeOutRecord, fadeOutShop, fadeOutRecos);
                 animatorSet.setDuration(ANIM_DURATION_MS).start();
-            } else {
+            }
+            else {
                 imageBtnMenu.setImageResource(R.drawable.baseline_close_36);
 
                 // Set layout visibilities to View.VISIBLE
@@ -190,8 +193,8 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         // Draw cows
-        for (int cow = 1; cow <= Math.min(COWS_ALLOWED, numCows); cow++) {
-            startAnimationFromBackgroundThread(R.drawable.cow, cow);
+        for (int i = 0; i < Math.min(COWS_ALLOWED, numCows); i++) {
+            startAnimationFromBackgroundThread(R.drawable.cow, getRandomRow());
         }
     }
 
@@ -202,12 +205,18 @@ public class HomeActivity extends AppCompatActivity {
         // Reset progress bar animations so that onResume() can display them again
         linearProgressMain.setProgress(0, true);
         linearProgressSolo.setProgress(0, true);
+
+        // Remove cows from cow layout
+        for (int i = 0; i < cowLayout.getChildCount(); i++) {
+            ((ConstraintLayout) cowLayout.getChildAt(i)).removeAllViews();
+        }
     }
 
     private void startAnimationFromBackgroundThread(int cowImage, int id) {
         // Spawn a new cow
         ImageView imageView = new ImageView(HomeActivity.this);
         imageView.setId(id);
+        imageView.setVisibility(View.INVISIBLE);
         imageView.setImageResource(cowImage);
 
         // Set initial layout parameters
@@ -215,22 +224,20 @@ public class HomeActivity extends AppCompatActivity {
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
         );
-        imageView.setScaleX(0.6f);
-        imageView.setScaleY(0.6f);
+        imageView.setScaleX(0.9f);
+        imageView.setScaleY(0.9f);
         imageView.setLayoutParams(layoutParams);
 
-        // Add the cow to the layout
-        ConstraintLayout cowLayout = findViewById(R.id.cowLayout);
-        cowLayout.addView(imageView, 0);
-
         // Set the constraints programmatically
+        ConstraintLayout row = (ConstraintLayout) cowLayout.getChildAt(id);
+        row.addView(imageView, 0);
         ConstraintSet constraintSet = new ConstraintSet();
-        constraintSet.clone(cowLayout);
-        constraintSet.connect(id, ConstraintSet.TOP, cowLayout.getId(), ConstraintSet.TOP);
-        constraintSet.connect(id, ConstraintSet.BOTTOM, cowLayout.getId(), ConstraintSet.BOTTOM);
+        constraintSet.clone(row);
+        constraintSet.connect(id, ConstraintSet.TOP, row.getId(), ConstraintSet.TOP);
+        constraintSet.connect(id, ConstraintSet.BOTTOM, row.getId(), ConstraintSet.BOTTOM);
         constraintSet.setMargin(id, ConstraintSet.START, 0);
         constraintSet.setMargin(id, ConstraintSet.TOP, 0);
-        constraintSet.applyTo(cowLayout);
+        constraintSet.applyTo(row);
 
         // Add animation as view tree layout listener
         imageView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -239,7 +246,7 @@ public class HomeActivity extends AppCompatActivity {
                 imageView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
 
                 // Create animation update listener to re-draw cows as needed
-                ValueAnimator.AnimatorUpdateListener animationUpdateListener = valueAnimator -> {
+                /*ValueAnimator.AnimatorUpdateListener animationUpdateListener = valueAnimator -> {
                     int[] currLocation = new int[2];
                     imageView.getLocationOnScreen(currLocation);
                     Rect currPosition = new Rect(
@@ -264,11 +271,11 @@ public class HomeActivity extends AppCompatActivity {
                             cowLayout.addView(imageView, 0);
                         }
                     }
-                };
+                };*/
 
                 // Animate the cow to move on-screen
-                AnimatorSet animatorSetStart = new AnimatorSet();
-                ObjectAnimator translateXStart = ObjectAnimator.ofFloat(imageView, "translationX", getRandomX(imageView.getWidth()), getRandomX(imageView.getWidth()));
+                /*AnimatorSet animatorSetStart = new AnimatorSet();
+                ObjectAnimator translateYStart = ObjectAnimator.ofFloat(imageView, "translationX", getRandomX(imageView.getHeight()), getRandomX(imageView.getHeight()));
                 ObjectAnimator translateYStart = ObjectAnimator.ofFloat(imageView, "translationY", getRandomY(imageView.getHeight()), getRandomY(imageView.getHeight()));
                 translateXStart.addUpdateListener(animationUpdateListener);
                 translateYStart.addUpdateListener(animationUpdateListener);
@@ -324,10 +331,42 @@ public class HomeActivity extends AppCompatActivity {
                         );
                     }
                 });
+                animatorSetStart.playTogether(translateXStart, translateYStart, fadeIn);*/
 
-                animatorSetStart.playTogether(translateXStart, translateYStart, fadeIn);
-                animatorSetStart.setDuration(new Random().nextInt(3000) + 10000);
-                animatorSetStart.start();
+                boolean flipped = new Random().nextBoolean();
+                imageView.setScaleX(flipped ? -1 : 1);
+                int left = -imageView.getWidth(), right = Resources.getSystem().getDisplayMetrics().widthPixels + imageView.getWidth();
+                ObjectAnimator translateXStart = ObjectAnimator.ofFloat(
+                        imageView,
+                        "translationX",
+                        flipped ? right : left,
+                        flipped ? left : right
+                );
+                translateXStart.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationStart(Animator animation) {
+                        super.onAnimationStart(animation);
+                        imageView.setVisibility(View.VISIBLE);
+                    }
+                });
+                translateXStart.addListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        super.onAnimationEnd(animation);
+                        row.removeAllViews();
+                        startAnimationFromBackgroundThread(R.drawable.cow, getRandomRow());
+                    }
+                });
+
+                handler.postDelayed(() ->
+                        HomeActivity.this.runOnUiThread(() -> {
+                            AnimatorSet animatorSet = new AnimatorSet();
+                            animatorSet.play(translateXStart);
+                            animatorSet.setDuration(new Random().nextInt(20000) + 30000);
+                            animatorSet.start();
+                        }),
+                        new Random().nextInt(15000)
+                );
             }
         });
     }
@@ -347,5 +386,13 @@ public class HomeActivity extends AppCompatActivity {
     private int getRandomY(int viewHeight) {
         int screenHeight = Resources.getSystem().getDisplayMetrics().heightPixels;
         return new Random().nextInt(screenHeight - viewHeight) - (screenHeight - viewHeight) / 2;
+    }
+
+    private int getRandomRow() {
+        int row;
+        do {
+            row = new Random().nextInt(COWS_ALLOWED);
+        } while (((ConstraintLayout) cowLayout.getChildAt(row)).getChildCount() > 0);
+        return row;
     }
 }
