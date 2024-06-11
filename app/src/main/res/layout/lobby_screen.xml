@@ -58,8 +58,7 @@
         android:id="@+id/room_name"
         android:layout_width="155dp"
         android:layout_height="30dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="137dp"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="135dp"
         android:text="Test"
@@ -180,31 +179,18 @@
 
 
         />
-    <TextView
-        android:id="@+id/next_challenge_countdown_text"
-        android:layout_width="339dp"
-        android:layout_height="30dp"
+    <Button
+        android:id="@+id/start_game_button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="815dp"
-        android:text="Next Challenge Starting In"
+        android:text="Start!"
         android:fontFamily="@font/pixeloid_sans"
         android:textSize="24sp"
         android:textColor="#000000"
-        />
-
-    <TextView
-        android:id="@+id/time_to_next_challenge"
-        android:layout_width="225dp"
-        android:layout_height="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="855dp"
-        android:text="Test Text"
-        android:fontFamily="@font/pixeloid_sans"
-        android:textSize="24sp"
-        android:textColor="#FFFFFF"
-        android:gravity="center"
+        android:background="@drawable/start_button_background"
         />
 
 

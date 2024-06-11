@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#60CB9E">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"/>
+
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="118dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="23dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:elevation="4dp"
+        android:background="@drawable/back_button"
+        />
+
+    <!-- Coins Display Frame -->
+    <FrameLayout
+        android:id="@+id/coins_display"
+        android:layout_width="99dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="21dp">
+
+        <ImageView
+            android:id="@+id/coins_display_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/coins_display" />
+
+        <TextView
+            android:id="@+id/Current_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="8.5dp"
+            android:fontFamily="@font/pixeloid_sans"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:text = "1000"
+            />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/public_room"
+        android:layout_width="169dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="139dp"
+        android:text="Public Rooms"
+        android:fontFamily="@font/pixeloid_sans"
+        android:gravity="center_horizontal|top"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/public_rooms_recycler_view"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="200dp"
+        android:layout_width="372dp"
+        android:layout_height="650dp"/>
+</RelativeLayout>

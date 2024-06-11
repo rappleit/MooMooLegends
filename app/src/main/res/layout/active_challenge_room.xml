@@ -177,17 +177,13 @@
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="850dp"
+        android:layout_marginTop="840dp"
         android:text="Test"
         android:fontFamily="@font/pixeloid_sans"
         android:gravity="center_horizontal"
         android:textSize="24sp"
         android:textColor="#FFFFFF"
         />
-
-
-
-
 
 <RelativeLayout
     android:layout_width="335dp"
@@ -200,10 +196,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:indeterminate="false"
+        android:progress="50"
         app:trackColor="#D5FFED"
         app:indicatorColor="#FFA3B1"
         app:trackCornerRadius="10dp"
-        app:trackThickness="42dp" />
+        app:trackThickness="42dp"
+        />
 
     <TextView
         android:id="@+id/progress_text"
@@ -213,10 +211,9 @@
         android:textColor="#000000"
         android:textSize="24sp"
         android:fontFamily="@font/pixeloid_sans"
+        android:text="50%"
         />
-    
 </RelativeLayout>
-
 
     <TextView
         android:id="@+id/current_total_co2"
@@ -224,7 +221,7 @@
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="238dp"
+        android:layout_marginTop="240dp"
         android:text="TestText"
         android:fontFamily="@font/pixeloid_sans"
         android:gravity="center"
