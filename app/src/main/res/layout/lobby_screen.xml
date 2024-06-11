@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#60CB9E">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"/>
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="118dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="23dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:elevation="4dp"
+        android:background="@drawable/back_button"
+        />
+
+    <!-- Coins Display Frame -->
+    <FrameLayout
+        android:id="@+id/coins_display"
+        android:layout_width="99dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="21dp">
+
+        <ImageView
+            android:id="@+id/coins_display_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/coins_display" />
+
+        <TextView
+            android:id="@+id/Current_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="8.5dp"
+            android:fontFamily="@font/pixeloid_sans"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:text = "1000"
+            />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/room_name"
+        android:layout_width="155dp"
+        android:layout_height="30dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="137dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="135dp"
+        android:text="Test"
+        android:fontFamily="@font/pixeloid_sans"
+        android:gravity="center_horizontal|top"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/room_code"
+        android:layout_width="285dp"
+        android:layout_height="75dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="192dp"
+        android:gravity="center"
+        android:fontFamily="@font/pixeloid_sans"
+        android:textSize = "36sp"
+        android:textColor = "#000000"
+        android:background="@drawable/room_code_background"
+        android:text="Hello"
+
+        />
+    <TextView
+        android:id="@+id/number_of_players"
+        android:layout_width="145dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="355dp"
+        android:fontFamily="@font/pixeloid_sans"
+        android:gravity="center_horizontal|top"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:text="Players (0)"
+        />
+
+    <TextView
+        android:id="@+id/player_1"
+        android:layout_width="285dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="412dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloid_sans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="Test"
+        />
+
+
+
+    <TextView
+        android:id="@+id/player_2"
+        android:layout_width="285dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="484dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloid_sans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="Test"
+        />
+
+
+
+    <TextView
+        android:id="@+id/player_3"
+        android:layout_width="285dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="561dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloid_sans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="Test"
+        />
+
+
+
+    <TextView
+        android:id="@+id/player_4"
+        android:layout_width="285dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="638dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloid_sans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="Test"
+        />
+
+
+
+    <TextView
+        android:id="@+id/player_5"
+        android:layout_width="285dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="715dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloid_sans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="Test"
+
+
+        />
+    <TextView
+        android:id="@+id/next_challenge_countdown_text"
+        android:layout_width="339dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="815dp"
+        android:text="Next Challenge Starting In"
+        android:fontFamily="@font/pixeloid_sans"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        />
+
+    <TextView
+        android:id="@+id/time_to_next_challenge"
+        android:layout_width="225dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="855dp"
+        android:text="Test Text"
+        android:fontFamily="@font/pixeloid_sans"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        />
+
+
+</RelativeLayout>

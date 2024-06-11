@@ -9,57 +9,91 @@ import android.widget.ImageButton;
 import android.content.Intent;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.csd.moomoolegends.MainActivity;
 import com.csd.moomoolegends.R;
+import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
+import com.csd.moomoolegends.models.RoomFirestore;
+import com.csd.moomoolegends.models.User;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-public class JoinPrivateRoomActivity extends Activity {
+public class JoinPrivateRoomActivity extends AppCompatActivity {
 
     ImageButton backButton;
     ImageButton joinRoomButton;
     EditText roomCodeInput;
-
     TextView Current_coins;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.join_private_room); // Make sure to replace 'your_layout_name' with the actual name of your XML layout file
+        setContentView(R.layout.join_private_room);
 
-        // Initialize the back button
         backButton = (ImageButton) findViewById(R.id.backButton);
+        joinRoomButton = (ImageButton) findViewById(R.id.join_room_button);
+        roomCodeInput = (EditText) findViewById(R.id.room_code_input);
+        Current_coins = (TextView) findViewById(R.id.Current_coins);
+
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent to go back to MainActivity or the parent activity
                 Intent intent = new Intent(JoinPrivateRoomActivity.this, MultiHomePageActivity.class);
                 startActivity(intent);
-                finish(); // Finish this activity
+                finish();
             }
         });
 
-        // Initialize the join room button
-        joinRoomButton = (ImageButton) findViewById(R.id.join_room_button);
-        roomCodeInput = (EditText) findViewById(R.id.room_code_input);
         joinRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent to go to JoinRoomActivity
                 if (roomCodeInput.getText().toString().isEmpty() || roomCodeInput.getText().toString().length() != 5 || !roomCodeInput.getText().toString().matches("[0-9]+")) {
-                    // Show an error message if the room code is empty
                     roomCodeInput.setError("Please enter a valid room code.");
                     Log.d("Room Code Input", "Invalid room code entered.");
                     return;
                 }
                 else {
-                    Intent intent = new Intent(JoinPrivateRoomActivity.this, MainActivity.class);
-                    // Pass the room code to the next activity
-                    //TODO: Implement this by Linking sending the code to firestore and pulling the room data and redirecting to the room
+                    String roomCode = roomCodeInput.getText().toString();
 
+                    if (User.getRoomCode() != null) {
+                        Log.d("Debug", "User is already in a room.");
+                        return;
+                    }
+
+                    // Check if the room exists before attempting to join
+                    FirebaseFirestore db = FirebaseFirestore.getInstance();
+                    DocumentReference docRef = db.collection("rooms").document(roomCode);
+                    docRef.get().addOnCompleteListener(task -> {
+                        if (task.isSuccessful()) {
+                            if (task.getResult().exists()) {
+                                // If the room exists, attempt to join
+                                RoomFirestore.getInstance().joinRoom(roomCode, new OnFirestoreCompleteCallback() {
+                                    @Override
+                                    public void onFirestoreComplete(boolean success, String message) {
+                                        if(success){
+                                            Log.d("Debug", message);
+                                            Intent intent = new Intent(JoinPrivateRoomActivity.this, LobbyScreenActivity.class);
+                                            intent.putExtra("roomCode", roomCode);
+                                            intent.putExtra("UserName", User.getUsername());
+                                            Log.d("Debug", "New user joining roomcode: " + User.getRoomCode());
+                                            startActivity(intent);
+                                        } else {
+                                            Log.d("Debug", message);
+                                        }
+                                    }
+                                });
+                            } else {
+                                // If the room does not exist, display an error message
+                                roomCodeInput.setError("The room does not exist.");
+                                Log.d("Debug", "The room does not exist.");
+                            }
+                        } else {
+                            Log.d("Debug", "Failed to check room code.");
+                        }
+                    });
                 }
             }
         });
-
-        Current_coins = (TextView) findViewById(R.id.Current_coins);
-        Current_coins.setText("1");
     }
 }
