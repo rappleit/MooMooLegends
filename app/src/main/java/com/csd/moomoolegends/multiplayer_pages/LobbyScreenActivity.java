@@ -1,6 +1,7 @@
 package com.csd.moomoolegends.multiplayer_pages;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.content.Intent;
@@ -13,6 +14,7 @@ import com.csd.moomoolegends.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -49,9 +51,14 @@ public class LobbyScreenActivity extends AppCompatActivity {
         nextChallengeCountdownText = (TextView) findViewById(R.id.next_challenge_countdown_text);
         timeToNextChallenge = (TextView) findViewById(R.id.time_to_next_challenge);
         currentCoins = (TextView) findViewById(R.id.Current_coins);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         // Fetch the current user's coins from Firestore
-        String userId = Objects.requireNonNull(mAuth.getCurrentUser()).getUid();
+        String userId = currentUser.getUid();
+        if (userId == null) {
+            Log.d("LobbyScreenActivity", "User ID is null.");
+            return;
+        }
         db.collection("users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
