@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class RoomFirestore extends FirestoreInstance{
@@ -60,8 +62,6 @@ public class RoomFirestore extends FirestoreInstance{
                                     .setRoomIsFull(false)
                                     .setRoomIsPrivate(false)
                                     .setRoomMembers(new ArrayList<>(Collections.singletonList(User.getUserDoc())))
-                                    .setStartDate(new Date())
-                                    .setEndDate(addOneWeek(new Date()))
                                     .build();
 
                     docRef.set(room)
@@ -78,13 +78,45 @@ public class RoomFirestore extends FirestoreInstance{
         });
     }
 
+    public void startRoom(OnFirestoreCompleteCallback callback){
+        DocumentReference docRef = db.collection("rooms").document(User.getRoomCode());
+        docRef.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                Date startDate = new Date();
+                Date endDate = addOneWeek(startDate);
+
+                Map<String, Object> dateMap = new HashMap<>();
+                dateMap.put("startDate", startDate);
+                dateMap.put("endDate", endDate);
+
+                if (User.getRoom() != null){
+
+                    docRef.update("roomIsFull", true).addOnSuccessListener(aVoid -> {
+                        docRef.update(dateMap).addOnSuccessListener(aVoid1 -> {
+                            User.getRoom().setRoomIsFull(true);
+                            User.getRoom().setStartDate(startDate);
+                            User.getRoom().setEndDate(endDate);
+                            callback.onFirestoreComplete(true, "Room started successfully");
+                        }).addOnFailureListener(e -> {
+                            callback.onFirestoreComplete(false, "Failed to start room");
+                        });
+                    }).addOnFailureListener(e -> {
+                        callback.onFirestoreComplete(false, "Failed to start room");
+                    });
+                }
+            } else {
+                callback.onFirestoreComplete(false, "Room does not exist");
+            }
+        });
+    }
+
     public void joinRoom(String roomCode, OnFirestoreCompleteCallback callback){
         DocumentReference docRef = db.collection("rooms").document(roomCode);
         docRef.get().addOnCompleteListener(task -> {
             if (task.isSuccessful()) {
                 if (task.getResult().exists()) {
                     Room room = task.getResult().toObject(Room.class);
-                    if (room != null){
+                    if (room != null && !room.getRoomIsFull()){
                         room.getRoomMembers().add(User.getUserDoc());
                         room.setRoomCurrentSize(room.getRoomCurrentSize() + 1);
 
@@ -107,6 +139,8 @@ public class RoomFirestore extends FirestoreInstance{
                             Log.d("Debug", "Failed to update roomMembers in Firestore");
                             callback.onFirestoreComplete(false, "Failed to join room");
                         });
+                    } else {
+                        callback.onFirestoreComplete(false, "Room already started");
                     }
                 } else {
                     callback.onFirestoreComplete(false, "Room does not exist");

@@ -38,6 +38,7 @@ public class APIsExample extends AppCompatActivity {
     private AppCompatToggleButton publicOrPrivateRoom;
     private AppCompatButton joinRoom;
     private AppCompatButton leaveRoom;
+    private AppCompatButton startRoom;
     private AppCompatButton stopListener;
     private AppCompatButton logout;
     private AppCompatButton getPublicRooms;
@@ -474,6 +475,20 @@ public class APIsExample extends AppCompatActivity {
                         Log.d("Debug", message);
                         //End loading screen
                         //Messages are: "Failed to add record"
+                    }
+                }
+            });
+        });
+
+        startRoom = findViewById(R.id.startRoom);
+        startRoom.setOnClickListener(v -> {
+            RoomFirestore.getInstance().startRoom(new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if(success){
+                        Log.d("Debug", message);
+                    } else {
+                        Log.d("Debug", message);
                     }
                 }
             });

@@ -24,14 +24,12 @@ public class Room {
     private boolean roomIsPrivate;
     private boolean roomIsFull;
 
-    private Room(String roomCode, String roomName, DocumentReference roomOwner, float roomCarbonFootprint, float roomWeeklyThreshold, Date startDate, Date endDate, int roomCurrentSize, ArrayList<DocumentReference> roomMembers, boolean roomIsPrivate, boolean roomIsFull) {
+    private Room(String roomCode, String roomName, DocumentReference roomOwner, float roomCarbonFootprint, float roomWeeklyThreshold, int roomCurrentSize, ArrayList<DocumentReference> roomMembers, boolean roomIsPrivate, boolean roomIsFull) {
         this.roomCode = roomCode;
         this.roomName = roomName;
         this.roomOwner = roomOwner;
         this.roomCarbonFootprint = roomCarbonFootprint;
         this.roomWeeklyThreshold = roomWeeklyThreshold;
-        this.startDate = startDate;
-        this.endDate = endDate;
         this.roomCurrentSize = roomCurrentSize;
         this.roomMembers = roomMembers;
         this.roomIsPrivate = roomIsPrivate;
@@ -82,8 +80,16 @@ public class Room {
         return endDate;
     }
 
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
     public Date getStartDate() {
         return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
     }
 
     public float getRoomCarbonFootprint() {
@@ -130,7 +136,7 @@ public class Room {
         return roomIsPrivate;
     }
 
-    public String getTimeDifferenceString() {
+    public String TimeDifferenceString() {
         long diffInMillies = Math.abs(endDate.getTime() - new Date().getTime());
         long days = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         diffInMillies -= TimeUnit.MILLISECONDS.convert(days, TimeUnit.DAYS);
@@ -140,15 +146,15 @@ public class Room {
         return days + " days " + hours + " hours " + minutes + " minutes";
     }
 
-    public long getTimeDifference() {
+    public long TimeDifference() {
         return Math.abs(endDate.getTime() - new Date().getTime());
     }
 
     public void startCountdown(AppCompatTextView countdown) {
-        new CountDownTimer(User.getRoom().getTimeDifference(), 60000) { // Update every minute
+        new CountDownTimer(User.getRoom().TimeDifference(), 60000) { // Update every minute
 
             public void onTick(long millisUntilFinished) {
-                countdown.setText(getTimeDifferenceString());
+                countdown.setText(TimeDifferenceString());
             }
 
             public void onFinish() {
@@ -163,8 +169,6 @@ public class Room {
         private DocumentReference roomOwner;
         private float roomCarbonFootprint;
         private float roomWeeklyThreshold;
-        private Date startDate;
-        private Date endDate;
         private int roomCurrentSize;
         private ArrayList<DocumentReference> roomMembers;
         private boolean roomIsPrivate;
@@ -197,16 +201,6 @@ public class Room {
             return this;
         }
 
-        public RoomBuilder setStartDate(Date startDate) {
-            this.startDate = startDate;
-            return this;
-        }
-
-        public RoomBuilder setEndDate(Date endDate) {
-            this.endDate = endDate;
-            return this;
-        }
-
         public RoomBuilder setRoomCurrentSize(int roomCurrentSize) {
             this.roomCurrentSize = roomCurrentSize;
             return this;
@@ -228,7 +222,7 @@ public class Room {
         }
 
         public Room build() {
-            return new Room(roomCode, roomName, roomOwner, roomCarbonFootprint, roomWeeklyThreshold, startDate, endDate, roomCurrentSize, roomMembers, roomIsPrivate, roomIsFull);
+            return new Room(roomCode, roomName, roomOwner, roomCarbonFootprint, roomWeeklyThreshold, roomCurrentSize, roomMembers, roomIsPrivate, roomIsFull);
         }
     }
 }
