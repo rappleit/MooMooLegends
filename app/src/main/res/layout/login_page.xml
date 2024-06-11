@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/login_background">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/cow_background" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:gravity="center">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cows_in_a_line"
+            android:foregroundGravity="center_horizontal"
+            />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="130dp"
+            android:gravity="center"
+            android:fontFamily="@font/pixeloidsans_bold"
+            android:textSize="48dp"
+            android:textColor="@color/login_text"
+            android:text="Login">
+        </androidx.appcompat.widget.AppCompatTextView>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="195dp"
+            android:gravity="center"
+            android:fontFamily="@font/pixeloidsans_bold"
+            android:textSize="18dp"
+            android:textColor="@color/login_text"
+            android:text="Welcome back, Moo-Legend">
+        </androidx.appcompat.widget.AppCompatTextView>
+
+    </FrameLayout>
+
+
+
+
+
+
+
+</RelativeLayout>

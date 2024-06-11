@@ -7,4 +7,6 @@
     <color name="weekly_tab_light">#79FFC7</color>
     <color name="weekly_tab_indicator">#48A37D</color>
     <color name="weekly_pie_back">#C9EAD4</color>
+    <color name="login_background">#F1C75D</color>
+    <color name="login_text">#422C00</color>
 </resources>
