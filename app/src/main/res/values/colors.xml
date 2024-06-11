@@ -4,6 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="weekly_back_green">#327C5D</color>
     <color name="weekly_tab">#60CB9E</color>
+    <color name="weekly_tab_light">#79FFC7</color>
     <color name="weekly_tab_indicator">#48A37D</color>
     <color name="weekly_pie_back">#C9EAD4</color>
 </resources>

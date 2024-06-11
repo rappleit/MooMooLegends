@@ -47,20 +47,38 @@ public class weekly_records extends AppCompatActivity {
         setContentView(R.layout.weekly_records);
         tabLayout=findViewById(R.id.tab_layout);
         viewPager=findViewById(R.id.view_pager);
-
-        arrayList=new ArrayList<>(0);
-
-        // Add title in array list
-        arrayList.add("Basic");
-        arrayList.add("Advance");
-        arrayList.add("Pro");
-
-        // Setup tab layout
-        tabLayout.setupWithViewPager(viewPager);
-
-        // Prepare view pager
-        prepareViewPager(viewPager,arrayList);
+        tabInit();
         pieChartInit();
+    }
+
+    private void tabInit() {
+        tabLayout.addTab(tabLayout.newTab().setText("Meat"));
+        tabLayout.addTab(tabLayout.newTab().setText("Dairy"));
+        tabLayout.addTab(tabLayout.newTab().setText("Carbs"));
+        tabLayout.addTab(tabLayout.newTab().setText("Veg"));
+        tabLayout.addTab(tabLayout.newTab().setText("Seafood"));
+        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
+
+        final MyAdapter adapter = new MyAdapter(this,getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     private void pieChartInit() {
@@ -109,66 +127,5 @@ public class weekly_records extends AppCompatActivity {
 
 
         weekly.invalidate();
-    }
-
-
-    private void prepareViewPager(ViewPager viewPager, ArrayList<String> arrayList) {
-        // Initialize main adapter
-        MainAdapter adapter=new MainAdapter(getSupportFragmentManager());
-
-        // Initialize main fragment
-        dairy dairy_tab=new dairy();
-
-        // Use for loop
-        for(int i=0;i<arrayList.size();i++)
-        {
-            // Initialize bundle
-            Bundle bundle=new Bundle();
-
-            // Put title
-            bundle.putString("title",arrayList.get(i));
-
-            // set argument
-            dairy_tab.setArguments(bundle);
-
-            // Add fragment
-            adapter.addFragment(dairy_tab, arrayList.get(i));
-            dairy_tab=new dairy();
-        }
-        // set adapter
-        viewPager.setAdapter(adapter);
-    }
-
-    private class MainAdapter extends FragmentPagerAdapter {
-        // Initialize arrayList
-        ArrayList<Fragment> fragmentArrayList= new ArrayList<>();
-        ArrayList<String> stringArrayList=new ArrayList<>();
-
-
-        // Create constructor
-        public void addFragment(Fragment fragment,String s)
-        {
-            // Add fragment
-            fragmentArrayList.add(fragment);
-            // Add title
-            stringArrayList.add(s);
-        }
-
-        public MainAdapter(FragmentManager supportFragmentManager) {
-            super(supportFragmentManager);
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            // return fragment position
-            return fragmentArrayList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            // Return fragment array list size
-            return fragmentArrayList.size();
-        }
     }
 }

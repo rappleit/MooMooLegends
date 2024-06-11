@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/weekly_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/weekly_tips"
+        android:layout_below="@id/weekly_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Je m'appelle francais"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
