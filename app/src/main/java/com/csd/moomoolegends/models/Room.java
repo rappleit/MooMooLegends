@@ -130,7 +130,7 @@ public class Room {
         return roomIsPrivate;
     }
 
-    public String getDifferenceString() {
+    public String getTimeDifferenceString() {
         long diffInMillies = Math.abs(endDate.getTime() - new Date().getTime());
         long days = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
         diffInMillies -= TimeUnit.MILLISECONDS.convert(days, TimeUnit.DAYS);
@@ -148,7 +148,7 @@ public class Room {
         new CountDownTimer(User.getRoom().getTimeDifference(), 60000) { // Update every minute
 
             public void onTick(long millisUntilFinished) {
-                countdown.setText(getDifferenceString());
+                countdown.setText(getTimeDifferenceString());
             }
 
             public void onFinish() {

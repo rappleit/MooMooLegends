@@ -267,6 +267,7 @@ public class RoomFirestore extends FirestoreInstance{
     }
 
      public void initializeRoomListener(String roomCode, OnFirestoreCompleteCallback callback) {
+         Log.d("Debug", "Initializing room listener");
          roomListener = db.collection("rooms").document(roomCode).addSnapshotListener((value, error) -> {
              if (error != null) {
                  Log.w("Debug", "Listen failed.", error);

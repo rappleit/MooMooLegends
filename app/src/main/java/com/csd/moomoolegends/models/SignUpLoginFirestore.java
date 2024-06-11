@@ -81,25 +81,18 @@ public class SignUpLoginFirestore extends FirestoreInstance{
         db.collection("users").document(uid).set(user)
                 .addOnSuccessListener(aVoid -> {
                     Log.d("SignUpFirestore", "successfully added user");
-                    db.collection("users").document(uid).collection("recordsCollection").document(getWeekYearNumber()).set(new HashMap<>())
-                            .addOnSuccessListener(documentReference -> {
-                                Log.d("SignUpFirestore", "successfully added user and initialized recordsCollection");
-                                new User(user, db.collection("users").document(uid), new OnFirestoreCompleteCallback() {
-                                    @Override
-                                    public void onFirestoreComplete(boolean success, String message) {
-                                        if (success){
-                                            Log.d("SignUpFirestore", message);
-                                            callback.onFirestoreComplete(true, "User registered successfully");
-                                        }else{
-                                            Log.d("SignUpFirestore", message);
-                                            callback.onFirestoreComplete(false, "Failed to register user, please try again.");
-                                        }
-                                    }
-                                });
-                            })
-                            .addOnFailureListener(e -> {
-                                Log.d("SignUpFirestore", "Failed to initialize recordsCollection");
-                            });
+                    new User(user, db.collection("users").document(uid), new OnFirestoreCompleteCallback() {
+                        @Override
+                        public void onFirestoreComplete(boolean success, String message) {
+                            if (success){
+                                Log.d("SignUpFirestore", message);
+                                callback.onFirestoreComplete(true, "User registered successfully");
+                            }else{
+                                Log.d("SignUpFirestore", message);
+                                callback.onFirestoreComplete(false, "Failed to register user, please try again.");
+                            }
+                        }
+                    });
                 })
                 .addOnFailureListener(e -> callback.onFirestoreComplete(false, "Failed to register user, please try again."));
     }
@@ -172,14 +165,6 @@ public class SignUpLoginFirestore extends FirestoreInstance{
 
     public void logOut(){
         mAuth.signOut();
-    }
-
-    private String getWeekYearNumber(){
-        LocalDate date = LocalDate.now();
-        WeekFields weekFields = WeekFields.of(Locale.getDefault());
-        int year = date.getYear();
-        int weekNumber = date.get(weekFields.weekOfWeekBasedYear());
-        return String.valueOf(weekNumber) + String.valueOf(year).substring(2);
     }
 
 }
