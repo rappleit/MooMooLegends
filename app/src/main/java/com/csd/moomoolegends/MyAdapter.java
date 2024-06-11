@@ -6,11 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import java.util.Map;
+
 
 public class MyAdapter extends FragmentPagerAdapter {
     private Context myContext;
     int totalTabs;
-
     public MyAdapter(Context context, FragmentManager fm, int totalTabs) {
         super(fm);
         myContext = context;
