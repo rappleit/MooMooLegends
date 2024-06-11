@@ -146,8 +146,6 @@
         android:text="Test"
         />
 
-
-
     <TextView
         android:id="@+id/player_4"
         android:layout_width="285dp"
