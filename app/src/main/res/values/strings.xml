@@ -34,4 +34,6 @@
     <string name="carbon_template_label">3kg CO2e</string>
     <string name="map_label">View Map</string>
     <string name="directions_label"><u>Directions</u></string>
+    <string name="title_activity_map_dialog">MapDialog</string>
+    <string name="close_map_label">Close Map</string>
 </resources>

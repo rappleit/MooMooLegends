@@ -19,10 +19,10 @@
 
         <ImageView
             android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:contentDescription="@string/dish_photo"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:src="@drawable/chicken_rice" />
 
         <LinearLayout
@@ -35,9 +35,10 @@
             <TextView
                 android:id="@+id/textViewName"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:fontFamily="@font/pixeloid_sans"
-                android:gravity="start|center_vertical"
+                android:gravity="start|top"
                 android:text="@string/dish_name_template_label"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
@@ -47,8 +48,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dp"
+                android:ellipsize="end"
                 android:fontFamily="@font/pixeloid_sans"
                 android:gravity="start|center_vertical"
+                android:maxLines="2"
                 android:text="@string/stall_name_template_label"
                 android:textColor="@color/black"
                 android:textSize="13sp" />
@@ -77,6 +80,19 @@
                 android:textColor="@color/lime"
                 android:textSize="14sp"
                 tools:ignore="NestedWeights" />
+
+            <TextView
+                android:id="@+id/textViewDirections"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="bottom|start"
+                android:text="@string/directions_label"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:visibility="gone"
+                tools:ignore="NestedWeights" />
         </LinearLayout>
 
         <ImageButton
@@ -86,7 +102,8 @@
             android:layout_gravity="bottom|end"
             android:background="@color/white"
             android:contentDescription="@string/map_label"
-            android:src="@drawable/map_icon" />
+            android:src="@drawable/map_icon"
+            android:visibility="visible" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

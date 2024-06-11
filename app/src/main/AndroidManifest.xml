@@ -12,6 +12,8 @@
         android:name="android.permission.INTERNET"
         android:required="true" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -24,6 +26,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MooMooLegends"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBG0srjhGU17RtXjnS8SPrQZVM93IsD1wU" />
+
         <activity
             android:name=".explore.ExploreActivity"
             android:exported="true"
@@ -34,10 +41,13 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".explore.MapActivity"
+            android:exported="true"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".home.HomeActivity"
             android:exported="true"
-            tools:ignore="LockedOrientationActivity">
-        </activity>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true"
