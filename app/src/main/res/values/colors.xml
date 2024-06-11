@@ -6,4 +6,7 @@
     <color name="bermuda">#FF7AE1B6</color>
     <color name="brown">#FF7F4C00</color>
     <color name="dark_brown">#FF422C00</color>
+    <color name="light_green">#FF60CB9E</color>
+    <color name="dark_green">#FF327C5D</color>
+    <color name="lime">#FF5B7E30</color>
 </resources>

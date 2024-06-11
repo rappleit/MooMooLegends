@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="2dp"
+    tools:context=".explore.ExploreCard">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="12dp"
+        android:gravity="center|center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/dish_photo"
+            android:scaleType="fitXY"
+            android:src="@drawable/chicken_rice" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewName"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="start|top"
+                android:text="@string/dish_name_template_label"
+                android:textColor="@color/black"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewStall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:ellipsize="end"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="start|center_vertical"
+                android:maxLines="2"
+                android:text="@string/stall_name_template_label"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/textViewDistance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:alpha=".5"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="start|center_vertical"
+                android:text="@string/distance_template_label"
+                android:textColor="@color/black"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/textViewCarbon"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="3dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="bottom|start"
+                android:text="@string/carbon_template_label"
+                android:textColor="@color/lime"
+                android:textSize="14sp"
+                tools:ignore="NestedWeights" />
+
+            <TextView
+                android:id="@+id/textViewDirections"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/pixeloid_sans"
+                android:gravity="bottom|start"
+                android:text="@string/directions_label"
+                android:textColor="@color/black"
+                android:textSize="13sp"
+                android:visibility="gone"
+                tools:ignore="NestedWeights" />
+        </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/imageBtnMap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:background="@color/white"
+            android:contentDescription="@string/map_label"
+            android:src="@drawable/map_icon"
+            android:visibility="visible" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
