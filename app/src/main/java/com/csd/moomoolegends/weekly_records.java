@@ -24,6 +24,7 @@ import android.text.style.StyleSpan;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.csd.moomoolegends.models.WeeklyRecords;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Description;
@@ -88,8 +89,8 @@ public class weekly_records extends AppCompatActivity {
     private void pieChartInit() {
         PieChart weekly=(PieChart) findViewById(R.id.weeklyPie);
         List<PieEntry> pieEntries= new ArrayList<>();
-        pieEntries.add(new PieEntry(18f,"Meat"));
-        pieEntries.add(new PieEntry(18f,"Diary"));
+        pieEntries.add(new PieEntry((Float) WeeklyRecords.getMeat().get("categoryCarbonFootprint"),"Meat"));
+        pieEntries.add(new PieEntry(18f,"Dairy"));
         pieEntries.add(new PieEntry(18f,"Carbs"));
         pieEntries.add(new PieEntry(18f,"Veg"));
         pieEntries.add(new PieEntry(18f,"Seafood"));
