@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MooMooLegends"
         tools:targetApi="31">
+
         <activity
             android:name=".APIsExample"
             android:exported="true">
@@ -22,25 +23,16 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".multiplayer_pages.JoinPrivateRoomActivity" android:exported="true">
+        <activity
+            android:name=".weekly_records"
+            android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".multiplayer_pages.MultiHomePageActivity" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".home.HomeActivity" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-    </activity>
     </application>
+
 </manifest>

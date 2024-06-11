@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/weekly_back_green"
+    tools:context=".weekly_records">
+
+    <!-- Top half for the pie chart -->
+    <FrameLayout
+        android:id="@+id/chart_container"
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:background="@drawable/flower_background">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
+
+            <ImageButton
+                android:id="@+id/imageBackButton"
+                android:layout_width="wrap_content"
+                android:background="@android:color/transparent"
+                android:layout_height="60dp"
+                android:src="@drawable/back" />
+
+            <ImageView
+                android:id="@+id/tripleCows"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_below="@id/imageBackButton"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/triple_cows" />
+
+            <TextView
+                android:id="@+id/weekly_carbon_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tripleCows"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/pixeloidsans_bold"
+                android:gravity="center"
+                android:paddingTop="10dp"
+                android:paddingBottom="5dp"
+                android:text="@string/default_weekly_carbon_banner"
+                android:textColor="@color/white"
+                android:textSize="25sp" />
+
+            <com.github.mikephil.charting.charts.PieChart
+                android:id="@+id/weeklyPie"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:layout_below="@id/weekly_carbon_text">
+
+            </com.github.mikephil.charting.charts.PieChart>
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <!-- Bottom half for the tabbed content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/chart_container"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/weekly_tab_light"
+            app:tabIndicatorColor="@color/weekly_tab_indicator"
+            app:tabInlineLabel="true"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextAppearance="@style/TabFont"
+            app:tabTextColor="@color/black"></com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:background="@color/weekly_tab"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</RelativeLayout>

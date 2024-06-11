@@ -1,13 +1,15 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.MooMooLegends" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
+    <style name="Base.Theme.MooMooLegends" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <!-- Styling for rounded views -->
-    <style name="roundView" parent="">
-        <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">15dp</item>
+    <style name="Theme.MooMooLegends" parent="Base.Theme.MooMooLegends" />
+
+    <style name="TabFont" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/pixeloidsans</item>
     </style>
+
+
 </resources>

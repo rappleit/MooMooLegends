@@ -1,26 +1,5 @@
 <resources>
     <string name="app_name">Moo Moo Legends</string>
-
-    <!-- Home Activity -->
-    <string name="menu_btn_desc">Menu Button</string>
-    <string name="record_btn_label">Records</string>
-    <string name="record_btn_desc">Records Page Button</string>
-    <string name="shop_btn_label">Shop</string>
-    <string name="shop_btn_desc">Shop Page Button</string>
-    <string name="recommend_btn_label">Recos</string>
-    <string name="recommend_btn_desc">Recommendations Page Button</string>
-    <string name="carbon_label">XX kg / XX kg</string>
-    <string name="room_label">Random12345678\'s\nRoom Footprint</string>
-    <string name="solo_label">Your Footprint</string>
-    <string name="week_label">9 June - 15 June</string>
-    <string name="coins_label">Coins:</string>
-    <string name="coins_template">2200</string>
-    <string name="join_room">Join Room</string>
-    <string name="view_room">View Room</string>
-    <string name="cows_label">XX cows</string>
-    <string name="log_btn_label">New Log</string>
-    <string name="next_challenge_starting_in">Next Challenge Starting in</string>
-    <string name="community_challenge">Community Challenge</string>
-    <string name="enter_room_code">Enter Room Code</string>
-    <string name="type_here">Type here</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="default_weekly_carbon_banner">0 kg CO2e\nthis week</string>
 </resources>
