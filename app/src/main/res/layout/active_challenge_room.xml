@@ -187,16 +187,35 @@
 
 
 
-    <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="335dp"
-        android:layout_height="42dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="177dp"
-        android:progressDrawable="@drawable/progress_bar"
-        />
 
+
+<RelativeLayout
+    android:layout_width="335dp"
+    android:layout_height="42dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="177dp">
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:indeterminate="false"
+        app:trackColor="#D5FFED"
+        app:indicatorColor="#FFA3B1"
+        app:trackCornerRadius="10dp"
+        app:trackThickness="42dp" />
+
+    <TextView
+        android:id="@+id/progress_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:fontFamily="@font/pixeloid_sans"
+        />
+    
+</RelativeLayout>
 
 
     <TextView
