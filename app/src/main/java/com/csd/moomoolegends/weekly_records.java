@@ -23,6 +23,7 @@ import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.csd.moomoolegends.models.WeeklyRecords;
 import com.github.mikephil.charting.animation.Easing;
@@ -43,7 +44,6 @@ import java.util.List;
 public class weekly_records extends AppCompatActivity {
     TabLayout tabLayout;
     ViewPager viewPager;
-    ArrayList arrayList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +52,11 @@ public class weekly_records extends AppCompatActivity {
         viewPager=findViewById(R.id.view_pager);
         ImageButton backButt=findViewById(R.id.imageBackButton);
         backButt.setOnClickListener(v -> finish());
+        //edit total co2e
+        TextView weeklyCarbon=findViewById(R.id.weekly_carbon_text);
+        String weeklyCarbonString=WeeklyRecords.getTotalCarbonFootprint()+" kg CO2e\nthis week";
+        weeklyCarbon.setText(weeklyCarbonString);
+
         tabInit();
         pieChartInit();
     }
@@ -90,10 +95,10 @@ public class weekly_records extends AppCompatActivity {
         PieChart weekly=(PieChart) findViewById(R.id.weeklyPie);
         List<PieEntry> pieEntries= new ArrayList<>();
         pieEntries.add(new PieEntry((Float) WeeklyRecords.getMeat().get("categoryCarbonFootprint"),"Meat"));
-        pieEntries.add(new PieEntry(18f,"Dairy"));
-        pieEntries.add(new PieEntry(18f,"Carbs"));
-        pieEntries.add(new PieEntry(18f,"Veg"));
-        pieEntries.add(new PieEntry(18f,"Seafood"));
+        pieEntries.add(new PieEntry((Float) WeeklyRecords.getDairy().get("categoryCarbonFootprint"),"Dairy"));
+        pieEntries.add(new PieEntry((Float) WeeklyRecords.getCarbs().get("categoryCarbonFootprint"),"Carbs"));
+        pieEntries.add(new PieEntry((Float) WeeklyRecords.getVeg().get("categoryCarbonFootprint"),"Veg"));
+        pieEntries.add(new PieEntry((Float) WeeklyRecords.getSeafood().get("categoryCarbonFootprint"),"Seafood"));
         PieDataSet weeklyPieSet=new PieDataSet(pieEntries,"Food Type");
 
         ArrayList<Integer> colors = new ArrayList<>();
