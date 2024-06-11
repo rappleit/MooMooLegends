@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.MooMooLegends" parent="Base.Theme.MooMooLegends" />
+
+    <style name="TabFont" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/pixeloidsans</item>
+    </style>
+
+
 </resources>
