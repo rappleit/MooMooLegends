@@ -8,13 +8,10 @@
     tools:context=".weekly_records">
 
     <!-- Top half for the pie chart -->
-
-
     <FrameLayout
         android:id="@+id/chart_container"
         android:layout_width="match_parent"
         android:layout_height="450dp"
-        android:layout_weight="1"
         android:background="@drawable/flower_background">
 
         <RelativeLayout

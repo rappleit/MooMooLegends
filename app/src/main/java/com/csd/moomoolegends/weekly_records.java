@@ -21,6 +21,8 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -47,6 +49,8 @@ public class weekly_records extends AppCompatActivity {
         setContentView(R.layout.weekly_records);
         tabLayout=findViewById(R.id.tab_layout);
         viewPager=findViewById(R.id.view_pager);
+        ImageButton backButt=findViewById(R.id.imageBackButton);
+        backButt.setOnClickListener(v -> finish());
         tabInit();
         pieChartInit();
     }
@@ -99,32 +103,28 @@ public class weekly_records extends AppCompatActivity {
         colors.add(Color.parseColor("#EAF6ED"));
         weeklyPieSet.setColors(colors);
         weeklyPieSet.setSliceSpace(2f);
-
         weeklyPieSet.setDrawValues(false);
-
 
         PieData pieData= new PieData(weeklyPieSet);
         pieData.setValueFormatter(new PercentFormatter());
-        pieData.setValueTextSize(11f);
+        pieData.setValueTextSize(10f);
         pieData.setValueTextColor(Color.parseColor("#7F4C00"));
         pieData.setValueTypeface(getResources().getFont(R.font.pixeloidsans));
-        pieData.setValueTextSize(15f);
         weekly.setData(pieData);
 
         weekly.setEntryLabelTypeface(getResources().getFont(R.font.pixeloidsans));
         weekly.setEntryLabelColor(Color.parseColor("#7F4C00"));
-        weekly.setEntryLabelTextSize(20f);
+        weekly.setEntryLabelTextSize(15f);
         weekly.setDrawHoleEnabled(false);
         weekly.setUsePercentValues(true);
         weekly.getDescription().setEnabled(false);
         weekly.setRotationAngle(0);
+        weekly.getLegend().setEnabled(false);
+
         // enable rotation of the chart by touch
         weekly.setRotationEnabled(true);
         weekly.setHighlightPerTapEnabled(true);
         weekly.animateY(1400, Easing.EaseInOutQuad);
-        weekly.getLegend().setEnabled(false);
-
-
 
         weekly.invalidate();
     }
