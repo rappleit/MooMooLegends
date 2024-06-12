@@ -70,6 +70,19 @@
             </intent-filter>
         </activity>
 
+
+        <activity
+            android:name=".multiplayer_pages.MultiHomePageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".multiplayer_pages.JoinPrivateRoomActivity"
+            android:exported="true" />
+        <activity
+            android:name=".multiplayer_pages.LobbyScreenActivity"
+            android:exported="true" />
+        <activity
+            android:name=".multiplayer_pages.ViewPublicRoomsActivity"
+            android:exported="true" />
         <activity
             android:name=".explore.MapActivity"
             android:exported="true"
@@ -81,11 +94,9 @@
                 </intent-filter>
         </activity>
 
-
         <activity
             android:name=".home.HomeActivity"
-            android:exported="true"
-            tools:ignore="LockedOrientationActivity" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

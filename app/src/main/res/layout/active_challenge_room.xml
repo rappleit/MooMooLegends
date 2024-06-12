@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#60CB9E">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/background"
+        android:scaleType="centerCrop"/>
+
+    <!-- Back Button -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="118dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="23dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:elevation="4dp"
+        android:background="@drawable/back_button"
+        />
+
+    <!-- Coins Display Frame -->
+    <FrameLayout
+        android:id="@+id/coins_display"
+        android:layout_width="99dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="21dp">
+
+        <ImageView
+            android:id="@+id/coins_display_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/coins_display" />
+
+        <TextView
+            android:id="@+id/Current_coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="8.5dp"
+            android:fontFamily="@font/pixeloidsans"
+            android:textColor="#000000"
+            android:textSize="14dp"
+            android:text = "1000"
+            />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textViewRoomName"
+        android:layout_width="155dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="128dp"
+        android:text="Test"
+        android:fontFamily="@font/pixeloidsans"
+        android:gravity="center_horizontal|top"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        />
+
+    <TextView
+        android:id="@+id/Contributer_text"
+        android:layout_width="166dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="332dp"
+        android:text="Contributers"
+        android:fontFamily="@font/pixeloidsans"
+        android:gravity="center_horizontal|top"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        />
+
+
+    <TextView
+        android:id="@+id/player_1"
+        android:layout_width="319dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="381dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloidsans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="Test"
+        />
+
+    <TextView
+        android:id="@+id/player_2"
+        android:layout_width="319dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="453dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloidsans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="Test"
+        />
+
+    <TextView
+        android:id="@+id/player_3"
+        android:layout_width="319dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="530dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloidsans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="Test"
+        />
+
+
+
+
+    <TextView
+        android:id="@+id/player_4"
+        android:layout_width="319dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="607dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloidsans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="Test"
+        />
+
+
+
+    <TextView
+        android:id="@+id/player_5"
+        android:layout_width="319dp"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="684dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloidsans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:text="Test"
+        />
+
+    <TextView
+        android:id="@+id/challenge_ending_in_text"
+        android:layout_width="251dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="800dp"
+        android:text="Challenge Ending in"
+        android:fontFamily="@font/pixeloidsans"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        />
+    <TextView
+        android:id="@+id/next_challenge_countdown"
+        android:layout_width="305dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="840dp"
+        android:text="Test"
+        android:fontFamily="@font/pixeloidsans"
+        android:gravity="center_horizontal"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        />
+
+<RelativeLayout
+    android:layout_width="335dp"
+    android:layout_height="42dp"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="177dp">
+
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:indeterminate="false"
+        android:progress="50"
+        app:trackColor="#D5FFED"
+        app:indicatorColor="#FFA3B1"
+        app:trackCornerRadius="10dp"
+        app:trackThickness="42dp"
+        />
+
+    <TextView
+        android:id="@+id/progress_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:textColor="#000000"
+        android:textSize="24sp"
+        android:fontFamily="@font/pixeloidsans"
+        android:text="50%"
+        />
+</RelativeLayout>
+
+    <TextView
+        android:id="@+id/current_total_co2"
+        android:layout_width="267dp"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="240dp"
+        android:text="TestText"
+        android:fontFamily="@font/pixeloidsans"
+        android:gravity="center"
+        android:textSize="24sp"
+        android:textColor="#000000"
+        />
+
+</RelativeLayout>
+

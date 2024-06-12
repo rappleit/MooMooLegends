@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#60CB9E">
+
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:src="@drawable/background"-->
+<!--        android:scaleType="centerCrop" />-->
+
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="118dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="23dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:elevation="4dp"
+        android:background="@drawable/back_button"
+        android:contentDescription="@string/back_btn_label"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <!-- Coins Display Frame -->
+    <FrameLayout
+        android:id="@+id/coins_display"
+        android:layout_width="99dp"
+        android:layout_height="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="21dp">
+
+        <ImageView
+            android:id="@+id/coins_display_background"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/coins_display"
+            android:contentDescription="@string/coins_label" />
+
+        <TextView
+            android:id="@+id/coins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="42dp"
+            android:layout_marginTop="8.5dp"
+            android:fontFamily="@font/pixeloidsans"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:text = "1000" />
+
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/roomName"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="135dp"
+        android:text="Test"
+        android:fontFamily="@font/pixeloidsans"
+        android:gravity="center_horizontal|top"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/roomCode"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="192dp"
+        android:layout_marginHorizontal="70dp"
+        android:gravity="center"
+        android:fontFamily="@font/pixeloidsans"
+        android:textSize = "36sp"
+        android:textColor = "#000000"
+        android:background="@drawable/room_code_background"
+        android:text="Hello" />
+
+    <TextView
+        android:id="@+id/numPlayers"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="300dp"
+        android:fontFamily="@font/pixeloidsans"
+        android:gravity="center_horizontal|top"
+        android:textSize="24sp"
+        android:textColor="#FFFFFF"
+        android:text="Players (0)" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
+    <TextView
+        android:id="@+id/player1"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloidsans"
+        android:textColor="#000000"
+        android:layout_marginBottom="7dp"
+        android:layout_marginHorizontal="60dp"
+        android:gravity="center"
+        android:text="Test" />
+
+    <TextView
+        android:id="@+id/player2"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloidsans"
+        android:textColor="#000000"
+        android:layout_marginBottom="7dp"
+        android:layout_marginHorizontal="60dp"
+        android:gravity="center"
+        android:text="Test" />
+
+    <TextView
+        android:id="@+id/player3"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloidsans"
+        android:textColor="#000000"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginBottom="7dp"
+        android:gravity="center"
+        android:text="Test" />
+
+    <TextView
+        android:id="@+id/player4"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloidsans"
+        android:textColor="#000000"
+        android:layout_marginBottom="7dp"
+        android:layout_marginHorizontal="60dp"
+        android:gravity="center"
+        android:text="Test" />
+
+    <TextView
+        android:id="@+id/player5"
+        android:layout_width="wrap_content"
+        android:layout_height="57dp"
+        android:background="@drawable/player_background"
+        android:fontFamily="@font/pixeloidsans"
+        android:textColor="#000000"
+        android:gravity="center"
+        android:layout_marginHorizontal="60dp"
+        android:text="Test" />
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/startGame"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/nestedLayout"
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_btn_pink_bg"
+        android:fontFamily="@font/pixeloidsans"
+        android:padding="15dp"
+        android:layout_marginTop="7dp"
+        android:text="Start Room"
+        android:visibility="visible"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nestedLayout"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/pixeloidsans"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:text="Countdown"
+        android:visibility="invisible"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/black"
+        android:textSize="16sp" />
+
+</RelativeLayout>

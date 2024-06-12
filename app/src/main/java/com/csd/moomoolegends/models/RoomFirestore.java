@@ -2,6 +2,7 @@ package com.csd.moomoolegends.models;
 
 import android.util.Log;
 
+import com.csd.moomoolegends.multiplayer_pages.LobbyScreenActivity;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.ListenerRegistration;
@@ -21,6 +22,7 @@ public class RoomFirestore extends FirestoreInstance{
     private static final String ALPHANUMERIC_STRING = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     private ListenerRegistration roomListener;
     public ArrayList<Room> publicRooms = new ArrayList<>();
+    private static OnRoomListenerChange onRoomListenerChange;
 
 
     public RoomFirestore() {
@@ -31,6 +33,14 @@ public class RoomFirestore extends FirestoreInstance{
             instance = new RoomFirestore();
         }
         return instance;
+    }
+
+    public static void setOnRoomListenerChange(OnRoomListenerChange listener){
+        RoomFirestore.onRoomListenerChange = listener;
+    }
+
+    public static void unregisterRoomListener(){
+        RoomFirestore.onRoomListenerChange = null;
     }
 
     private String generateRandomCode(){
@@ -275,7 +285,6 @@ public class RoomFirestore extends FirestoreInstance{
                     if (task.isSuccessful()) {
                         publicRooms.clear();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            // Now you can use the room object
                             String roomCode = document.getId();
                             Number roomSize = (Number) document.get("roomCurrentSize");
                             if (roomSize == null) {
@@ -286,6 +295,7 @@ public class RoomFirestore extends FirestoreInstance{
                             Room room = new Room(roomCode, roomName, roomCurrentSize);
                             publicRooms.add(room);
                         }
+                        Log.d("Debug", publicRooms.toString());
                         callback.onFirestoreComplete(true, "Public rooms retrieved successfully");
                     } else {
                         callback.onFirestoreComplete(false, "Failed to retrieve public rooms");
@@ -313,6 +323,9 @@ public class RoomFirestore extends FirestoreInstance{
                  Room room = value.toObject(Room.class);
                  User.setRoom(room);
                  Log.d("Debug", "Listen started");
+                 if (onRoomListenerChange != null){
+                     onRoomListenerChange.onChange();
+                 }
                  callback.onFirestoreComplete(true, "Room listen successful");
              } else {
                  Log.d("Debug", "Current data: null");

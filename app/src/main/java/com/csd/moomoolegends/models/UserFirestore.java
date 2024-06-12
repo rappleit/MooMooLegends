@@ -1,5 +1,7 @@
 package com.csd.moomoolegends.models;
 
+import android.util.Log;
+
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -38,6 +40,7 @@ public class UserFirestore extends FirestoreInstance{
     }
 
     protected void editRoomCode(String uid, String roomCode, OnFirestoreCompleteCallback callback){
+        Log.d("User ID", User.getUserId());
         db.collection("users").document(uid).update("roomCode", roomCode).addOnSuccessListener(aVoid -> {
             callback.onFirestoreComplete(true, "Room code updated successfully");
         }).addOnFailureListener(e -> {
