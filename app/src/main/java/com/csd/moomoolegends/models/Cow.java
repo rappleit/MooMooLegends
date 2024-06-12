@@ -7,6 +7,8 @@ import android.content.Context;
 
 import com.google.firebase.firestore.DocumentReference;
 
+import java.util.Map;
+
 public class Cow {
     private String name;
     private String rarity;
