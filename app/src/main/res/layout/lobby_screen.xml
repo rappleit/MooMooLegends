@@ -187,8 +187,24 @@
         android:padding="15dp"
         android:layout_marginTop="7dp"
         android:text="Start Room"
+        android:visibility="visible"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/countdown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/nestedLayout"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/pixeloidsans"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:text="Countdown"
+        android:visibility="invisible"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/black"
         android:textSize="16sp" />
 
 </RelativeLayout>

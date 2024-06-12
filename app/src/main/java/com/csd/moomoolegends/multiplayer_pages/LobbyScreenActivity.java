@@ -7,13 +7,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.content.Intent;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import com.csd.moomoolegends.R;
+import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
 import com.csd.moomoolegends.models.OnRoomListenerChange;
+import com.csd.moomoolegends.models.Room;
 import com.csd.moomoolegends.models.RoomFirestore;
 import com.csd.moomoolegends.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -37,10 +41,12 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
     Button startButton;
     TextView numberOfPlayers, player1, player2, player3, player4, player5, nextChallengeCountdownText, timeToNextChallenge;
     TextView currentCoins;
+    AppCompatTextView countdown;
     private TextView roomCode;
     private TextView roomName;
     private int currentSize;
     String roomOwner;
+    boolean alreadyInRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +54,10 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
         setContentView(R.layout.lobby_screen);
         RoomFirestore.setOnRoomListenerChange(this);
         // Initialize all variables
+        alreadyInRoom = getIntent().getBooleanExtra("alreadyInRoom", false);
         backButton = findViewById(R.id.backButton);
         startButton = findViewById(R.id.startGame);
+        countdown = findViewById(R.id.countdown);
         numberOfPlayers = findViewById(R.id.numPlayers);
         player1 =  findViewById(R.id.player1);
         player2 =  findViewById(R.id.player2);
@@ -81,6 +89,30 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
                 }
             }
         });
+
+        if (alreadyInRoom){
+            startCountdown();
+            Log.d("Debug", "Already in room");
+        } else {
+            startButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    RoomFirestore.getInstance().startRoom(new OnFirestoreCompleteCallback() {
+                        @Override
+                        public void onFirestoreComplete(boolean success, String message) {
+                            if (success){
+                                Log.d("Debug", message);
+                                startCountdown();
+                            } else {
+                                Log.d("Debug", message);
+                                Toast.makeText(LobbyScreenActivity.this, "Failed to start room.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            });
+        }
+
         // Initialize the back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,13 +123,14 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
                 finish(); // Finish this activity
             }
         });
+    }
 
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    private void startCountdown(){
+        startButton.setEnabled(false);
+        startButton.setVisibility(View.INVISIBLE);
 
-            }
-        });
+        countdown.setVisibility(View.VISIBLE);
+        User.getRoom().startCountdown(countdown);
     }
 
     private synchronized void updatePlayerSlots() throws InterruptedException {
@@ -165,33 +198,35 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
     public void updateRestNames(int players){
         int emptySlots = User.getRoom().getRoomMaxSize() - players;
         Log.d("Debug", emptySlots + " empty");
-        switch (emptySlots){
-            case 4:
-                player2.setVisibility(View.INVISIBLE);
-                player3.setVisibility(View.INVISIBLE);
-                player4.setVisibility(View.INVISIBLE);
-                player5.setVisibility(View.INVISIBLE);
-                break;
-            case 3:
-                player3.setVisibility(View.INVISIBLE);
-                player4.setVisibility(View.INVISIBLE);
-                player5.setVisibility(View.INVISIBLE);
-                break;
-            case 2:
-                player4.setVisibility(View.INVISIBLE);
-                player5.setVisibility(View.INVISIBLE);
-                break;
-            case 1:
-                player5.setVisibility(View.INVISIBLE);
-                break;
-            default:
-                break;
-        }
+        runOnUiThread(() -> {
+            switch (emptySlots){
+                case 4:
+                    player2.setVisibility(View.INVISIBLE);
+                    player3.setVisibility(View.INVISIBLE);
+                    player4.setVisibility(View.INVISIBLE);
+                    player5.setVisibility(View.INVISIBLE);
+                    break;
+                case 3:
+                    player3.setVisibility(View.INVISIBLE);
+                    player4.setVisibility(View.INVISIBLE);
+                    player5.setVisibility(View.INVISIBLE);
+                    break;
+                case 2:
+                    player4.setVisibility(View.INVISIBLE);
+                    player5.setVisibility(View.INVISIBLE);
+                    break;
+                case 1:
+                    player5.setVisibility(View.INVISIBLE);
+                    break;
+                default:
+                    break;
+            }
 
-        // Update the number of players
-        String newNumber = "Number of players: " + currentSize;
-        numberOfPlayers.setText(newNumber);
-        Log.d("Debug", currentSize + "");
+            // Update the number of players
+            String newNumber = "Number of players: " + currentSize;
+            numberOfPlayers.setText(newNumber);
+            Log.d("Debug", currentSize + "");
+        });
     }
 
     @Override

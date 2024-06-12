@@ -54,23 +54,30 @@ public class MultiHomePageActivity extends AppCompatActivity {
         createRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Call the createRoom method from RoomFirestore
-                RoomFirestore.getInstance().createRoom(new OnFirestoreCompleteCallback() {
-                    @Override
-                    public void onFirestoreComplete(boolean success, String message) {
-                        if (success) {
-                            // If the room is created successfully, navigate to the LobbyScreenActivity
-                            Log.d("Debug", "Room Created in Firestore");
-                            Intent intent = new Intent(MultiHomePageActivity.this, LobbyScreenActivity.class);
-                            startActivity(intent);
-                            Log.d("Debug", "New user creating roomcode: " + User.getRoomCode());
-                            finish();
-                        } else {
-                            // Handle the error here
-                            Log.d("Debug", "Failed to create room, please try again.");
+                if (User.getInRoom()){
+                    Intent intent = new Intent(MultiHomePageActivity.this, LobbyScreenActivity.class);
+                    intent.putExtra("alreadyInRoom", true);
+                    startActivity(intent);
+                } else {
+                    // Call the createRoom method from RoomFirestore
+                    RoomFirestore.getInstance().createRoom(new OnFirestoreCompleteCallback() {
+                        @Override
+                        public void onFirestoreComplete(boolean success, String message) {
+                            if (success) {
+                                // If the room is created successfully, navigate to the LobbyScreenActivity
+                                Log.d("Debug", "Room Created in Firestore");
+                                Intent intent = new Intent(MultiHomePageActivity.this, LobbyScreenActivity.class);
+                                intent.putExtra("alreadyInRoom", false);
+                                startActivity(intent);
+                                Log.d("Debug", "New user creating roomcode: " + User.getRoomCode());
+                                finish();
+                            } else {
+                                // Handle the error here
+                                Log.d("Debug", "Failed to create room, please try again.");
+                            }
                         }
-                    }
-                });
+                    });
+                }
             }
         });
 
@@ -110,6 +117,14 @@ public class MultiHomePageActivity extends AppCompatActivity {
                 });
             }
         });
+
+        if (User.getInRoom()){
+            joinPrivateRoomButton.setEnabled(false);
+            joinPublicRoom.setEnabled(false);
+        } else {
+            joinPrivateRoomButton.setEnabled(true);
+            joinPublicRoom.setEnabled(true);
+        }
     }
 
 }
