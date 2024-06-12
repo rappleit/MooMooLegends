@@ -65,6 +65,7 @@
                 android:id="@+id/register_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColorHint="@color/black"
                 android:hint="Username">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -81,6 +82,7 @@
                 android:id="@+id/register_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColorHint="@color/black"
                 android:hint="E-mail">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -94,6 +96,7 @@
                 android:id="@+id/register_password_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColorHint="@color/black"
                 app:passwordToggleEnabled="true"
                 android:hint="Pass (min 6 chars)">
 
