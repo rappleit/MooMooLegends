@@ -36,6 +36,7 @@ public class JoinPrivateRoomActivity extends AppCompatActivity {
         joinRoomButton = (ImageButton) findViewById(R.id.join_room_button);
         roomCodeInput = (EditText) findViewById(R.id.room_code_input);
         Current_coins = (TextView) findViewById(R.id.Current_coins);
+        Current_coins.setText(String.valueOf(User.getCoins()));
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

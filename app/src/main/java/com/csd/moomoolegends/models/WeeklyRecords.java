@@ -66,7 +66,7 @@ public class WeeklyRecords extends FirestoreInstance{
                     }
 
                     userDoc.collection("recordsCollection").document(weekYear).set(newData);
-                    callback.onFirestoreComplete(true, "New weekly record created");;
+                    callback.onFirestoreComplete(true, "New weekly record created");
                 }
             } else {
                 Log.d("Debug", "Failed to get weekly records");

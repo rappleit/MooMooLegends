@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tripleCows"
                 android:layout_centerHorizontal="true"
-                android:fontFamily="@font/pixeloid_sans_bold"
+                android:fontFamily="@font/pixeloidsans_bold"
                 android:gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="5dp"
@@ -53,7 +53,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
                 android:layout_below="@id/weekly_carbon_text">
-
             </com.github.mikephil.charting.charts.PieChart>
 
         </RelativeLayout>

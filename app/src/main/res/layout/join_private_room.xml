@@ -83,6 +83,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="409dp"
         android:hint="@string/type_here"
+        android:textColor="@color/black"
         android:fontFamily="@font/pixeloidsans"
         android:background="@drawable/enter_room_code_background"
         android:paddingStart="20dp"

@@ -37,6 +37,8 @@ public class MultiHomePageActivity extends AppCompatActivity {
         joinPublicRoom = findViewById(R.id.join_public_room);
         current_coins = (TextView) findViewById(R.id.Current_coins);
 
+        current_coins.setText(String.valueOf(User.getCoins()));
+
         // Initialize the back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override

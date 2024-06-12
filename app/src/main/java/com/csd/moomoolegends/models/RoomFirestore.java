@@ -25,7 +25,8 @@ public class RoomFirestore extends FirestoreInstance{
     private static OnRoomListenerChange onRoomListenerChange;
 
 
-    public RoomFirestore() {
+    public RoomFirestore(){
+
     }
 
     public static RoomFirestore getInstance(){

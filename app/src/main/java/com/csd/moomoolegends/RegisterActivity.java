@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,9 +38,9 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onFirestoreComplete(boolean success, String message) {
                         if (success){
                             Log.d("register", message);
-
                         } else {
                             Log.d("register", message);
+                            Toast.makeText(RegisterActivity.this, message, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

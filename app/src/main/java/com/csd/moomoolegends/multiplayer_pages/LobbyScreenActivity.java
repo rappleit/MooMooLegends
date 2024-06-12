@@ -15,6 +15,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatTextView;
 
 import com.csd.moomoolegends.R;
+import com.csd.moomoolegends.home.HomeActivity;
 import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
 import com.csd.moomoolegends.models.OnRoomListenerChange;
 import com.csd.moomoolegends.models.Room;
@@ -40,7 +41,7 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
     ImageButton backButton;
     Button startButton;
     TextView numberOfPlayers, player1, player2, player3, player4, player5, nextChallengeCountdownText, timeToNextChallenge;
-    TextView currentCoins;
+    TextView currentCoins, leaveRoom;
     AppCompatTextView countdown;
     private TextView roomCode;
     private TextView roomName;
@@ -59,16 +60,18 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
         startButton = findViewById(R.id.startGame);
         countdown = findViewById(R.id.countdown);
         numberOfPlayers = findViewById(R.id.numPlayers);
+        leaveRoom = findViewById(R.id.leaveRoom);
         player1 =  findViewById(R.id.player1);
         player2 =  findViewById(R.id.player2);
         player3 =  findViewById(R.id.player3);
         player4 =  findViewById(R.id.player4);
         player5 =  findViewById(R.id.player5);
-        // nextChallengeCountdownText = (TextView) findViewById(R.id.next_challenge_countdown_text);
-        // timeToNextChallenge = (TextView) findViewById(R.id.time_to_next_challenge);
         currentCoins = findViewById(R.id.coins);
         roomCode = findViewById(R.id.roomCode);
         roomName = findViewById(R.id.roomName);
+
+        startButton.setVisibility(View.INVISIBLE);
+        countdown.setVisibility(View.INVISIBLE);
 
         numberOfPlayers.setText(String.valueOf(User.getRoom().getRoomCurrentSize()));
         currentCoins.setText(String.valueOf(User.getCoins()));
@@ -90,13 +93,17 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
             }
         });
 
-        if (alreadyInRoom){
+        if (alreadyInRoom && User.getRoom().getRoomIsFull()){
             startCountdown();
             Log.d("Debug", "Already in room");
-        } else {
+        } else if (!alreadyInRoom && User.getRoom().getRoomOwner().getId().equals(User.getUserId())){
+            startButton.setVisibility(View.VISIBLE);
+            countdown.setVisibility(View.INVISIBLE);
+            Log.d("Debug", "Not in room");
             startButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.d("Debug", "Start button");
                     RoomFirestore.getInstance().startRoom(new OnFirestoreCompleteCallback() {
                         @Override
                         public void onFirestoreComplete(boolean success, String message) {
@@ -113,14 +120,51 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
             });
         }
 
+        leaveRoom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RoomFirestore.getInstance().leaveRoom(new OnFirestoreCompleteCallback() {
+                    @Override
+                    public void onFirestoreComplete(boolean success, String message) {
+                        if (success){
+                            Log.d("Debug", message);
+                            Intent intent = new Intent(LobbyScreenActivity.this, MultiHomePageActivity.class);
+                            startActivity(intent);
+                            finish();
+                        } else {
+                            Log.d("Debug", message);
+                            Toast.makeText(LobbyScreenActivity.this, "Failed to leave room.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
         // Initialize the back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Intent to go back to HomeActivity or the parent activity
-                Intent intent = new Intent(LobbyScreenActivity.this, MultiHomePageActivity.class);
-                startActivity(intent);
-                finish(); // Finish this activity
+                if (!User.getRoom().getRoomIsFull()){
+                    RoomFirestore.getInstance().leaveRoom(new OnFirestoreCompleteCallback() {
+                        @Override
+                        public void onFirestoreComplete(boolean success, String message) {
+                            if (success){
+                                Log.d("Debug", message);
+                                Intent intent = new Intent(LobbyScreenActivity.this, MultiHomePageActivity.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                Log.d("Debug", message);
+                                Toast.makeText(LobbyScreenActivity.this, "Failed to leave room.", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                } else {
+                    Intent intent = new Intent(LobbyScreenActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
     }
@@ -128,7 +172,6 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
     private void startCountdown(){
         startButton.setEnabled(false);
         startButton.setVisibility(View.INVISIBLE);
-
         countdown.setVisibility(View.VISIBLE);
         User.getRoom().startCountdown(countdown);
     }

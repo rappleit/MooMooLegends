@@ -85,6 +85,19 @@
         android:text="Hello" />
 
     <TextView
+        android:id="@+id/leaveRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="270dp"
+        android:fontFamily="@font/pixeloidsans"
+        android:gravity="center_horizontal|top"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:text="Leave room" />
+
+    <TextView
         android:id="@+id/numPlayers"
         android:layout_width="wrap_content"
         android:layout_height="30dp"
@@ -182,12 +195,11 @@
         android:layout_height="50dp"
         android:layout_below="@+id/nestedLayout"
         android:layout_centerInParent="true"
+        android:layout_marginTop="7dp"
         android:background="@drawable/rounded_btn_pink_bg"
         android:fontFamily="@font/pixeloidsans"
         android:padding="15dp"
-        android:layout_marginTop="7dp"
         android:text="Start Room"
-        android:visibility="visible"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/white"
         android:textSize="16sp" />
@@ -202,7 +214,6 @@
         android:layout_marginTop="7dp"
         android:layout_marginBottom="7dp"
         android:text="Countdown"
-        android:visibility="invisible"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textColor="@color/black"
         android:textSize="16sp" />
