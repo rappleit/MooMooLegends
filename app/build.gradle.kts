@@ -33,11 +33,13 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 }
 
 dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.core:core:1.8.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.recyclerview:recyclerview-selection:1.1.0")
@@ -56,4 +58,14 @@ dependencies {
     // Add the dependency for the Firebase Authentication library
     // When using the BoM, you don't specify versions in Firebase library dependencies
     implementation("com.google.firebase:firebase-auth")
+    implementation("androidx.camera:camera-camera2:1.1.0")
+    implementation("androidx.camera:camera-lifecycle:1.1.0")
+    implementation("androidx.camera:camera-view:1.0.0-alpha32")
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
+    implementation("com.google.code.gson:gson:2.8.9")
+
+}
+
+secrets {
+    propertiesFileName = "secrets.properties"
 }

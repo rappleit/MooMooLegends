@@ -32,6 +32,7 @@ import com.csd.moomoolegends.models.User;
 import com.csd.moomoolegends.weekly_records;
 import com.csd.moomoolegends.multiplayer_pages.LobbyScreenActivity;
 import com.csd.moomoolegends.multiplayer_pages.MultiHomePageActivity;
+import com.csd.moomoolegends.foodlogger.FoodCameraActivity;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.ArrayList;
@@ -115,7 +116,8 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
         ((LinearLayout) findViewById(R.id.layoutLog)).setOnClickListener(view -> {
-            // TODO call explicit intent to food logger activity
+            Intent intent = new Intent(HomeActivity.this, FoodCameraActivity.class);
+            startActivity(intent);
         });
         layoutRecord.setOnClickListener(view -> {
             // TODO call explicit intent to records activity
