@@ -10,4 +10,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">15dp</item>
     </style>
+
+    <style name="TabFont" parent="TextAppearance.Design.Tab">
+        <item name="android:fontFamily">@font/pixeloidsans</item>
+    </style>
+
+
 </resources>
