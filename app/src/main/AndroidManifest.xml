@@ -54,6 +54,9 @@
         </activity>
 
         <activity
+            android:name=".foodlogger.FoodCameraActivity"
+            android:exported="false" />
+        <activity
             android:name=".foodlogger.LoggerResultsActivity"
             android:exported="false" />
         <activity

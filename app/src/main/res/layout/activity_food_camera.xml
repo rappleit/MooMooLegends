@@ -16,7 +16,7 @@
         android:layout_marginTop="36dp"
         android:text="Take a photo of your meal!"
         android:background="@color/gold"
-        android:fontFamily="@font/pixeloid_sans"
+        android:fontFamily="@font/pixeloidsans"
         android:padding="12dp"
         android:textColor="@color/black"
 

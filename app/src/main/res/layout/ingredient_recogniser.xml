@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:text="Loading..."
         android:textColor="@color/white"
-        android:fontFamily="@font/pixeloid_sans"
+        android:fontFamily="@font/pixeloidsans"
         android:textSize="32dp"
         />
 

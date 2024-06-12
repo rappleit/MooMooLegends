@@ -58,8 +58,8 @@ public class HomeActivity extends AppCompatActivity {
     private boolean inRoom;
     private int numCows;
     private int roomPersons;
-    private int currCarbonSolo;
-    private int currCarbonRoom;
+    private float currCarbonSolo;
+    private float currCarbonRoom;
     private ArrayList<Cow> listOfCows;
     //ArrayList of Cow objects
 
@@ -73,9 +73,11 @@ public class HomeActivity extends AppCompatActivity {
         numCows = User.getUserCows().size();
         if (inRoom){
             roomPersons = User.getRoom().getRoomCurrentSize();
-            currCarbonRoom = (int) User.getRoom().getRoomCarbonFootprint();
+
+            currCarbonRoom = Math.round(User.getRoom().getRoomCarbonFootprint() * 100.0f) / 100.0f;
         }
-        currCarbonSolo = (int) User.getCurrentCarbonFootprint();
+
+        currCarbonSolo = Math.round(User.getCurrentCarbonFootprint() * 100.0f) / 100.0f;
         listOfCows = User.getUserCows();
 
         cowLayout = findViewById(R.id.cowLayout);
@@ -215,12 +217,12 @@ public class HomeActivity extends AppCompatActivity {
         // Handle linear progress bars
         if (inRoom) {
             linearProgressMain.setMax(CARBON_THRESHOLD * roomPersons);
-            linearProgressMain.setProgress(currCarbonRoom, true);
+            linearProgressMain.setProgress((int) currCarbonRoom, true);
             linearProgressSolo.setMax(CARBON_THRESHOLD);
-            linearProgressSolo.setProgress(currCarbonSolo, true);
+            linearProgressSolo.setProgress((int) currCarbonSolo, true);
         } else {
             linearProgressMain.setMax(CARBON_THRESHOLD);
-            linearProgressMain.setProgress(currCarbonSolo, true);
+            linearProgressMain.setProgress((int) currCarbonSolo, true);
         }
 
         // Draw cows

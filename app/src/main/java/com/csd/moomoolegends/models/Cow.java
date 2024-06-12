@@ -11,13 +11,11 @@ public class Cow {
     private String name;
     private String rarity;
     private String imageName;
-    private final DocumentReference documentRef;
 
-    public Cow(String name, String rarity, String imageName, DocumentReference documentPath) {
+    public Cow(String name, String rarity, String imageName) {
         this.name = name;
         this.rarity = rarity;
         this.imageName = imageName;
-        this.documentRef = documentPath;
     }
 
     public String getName() {
@@ -30,10 +28,6 @@ public class Cow {
 
     public String getImageName() {
         return imageName;
-    }
-
-    public DocumentReference getDocumentRef() {
-        return documentRef;
     }
 
     public void setName(String name) {

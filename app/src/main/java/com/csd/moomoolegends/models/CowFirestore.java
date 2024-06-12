@@ -30,14 +30,13 @@ public class CowFirestore extends FirestoreInstance{
                     String name = document.getString("name");
                     String rarity = document.getString("rarity");
                     String imageName = document.getString("imageName");
-                    DocumentReference documentRef = document.getReference();
 
                     if (name == null || rarity == null || imageName == null) {
                         System.out.println("One or more fields are null for document: " + document.getId());
                         continue;
                     }
 
-                    listOfCows.add(new Cow(name, rarity, imageName, documentRef));
+                    listOfCows.add(new Cow(name, rarity, imageName));
                 }
                 callback.onFirestoreComplete(true, "All cows retrieved");
             } else {

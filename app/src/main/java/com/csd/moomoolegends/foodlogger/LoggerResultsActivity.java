@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import com.csd.moomoolegends.R;
 import com.csd.moomoolegends.home.HomeActivity;
+import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
+import com.csd.moomoolegends.models.User;
+import com.csd.moomoolegends.models.WeeklyRecords;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -44,8 +47,28 @@ public class LoggerResultsActivity extends AppCompatActivity {
         confirmLogButton.setOnClickListener(v -> {
 
             // TODO: Connect to backend after log is confirmed
-            Intent intent2 = new Intent(LoggerResultsActivity.this, HomeActivity.class);
-            startActivity(intent2);
+            for (LoggedIngredient ingredient : ingredientsList) {
+                Log.d("LoggerResultsActivity", "Ingredient: " + ingredient.getDisplayName() + ", Quantity: " + ingredient.getQuantity() + ", Footprint: " + ingredient.getFootprint());
+                WeeklyRecords.addRecord(ingredient.getCategory(), ingredient.getDisplayName(), (float) ingredient.getFootprint());
+            }
+
+            WeeklyRecords.updateFirestore(new OnFirestoreCompleteCallback() {
+                @Override
+                public void onFirestoreComplete(boolean success, String message) {
+                    if (success) {
+                        Log.d("LoggerResultsActivity", "Successfully updated Firestore");
+                        User.setCurrentCarbonFootprint(User.getCurrentCarbonFootprint() + totalCarbon.floatValue());
+                    } else {
+                        Log.e("LoggerResultsActivity", "Failed to update Firestore: " + message);
+                    }
+
+                    int newCoins = User.getCoins() + 10;
+                    User.setCoins(newCoins);
+
+                    Intent intent2 = new Intent(LoggerResultsActivity.this, HomeActivity.class);
+                    startActivity(intent2);
+                }
+            });
         });
 
         if (carbonData != null && !carbonData.isEmpty()) {
