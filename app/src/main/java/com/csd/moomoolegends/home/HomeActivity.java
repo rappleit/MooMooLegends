@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.csd.moomoolegends.R;
 import com.csd.moomoolegends.explore.ExploreActivity;
+import com.csd.moomoolegends.gacha.ShopActivity;
 import com.csd.moomoolegends.models.Cow;
 import com.csd.moomoolegends.models.User;
 import com.csd.moomoolegends.weekly_records;
@@ -50,9 +51,8 @@ public class HomeActivity extends AppCompatActivity {
     // TODO: replace with user / room variables DONE
     private final boolean inRoom = User.getInRoom();
     private final int numCows = User.getUserCows().size();
-    private final int roomPersons = User.getRoom().getRoomCurrentSize();
+    private int roomPersons, currCarbonRoom;
     private final int currCarbonSolo = (int) User.getCurrentCarbonFootprint();
-    private final int currCarbonRoom = (int) User.getRoom().getRoomCarbonFootprint();
     private final ArrayList<Cow> listOfCows = User.getUserCows();
     //ArrayList of Cow objects
 
@@ -71,6 +71,8 @@ public class HomeActivity extends AppCompatActivity {
 
         // Toggle visibility of solo card view if in room
         if (inRoom) {
+            roomPersons = User.getRoom().getRoomCurrentSize();
+            currCarbonRoom = (int) User.getRoom().getRoomCarbonFootprint();
             CardView cardViewSolo = (CardView) findViewById(R.id.cardViewSolo);
             cardViewSolo.setVisibility(View.VISIBLE);
         }
@@ -104,7 +106,8 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
         layoutShop.setOnClickListener(view -> {
-            // TODO call explicit intent to shop activity
+            Intent intent = new Intent(this, ShopActivity.class);
+            startActivity(intent);
         });
         layoutRecos.setOnClickListener(view -> {
             Intent intent = new Intent(this, ExploreActivity.class);

@@ -26,40 +26,51 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MooMooLegends"
         tools:targetApi="31">
+        <activity
+            android:name=".gacha.GachaResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".gacha.GachaRollActivity"
+            android:exported="false" />
+        <activity
+            android:name=".gacha.ShopActivity"
+            android:exported="false" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBG0srjhGU17RtXjnS8SPrQZVM93IsD1wU" />
 
-        <activity android:name=".StartingPage" android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <activity android:name=".LoginActivity"
+        <activity
+            android:name=".StartingPage"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".RegisterActivity"
+        <activity
+            android:name=".LoginActivity"
             android:exported="true">
-        </activity>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="true" />
         <activity
             android:name=".explore.ExploreActivity"
             android:exported="true"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".weekly_records"
             android:exported="true">
@@ -69,30 +80,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".explore.MapActivity"
             android:exported="true"
             tools:ignore="LockedOrientationActivity">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
-
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
-        </activity>
-
-
-        <activity
-            android:name=".home.HomeActivity"
-            android:exported="true"
-            tools:ignore="LockedOrientationActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".home.HomeActivity"
+            android:exported="true"
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
