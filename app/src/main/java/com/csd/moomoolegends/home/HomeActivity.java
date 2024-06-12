@@ -26,8 +26,13 @@ import android.widget.TextView;
 
 import com.csd.moomoolegends.R;
 import com.csd.moomoolegends.explore.ExploreActivity;
+import com.csd.moomoolegends.models.Cow;
+import com.csd.moomoolegends.models.User;
+import com.csd.moomoolegends.weekly_records;
+import com.csd.moomoolegends.foodlogger.FoodCameraActivity;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class HomeActivity extends AppCompatActivity {
@@ -43,12 +48,14 @@ public class HomeActivity extends AppCompatActivity {
     private final static int COWS_ALLOWED = 8;
     private final static String LOG_TAG = "LOGCAT_HomeActivity";
 
-    // TODO: replace with user / room variables
-    private final boolean inRoom = true;
-    private final int numCows = 15;
-    private final int roomPersons = 5;
-    private final int currCarbonSolo = 20;
-    private final int currCarbonRoom = 150;
+    // TODO: replace with user / room variables DONE
+    private final boolean inRoom = User.getInRoom();
+    private final int numCows = User.getUserCows().size();
+    private final int roomPersons = User.getRoom().getRoomCurrentSize();
+    private final int currCarbonSolo = (int) User.getCurrentCarbonFootprint();
+    private final int currCarbonRoom = (int) User.getRoom().getRoomCarbonFootprint();
+    private final ArrayList<Cow> listOfCows = User.getUserCows();
+    //ArrayList of Cow objects
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -70,16 +77,16 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         // Handle text views
-        ((TextView) findViewById(R.id.textViewCoins)).setText("2200"); // TODO replace with user coins
-        ((TextView) findViewById(R.id.textViewCows)).setText(numCows + " cows"); // TODO replace with user cows
+        ((TextView) findViewById(R.id.textViewCoins)).setText(String.valueOf(User.getCoins())); // TODO replace with user coins DONE
+        ((TextView) findViewById(R.id.textViewCows)).setText(numCows + " cows"); // TODO replace with user cows DONE
         TextView textViewCarbonMain = (TextView) findViewById(R.id.textViewCarbonMain);
         if (inRoom) {
-            textViewCarbonMain.setText(currCarbonRoom + " kg / " + (CARBON_THRESHOLD * roomPersons) + " kg"); // TODO replace with room carbon
-            ((TextView) findViewById(R.id.textViewLabelMain)).setText("TestingRoom's\nRoom Footprint"); // TODO replace with room name
-            ((TextView) findViewById(R.id.textViewCarbonSolo)).setText(currCarbonSolo + " kg / " + CARBON_THRESHOLD + " kg"); // TODO replace with user carbon
+            textViewCarbonMain.setText(currCarbonRoom + " kg / " + (CARBON_THRESHOLD * roomPersons) + " kg"); // TODO replace with room carbon DONE
+            ((TextView) findViewById(R.id.textViewLabelMain)).setText(User.getRoom().getRoomName() + "\n Footprint"); // TODO replace with room name DONE
+            ((TextView) findViewById(R.id.textViewCarbonSolo)).setText(currCarbonSolo + " kg / " + CARBON_THRESHOLD + " kg"); // TODO replace with user carbon DONE
             ((TextView) findViewById(R.id.textViewRoomBtn)).setText(R.string.view_room);
         } else {
-            textViewCarbonMain.setText(currCarbonSolo + " kg / " + CARBON_THRESHOLD + " kg"); // TODO replace with user carbon
+            textViewCarbonMain.setText(currCarbonSolo + " kg / " + CARBON_THRESHOLD + " kg"); // TODO replace with user carbon DONE
         }
 
         // Handle button clicks
@@ -90,10 +97,13 @@ public class HomeActivity extends AppCompatActivity {
             // TODO call explicit intent to room activity
         });
         ((LinearLayout) findViewById(R.id.layoutLog)).setOnClickListener(view -> {
-            // TODO call explicit intent to food logger activity
+            Intent intent = new Intent(HomeActivity.this, FoodCameraActivity.class);
+            startActivity(intent);
         });
         layoutRecord.setOnClickListener(view -> {
             // TODO call explicit intent to records activity
+            Intent intent = new Intent(this, weekly_records.class);
+            startActivity(intent);
         });
         layoutShop.setOnClickListener(view -> {
             // TODO call explicit intent to shop activity

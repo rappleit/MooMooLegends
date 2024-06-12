@@ -4,9 +4,18 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gold">#FFF1C75D</color>
     <color name="bermuda">#FF7AE1B6</color>
+    <color name="dark_bermuda">#FF327C5D</color>
     <color name="brown">#FF7F4C00</color>
     <color name="dark_brown">#FF422C00</color>
     <color name="light_green">#FF60CB9E</color>
     <color name="dark_green">#FF327C5D</color>
     <color name="lime">#FF5B7E30</color>
+    <color name="weekly_back_green">#327C5D</color>
+    <color name="weekly_tab">#60CB9E</color>
+    <color name="weekly_tab_light">#79FFC7</color>
+    <color name="weekly_tab_indicator">#48A37D</color>
+    <color name="weekly_pie_back">#C9EAD4</color>
+    <color name="login_background">#F1C75D</color>
+    <color name="login_text">#422C00</color>
+    <color name="register_background">#7AE1B6</color>
 </resources>

@@ -7,6 +7,9 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.any" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.INTERNET"
@@ -31,27 +34,72 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBG0srjhGU17RtXjnS8SPrQZVM93IsD1wU" />
 
-        <activity
-            android:name=".explore.ExploreActivity"
-            android:exported="true"
-            tools:ignore="LockedOrientationActivity">
+        <activity android:name=".StartingPage" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".RegisterActivity"
+            android:exported="true">
+        </activity>
+
         <activity
-            android:name=".explore.MapActivity"
-            android:exported="true"
-            tools:ignore="LockedOrientationActivity" />
+            android:name=".foodlogger.LoggerResultsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".foodlogger.CarbonFootprintCalculatorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".foodlogger.IngredientsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".foodlogger.IngredientRecogniserActivity"
+            android:exported="false" />
         <activity
             android:name=".home.HomeActivity"
             android:exported="true"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
         <activity
-            android:name=".MainActivity"
+            android:name=".weekly_records"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".explore.MapActivity"
             android:exported="true"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity">
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
+
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+        </activity>
+
+
+
+
     </application>
 
 </manifest>

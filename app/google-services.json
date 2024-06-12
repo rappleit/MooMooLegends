@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "551950762298",
+    "project_id": "moomoolegends",
+    "storage_bucket": "moomoolegends.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:551950762298:android:cb0f528f7bd675fdeb1003",
+        "android_client_info": {
+          "package_name": "com.csd.moomoolegends"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCM6GRJzWsH1NLFkZJJlN3YtIVafiHCKrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
