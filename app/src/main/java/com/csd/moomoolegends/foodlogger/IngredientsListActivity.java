@@ -28,6 +28,7 @@ public class IngredientsListActivity extends AppCompatActivity {
     ArrayList<LoggedIngredient> ingredientsList;
     private IngredientsListAdapter adapter;
     private Button confirmIngredientsBtn;
+    private Button addIngredientsBtn;
 
 
     @Override
@@ -37,6 +38,7 @@ public class IngredientsListActivity extends AppCompatActivity {
         processIngredients();
         foodImageView = findViewById(R.id.foodImageView);
         confirmIngredientsBtn = findViewById(R.id.confirmIngredients_button);
+        addIngredientsBtn = findViewById(R.id.addIngredientsButton);
 
         confirmIngredientsBtn.setOnClickListener(v -> {
             ArrayList<String> tuplesList = new ArrayList<>();

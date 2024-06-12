@@ -36,7 +36,13 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
     public void onBindViewHolder(@NonNull IngredientsListAdapter.IngredientsListViewHolder holder, int position) {
         LoggedIngredient ingredient = ingredientItemsList.get(position);
         holder.IngredientNameTextView.setText(ingredient.getDisplayName());
-        holder.IngredientQtyTextView.setText(String.valueOf(ingredient.getQuantity()));
+        holder.IngredientQtyTextView.setText(String.valueOf(ingredient.getQuantity()) + "g");
+        holder.RemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeItem(position);
+            }
+        });
     }
 
     @Override
@@ -44,14 +50,22 @@ public class IngredientsListAdapter extends RecyclerView.Adapter<IngredientsList
         return ingredientItemsList.size();
     }
 
+    private void removeItem(int position) {
+        ingredientItemsList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, ingredientItemsList.size());
+    }
+
     public static class IngredientsListViewHolder extends RecyclerView.ViewHolder{
         private TextView IngredientNameTextView;
         private TextView IngredientQtyTextView;
 
+        private Button RemoveButton;
         public IngredientsListViewHolder(@NonNull View itemView) {
             super(itemView);
             IngredientNameTextView = itemView.findViewById(R.id.ingredientListItem_name);
             IngredientQtyTextView = itemView.findViewById(R.id.ingredientListItem_qty);
+            RemoveButton = itemView.findViewById(R.id.removeButton);
         }
     }
 }
