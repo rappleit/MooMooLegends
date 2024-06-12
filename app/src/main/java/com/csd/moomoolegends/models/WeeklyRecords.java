@@ -13,11 +13,14 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
+import kotlin.jvm.internal.markers.KMutableMap;
+
 public class WeeklyRecords extends FirestoreInstance{
-    private static Map<String, Map<String, Number>> categoryData  = new HashMap<>();
-    private static String[] categories = {"dairy", "meat", "carbs", "veg", "seafood"};
+    private static Map<String, Map<String, Float>> categoryData  = new HashMap<>();
+    private static String[] categories = {"Dairy", "Meat", "Carbs", "Veg", "Seafood"};
     private static LocalDate date;
     private static Date endDate;
     private static Date startDate;
@@ -37,6 +40,8 @@ public class WeeklyRecords extends FirestoreInstance{
         LocalDate endOfWeek = date.with(TemporalAdjusters.nextOrSame(weekFields.getFirstDayOfWeek().plus(7)));
         Date endDate = Date.from(endOfWeek.atStartOfDay(ZoneId.systemDefault()).toInstant());
 
+        Log.d("Debug", "Got dates: " + startDate.toString() + endDate.toString());
+
         if (startDate == null || endDate == null){
             callback.onFirestoreComplete(false, "Failed to get start and end date");
             return;
@@ -48,13 +53,14 @@ public class WeeklyRecords extends FirestoreInstance{
                     Log.d("WeeklyRecords", "Weekly records exist");
                     retrieveData(task.getResult(), callback);
                 } else {
+                    Log.d("WeeklyRecords", "Weekly records does not exist");
                     Map<String, Object> newData = new HashMap<>();
                     newData.put("startDate", startDate);
                     newData.put("endDate", endDate);
                     newData.put("totalCarbonFootprint", 0);
                     for (String category : categories){
-                        Map<String, Number> newCategoryData = new HashMap<>();
-                        newCategoryData.put("categoryCarbonFootprint", 0);
+                        Map<String, Float> newCategoryData = new HashMap<>();
+                        newCategoryData.put("categoryCarbonFootprint", (float) 0);
                         newData.put(category, newCategoryData);
                         categoryData.put(category, newCategoryData);
                     }
@@ -63,6 +69,7 @@ public class WeeklyRecords extends FirestoreInstance{
                     callback.onFirestoreComplete(true, "New weekly record created");;
                 }
             } else {
+                Log.d("Debug", "Failed to get weekly records");
                 callback.onFirestoreComplete(false, "Failed to get weekly records");
             }
         });
@@ -76,8 +83,15 @@ public class WeeklyRecords extends FirestoreInstance{
 
         for (String currentCategory : categories) {
             Map<String, Number> category = (Map<String, Number>) document.get(currentCategory);
+            Map<String, Float> floatCategory = new HashMap<>();
             if (category != null && !category.isEmpty()){
-                categoryData.put(currentCategory, category);
+
+                for (Map.Entry<String, Number> value:category.entrySet()){
+                    float newData = value.getValue().floatValue();
+                    floatCategory.put(value.getKey(), newData);
+                }
+
+                categoryData.put(currentCategory, floatCategory);
             } else {
                 categoryData.put(currentCategory, new HashMap<>());
             }
@@ -89,6 +103,7 @@ public class WeeklyRecords extends FirestoreInstance{
         Log.d("WeeklyRecords", "Start Date: " + startDate);
         Log.d("WeeklyRecords", "Total Carbon Footprint: " + totalCarbonFootprint);
         Log.d("WeeklyRecords", "Category Data: " + categoryData);
+        callback.onFirestoreComplete(true, "Weekly records initialized successfully");
     }
 
     public static String getWeekYearNumber(){
@@ -103,24 +118,24 @@ public class WeeklyRecords extends FirestoreInstance{
         return totalCarbonFootprint;
     }
 
-    public static Map<String, Number> getCarbs() {
-        return categoryData.get("carbs");
+    public static Map<String, Float> getCarbs() {
+        return categoryData.get("Carbs");
     }
 
-    public static Map<String, Number> getDairy() {
-        return categoryData.get("dairy");
+    public static Map<String, Float> getDairy() {
+        return categoryData.get("Dairy");
     }
 
-    public static Map<String, Number> getMeat() {
-        return categoryData.get("meat");
+    public static Map<String, Float> getMeat() {
+        return categoryData.get("Meat");
     }
 
-    public static Map<String, Number> getSeafood() {
-        return categoryData.get("seafood");
+    public static Map<String, Float> getSeafood() {
+        return categoryData.get("Seafood");
     }
 
-    public static Map<String, Number> getVeg() {
-        return categoryData.get("veg");
+    public static Map<String, Float> getVeg() {
+        return categoryData.get("Veg");
     }
 
     public static void addRecord(String category, String ingredientName, float carbonFootprint){
@@ -159,6 +174,14 @@ public class WeeklyRecords extends FirestoreInstance{
 
         userDoc.collection("recordsCollection").document(getWeekYearNumber()).set(newData);
         callback.onFirestoreComplete(true, "Weekly records updated");
+    }
+
+    public static String[] getCategories(){
+        return categories;
+    }
+
+    public static  Map<String, Map<String, Float>> getCategoryData(){
+        return categoryData;
     }
 
 }

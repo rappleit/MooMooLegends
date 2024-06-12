@@ -58,7 +58,6 @@ public class Shop extends FirestoreInstance{
                 callback.onFirestoreComplete(false, "Failed to get shop prices");
             }
         });
-        callback.onFirestoreComplete(true, "Shop initialized successfully");
     }
 
 

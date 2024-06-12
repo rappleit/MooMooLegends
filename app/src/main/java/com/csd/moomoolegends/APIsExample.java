@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.AppCompatToggleButton;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -91,6 +92,7 @@ public class APIsExample extends AppCompatActivity {
                         Log.d("Debug", message);
                         //Update UI/Go to next activity
                         //Messages are: "Login successful"
+                        startNextActivity();
 
                     } else {
                         //Login failed
@@ -136,6 +138,7 @@ public class APIsExample extends AppCompatActivity {
                         //Update UI/Go to next activity
                         //Messages are: "User registered successfully"
                         Log.d("Debug", String.valueOf(User.getUserCows()));
+                        startNextActivity();
                     } else {
                         //Signup failed
                         Log.d("Debug", message);
@@ -494,6 +497,11 @@ public class APIsExample extends AppCompatActivity {
             });
         });
 
+    }
+
+    public void startNextActivity(){
+        Intent intent = new Intent(this, weekly_records.class);
+        startActivity(intent);
     }
 
     @Override

@@ -22,19 +22,19 @@ public class MyAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                RecordFragment meat = new RecordFragment("meat");
+                RecordFragment meat = new RecordFragment("Meat");
                 return meat;
             case 1:
-                RecordFragment dairy = new RecordFragment("dairy");
+                RecordFragment dairy = new RecordFragment("Dairy");
                 return dairy;
             case 2:
-                RecordFragment carbs = new RecordFragment("carbs");
+                RecordFragment carbs = new RecordFragment("Carbs");
                 return carbs;
             case 3:
-                RecordFragment veg = new RecordFragment("veg");
+                RecordFragment veg = new RecordFragment("Veg");
                 return veg;
             case 4:
-                RecordFragment seafood = new RecordFragment("seafood");
+                RecordFragment seafood = new RecordFragment("Seafood");
                 return seafood;
             default:
                 return null;

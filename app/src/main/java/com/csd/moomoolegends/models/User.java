@@ -42,7 +42,7 @@ public class User extends UserFirestore{
     public User(Map<String, Object> user, DocumentReference userDoc, OnFirestoreCompleteCallback callback) {
         try {
             CountDownLatch latch = new CountDownLatch(3);
-            ExecutorService executor = Executors.newFixedThreadPool(3);
+            ExecutorService executor = Executors.newFixedThreadPool(4);
             User.username = (String) user.get("username");
             User.email = (String) user.get("email");
             User.userId = (String) user.get("uid");
@@ -69,7 +69,9 @@ public class User extends UserFirestore{
                         public void onFirestoreComplete(boolean success, String message) {
                             if (success){
                                 Log.d("Debug", message);
+                                Log.d("Debug", "before room listener: " + String.valueOf(latch.getCount()));
                                 latch.countDown();
+                                Log.d("Debug", "after room listener: " + String.valueOf(latch.getCount()));
                             }else{
                                 callback.onFirestoreComplete(false, message);
                             }
@@ -77,7 +79,9 @@ public class User extends UserFirestore{
                     });
                 } else {
                     Log.d("Debug", "User is not in a room");
+                    Log.d("Debug", "before not in a room room listener: " + String.valueOf(latch.getCount()));
                     latch.countDown();
+                    Log.d("Debug", "after not in a room room listener: " + String.valueOf(latch.getCount()));
                 }
             });
 
@@ -87,8 +91,11 @@ public class User extends UserFirestore{
                     public void onFirestoreComplete(boolean success, String message) {
                         if (success){
                             Log.d("Debug", message);
+                            Log.d("Debug", "before weekly records" + String.valueOf(latch.getCount()));
                             latch.countDown();
+                            Log.d("Debug", "after weekly records" + String.valueOf(latch.getCount()));
                         }else{
+                            Log.d("Debug", message);
                             callback.onFirestoreComplete(false, message);
                         }
                     }
@@ -104,7 +111,9 @@ public class User extends UserFirestore{
                             Log.d("Debug", Shop.oneRoll.toString());
                             Log.d("Debug", Shop.twoRolls.toString());
                             Log.d("Debug", Shop.threeRolls.toString());
+                            Log.d("Debug", "before intialize shop" + String.valueOf(latch.getCount()));
                             latch.countDown();
+                            Log.d("Debug", "after intialize shop" + String.valueOf(latch.getCount()));
                         }else{
                             callback.onFirestoreComplete(false, message);
                         }
@@ -115,7 +124,9 @@ public class User extends UserFirestore{
             executor.execute(() -> {
                 try {
                     Log.d("Firestore", "User object waiting");
+                    Log.d("Debug", String.valueOf(latch.getCount()));
                     latch.await();
+                    Log.d("Debug", String.valueOf(latch.getCount()));
                     Log.d("Firestore", "User object initialized");
                     callback.onFirestoreComplete(true, "User object initialized");
                 } catch (InterruptedException e) {

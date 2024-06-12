@@ -21,6 +21,7 @@ import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -54,7 +55,8 @@ public class weekly_records extends AppCompatActivity {
         backButt.setOnClickListener(v -> finish());
         //edit total co2e
         TextView weeklyCarbon=findViewById(R.id.weekly_carbon_text);
-        String weeklyCarbonString=WeeklyRecords.getTotalCarbonFootprint()+" kg CO2e\nthis week";
+        Log.d("hello", Float.toString(WeeklyRecords.getTotalCarbonFootprint()));
+        String weeklyCarbonString=Float.toString(WeeklyRecords.getTotalCarbonFootprint())+" kg CO2e\nthis week";
         weeklyCarbon.setText(weeklyCarbonString);
 
         tabInit();
@@ -94,11 +96,18 @@ public class weekly_records extends AppCompatActivity {
     private void pieChartInit() {
         PieChart weekly=(PieChart) findViewById(R.id.weeklyPie);
         List<PieEntry> pieEntries= new ArrayList<>();
-        pieEntries.add(new PieEntry((Float) WeeklyRecords.getMeat().get("categoryCarbonFootprint"),"Meat"));
-        pieEntries.add(new PieEntry((Float) WeeklyRecords.getDairy().get("categoryCarbonFootprint"),"Dairy"));
-        pieEntries.add(new PieEntry((Float) WeeklyRecords.getCarbs().get("categoryCarbonFootprint"),"Carbs"));
-        pieEntries.add(new PieEntry((Float) WeeklyRecords.getVeg().get("categoryCarbonFootprint"),"Veg"));
-        pieEntries.add(new PieEntry((Float) WeeklyRecords.getSeafood().get("categoryCarbonFootprint"),"Seafood"));
+        for (String category:WeeklyRecords.getCategories()){
+            Log.d("weekly_records",WeeklyRecords.getCategoryData().toString());
+            float data = WeeklyRecords.getCategoryData().get(category).get("categoryCarbonFootprint");
+            if (data != 0){
+                pieEntries.add(new PieEntry(data, category));
+            }
+        }
+//        pieEntries.add(new PieEntry((Long) WeeklyRecords.getMeat().get("categoryCarbonFootprint"),"Meat"));
+//        pieEntries.add(new PieEntry((Float) WeeklyRecords.getDairy().get("categoryCarbonFootprint"),"Dairy"));
+//        pieEntries.add(new PieEntry((Float) WeeklyRecords.getCarbs().get("categoryCarbonFootprint"),"Carbs"));
+//        pieEntries.add(new PieEntry((Float) WeeklyRecords.getVeg().get("categoryCarbonFootprint"),"Veg"));
+//        pieEntries.add(new PieEntry((Float) WeeklyRecords.getSeafood().get("categoryCarbonFootprint"),"Seafood"));
         PieDataSet weeklyPieSet=new PieDataSet(pieEntries,"Food Type");
 
         ArrayList<Integer> colors = new ArrayList<>();
