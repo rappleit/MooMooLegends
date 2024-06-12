@@ -16,4 +16,5 @@
     <color name="weekly_pie_back">#C9EAD4</color>
     <color name="login_background">#F1C75D</color>
     <color name="login_text">#422C00</color>
+    <color name="register_background">#7AE1B6</color>
 </resources>
