@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="18dp">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add an ingredient"
+        android:fontFamily="@font/pixeloidsans_bold"
+        android:textSize="20dp"
+        android:layout_marginBottom="10dp"
+
+        />
+    <EditText
+        android:fontFamily="@font/pixeloidsans"
+        android:id="@+id/editTextIngredientName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ingredient name"
+        android:inputType="text"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Number of servings"
+        android:fontFamily="@font/pixeloidsans_bold"
+        android:layout_marginBottom="10dp"
+
+        />
+    <Spinner
+        android:fontFamily="@font/pixeloidsans"
+        android:id="@+id/spinnerServings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>
