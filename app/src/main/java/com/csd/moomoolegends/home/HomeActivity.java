@@ -27,6 +27,7 @@ import android.widget.TextView;
 
 import com.csd.moomoolegends.R;
 import com.csd.moomoolegends.explore.ExploreActivity;
+import com.csd.moomoolegends.gacha.ShopActivity;
 import com.csd.moomoolegends.models.Cow;
 import com.csd.moomoolegends.models.User;
 import com.csd.moomoolegends.weekly_records;

@@ -14,8 +14,12 @@ import android.widget.TextView;
 
 import com.csd.moomoolegends.R;
 import com.csd.moomoolegends.models.Cow;
+import com.csd.moomoolegends.models.CowFirestore;
+import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
 import com.csd.moomoolegends.models.User;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Objects;
 
 public class GachaResultActivity extends AppCompatActivity {
@@ -57,6 +61,33 @@ public class GachaResultActivity extends AppCompatActivity {
 
         // TODO add cow
         textViewCow.setText(Objects.requireNonNull(cowName).equals(Cow.REGULAR_COW_NAME) ? "Regular Cow" : cowName);
+
+        CowFirestore.getInstance().getAllCows(new OnFirestoreCompleteCallback() {
+            @Override
+            public void onFirestoreComplete(boolean success, String message) {
+                if (success) {
+                    Log.d(LOG_TAG, "Successfully retrieved all cows");
+                    ArrayList<Cow> listOfCows = CowFirestore.getListOfCows();
+                    for (Cow cow : listOfCows) {
+                        if (cow.getName().equals(cowName)) {
+                            User.addCow(cow, new OnFirestoreCompleteCallback() {
+                                @Override
+                                public void onFirestoreComplete(boolean success, String message) {
+                                    if (success) {
+                                        Log.d(LOG_TAG, "Successfully added cow: " + cowName);
+                                    } else {
+                                        Log.e(LOG_TAG, "Failed to add cow: " + cowName);
+                                    }
+                                }
+                            });
+                            break;
+                        }
+                    }
+                } else {
+                    Log.e(LOG_TAG, "Failed to retrieve all cows: " + message);
+                }
+            }
+        });
 
         switch (cowName) {
             case Cow.NATURE_COW_NAME:
@@ -113,7 +144,7 @@ public class GachaResultActivity extends AppCompatActivity {
                 break;
             case Cow.GOLD_COW_NAME:
                 layoutRoot.setBackgroundColor(ContextCompat.getColor(this, R.color.gold));
-                imageView.setImageResource(R.drawable.diamond_cow);
+                imageView.setImageResource(R.drawable.gold_cow);
                 textViewRarity.setText(getString(R.string.rarity_legendary));
                 if (newCow) {
                     textViewNewCow.setTextColor(ContextCompat.getColor(this, R.color.very_light_green));
