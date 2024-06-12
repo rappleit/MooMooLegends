@@ -78,16 +78,14 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/register_password"
+                android:id="@+id/register_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:passwordToggleEnabled="true"
-                android:hint="Password">
+                android:hint="E-mail">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
                     android:background="@color/white"
                     android:fontFamily="@font/pixeloidsans"
                     />
@@ -97,7 +95,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:passwordToggleEnabled="true"
-                android:hint="Re-enter Password">
+                android:hint="Pass (min 6 chars)">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -118,7 +116,7 @@
         android:layout_below="@id/register_fields">
 
         <ImageButton
-            android:id="@+id/sign_in_butt"
+            android:id="@+id/register_butt"
             android:layout_width="wrap_content"
             android:layout_height="1000dp"
             android:layout_gravity="bottom|center_horizontal"

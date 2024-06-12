@@ -34,11 +34,21 @@
 
         <activity android:name=".LoginActivity"
             android:exported="true">
+        <activity android:name=".StartingPage" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            </intent-filter>
+        </activity>
+
+        <activity android:name=".RegisterActivity"
+            android:exported="true">
+        </activity>
+
+        <activity android:name=".LoginActivity"
+            android:exported="true">
+
         </activity>
 
         <activity
@@ -47,9 +57,9 @@
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+            android:name=".APIsExample"
+            android:exported="true">
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity
@@ -81,8 +91,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
 
     </application>
