@@ -6,14 +6,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.csd.moomoolegends.R;
+import com.csd.moomoolegends.models.Room;
+
 import java.util.List;
 
 public class PublicRoomViewAdapter extends RecyclerView.Adapter<PublicRoomViewAdapter.ViewHolder> {
 
-    private List<String> roomNames; // replace with your actual data type
+    private List<Room> rooms;
 
-    public PublicRoomViewAdapter(List<String> roomNames) {
-        this.roomNames = roomNames;
+    public PublicRoomViewAdapter(List<Room> rooms) {
+        this.rooms = rooms;
     }
 
     @Override
@@ -24,21 +26,24 @@ public class PublicRoomViewAdapter extends RecyclerView.Adapter<PublicRoomViewAd
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String roomName = roomNames.get(position);
-        holder.roomNameTextView.setText(roomName);
+        Room room = rooms.get(position);
+        holder.roomNameTextView.setText(room.getRoomName());
+        holder.numberOfPlayersTextView.setText(room.getRoomCurrentSize() + "/5"); // assuming maximum of 5 players
     }
 
     @Override
     public int getItemCount() {
-        return roomNames.size();
+        return rooms.size();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView roomNameTextView;
+        public TextView numberOfPlayersTextView;
 
         public ViewHolder(View view) {
             super(view);
             roomNameTextView = view.findViewById(R.id.room_name);
+            numberOfPlayersTextView = view.findViewById(R.id.number_of_players);
         }
     }
 }
