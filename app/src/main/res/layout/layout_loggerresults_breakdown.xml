@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingVertical="12dp"
+    android:layout_marginVertical="6dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingredient: XX kgCO2"
+        android:fontFamily="@font/pixeloid_sans_bold"
+        android:layout_marginBottom="6dp"
+        android:textColor="@color/black"
+        android:id="@+id/breakdown_ingredientname"
+        />
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        app:indicatorColor="@color/white"
+        app:trackCornerRadius="10dp"
+        app:trackThickness="20dp"
+        android:id="@+id/ingredientindicator"
+        app:trackColor="@color/bermuda"
+
+        />
+</LinearLayout>

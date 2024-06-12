@@ -7,6 +7,9 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.any" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission
         android:name="android.permission.INTERNET"
@@ -51,11 +54,24 @@
         </activity>
 
         <activity
-            android:name=".explore.ExploreActivity"
+            android:name=".foodlogger.LoggerResultsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".foodlogger.CarbonFootprintCalculatorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".foodlogger.IngredientsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".foodlogger.IngredientRecogniserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".home.HomeActivity"
             android:exported="true"
             tools:ignore="LockedOrientationActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -82,16 +98,7 @@
         </activity>
 
 
-        <activity
-            android:name=".home.HomeActivity"
-            android:exported="true"
-            tools:ignore="LockedOrientationActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
     </application>
 
