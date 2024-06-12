@@ -20,4 +20,6 @@
     <color name="register_background">#7AE1B6</color>
     <color name="super_light_green">#FFD5FFED</color>
     <color name="pink">#FFFFA3B1</color>
+    <color name="very_light_green">#FFD5FFED</color>
+    <color name="purple">#FF7560CB</color>
 </resources>

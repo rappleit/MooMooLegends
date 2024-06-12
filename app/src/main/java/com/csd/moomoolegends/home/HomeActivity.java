@@ -127,7 +127,8 @@ public class HomeActivity extends AppCompatActivity {
             startActivity(intent);
         });
         layoutShop.setOnClickListener(view -> {
-            // TODO call explicit intent to shop activity
+            Intent intent = new Intent(this, ShopActivity.class);
+            startActivity(intent);
         });
         layoutRecos.setOnClickListener(view -> {
             Intent intent = new Intent(this, ExploreActivity.class);

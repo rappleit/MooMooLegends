@@ -41,6 +41,7 @@
             </intent-filter>
         </activity>
 
+
         <activity android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
@@ -56,6 +57,7 @@
         <activity
             android:name=".foodlogger.FoodCameraActivity"
             android:exported="false" />
+
         <activity
             android:name=".foodlogger.LoggerResultsActivity"
             android:exported="false" />
@@ -67,6 +69,26 @@
             android:exported="false" />
         <activity
             android:name=".foodlogger.IngredientRecogniserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".home.HomeActivity"
+            android:exported="true"
+            tools:ignore="LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".gacha.GachaResultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".gacha.GachaRollActivity"
+            android:exported="false" />
+        <activity
+            android:name=".gacha.ShopActivity"
             android:exported="false" />
 
         <activity
@@ -116,16 +138,7 @@
         </activity>
 
 
-        <activity
-            android:name=".home.HomeActivity"
-            android:exported="true"
-            tools:ignore="LockedOrientationActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
 
     </application>
 
