@@ -61,8 +61,8 @@ public class MultiHomePageActivity extends AppCompatActivity {
                             // If the room is created successfully, navigate to the LobbyScreenActivity
                             Log.d("Debug", "Room Created in Firestore");
                             Intent intent = new Intent(MultiHomePageActivity.this, LobbyScreenActivity.class);
-                            Log.d("Debug", "New user creating roomcode: " + User.getRoomCode());
                             startActivity(intent);
+                            Log.d("Debug", "New user creating roomcode: " + User.getRoomCode());
                             finish();
                         } else {
                             // Handle the error here
@@ -92,6 +92,10 @@ public class MultiHomePageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Intent to go to JoinPublicRoomActivity
                 Log.d("Debug", "Join Public Room Button Clicked");
+                Intent intent = new Intent(MultiHomePageActivity.this, ViewPublicRoomsActivity.class);
+                startActivity(intent);
+                Log.d("Debug", "Join Public Room Activity Started");
+                finish();
                 return;
             }
         });
