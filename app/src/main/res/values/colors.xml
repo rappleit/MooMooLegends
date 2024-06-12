@@ -18,4 +18,7 @@
     <color name="login_background">#F1C75D</color>
     <color name="login_text">#422C00</color>
     <color name="register_background">#7AE1B6</color>
+    <color name="very_light_green">#FFD5FFED</color>
+    <color name="pink">#FFFFA3B1</color>
+    <color name="purple">#FF7560CB</color>
 </resources>
