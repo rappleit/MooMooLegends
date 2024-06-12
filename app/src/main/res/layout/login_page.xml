@@ -1,57 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    android:layout_height="match_parent"
+<RelativeLayout android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/login_background">
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/relativeLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/cow_background" />
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="55dp"
+        android:id="@+id/login_frame"
         android:gravity="center">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/cows_in_a_line"
             android:foregroundGravity="center_horizontal"
-            />
+            android:src="@drawable/cows_in_a_line" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="130dp"
-            android:gravity="center"
             android:fontFamily="@font/pixeloidsans_bold"
-            android:textSize="48dp"
+            android:gravity="center"
+            android:text="Login"
             android:textColor="@color/login_text"
-            android:text="Login">
-        </androidx.appcompat.widget.AppCompatTextView>
+            android:textSize="48dp"></androidx.appcompat.widget.AppCompatTextView>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="195dp"
-            android:gravity="center"
             android:fontFamily="@font/pixeloidsans_bold"
-            android:textSize="18dp"
+            android:gravity="center"
+            android:text="Welcome back, Moo-Legend"
             android:textColor="@color/login_text"
-            android:text="Welcome back, Moo-Legend">
-        </androidx.appcompat.widget.AppCompatTextView>
+            android:textSize="18dp"></androidx.appcompat.widget.AppCompatTextView>
 
     </FrameLayout>
 
+    <LinearLayout
+        android:id="@+id/login_fields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/login_frame"
+        android:orientation="horizontal"
+        android:paddingLeft="50dp"
+        android:paddingTop="40dp"
+        android:paddingRight="50dp">
 
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/diamond_login_cow" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_in_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Username">
 
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/sign_in_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:passwordToggleEnabled="true"
+                android:hint="Password">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    android:background="@color/white"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/login_fields">
+
+        <ImageButton
+            android:id="@+id/sign_in_butt"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_width="300dp"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:paddingBottom="50dp"
+            android:src="@drawable/login_cow" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/cow_background">
+
+    </FrameLayout>
 
 
 </RelativeLayout>
