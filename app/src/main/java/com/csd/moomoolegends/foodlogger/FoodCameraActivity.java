@@ -5,16 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.CameraX;
+import androidx.camera.core.ImageCapture;
+import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import java.io.File;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -28,6 +33,7 @@ import java.util.concurrent.ExecutionException;
 public class FoodCameraActivity extends AppCompatActivity {
     private PreviewView viewFinder;
     private ImageButton btnScanMeal;
+    private ImageCapture imageCapture;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +42,7 @@ public class FoodCameraActivity extends AppCompatActivity {
         btnScanMeal = findViewById(R.id.btnScanMeal);
 
         btnScanMeal.setOnClickListener(v -> {
-            // Implement your scanning functionality here
-            Toast.makeText(this, "Scanning Meal...", Toast.LENGTH_SHORT).show();
+            takePhoto();
         });
 
         if (allPermissionsGranted()) {
@@ -55,30 +60,56 @@ public class FoodCameraActivity extends AppCompatActivity {
 
         cameraProviderFuture.addListener(() -> {
             try {
-                // Used to bind the lifecycle of cameras to the lifecycle owner
                 ProcessCameraProvider cameraProvider = cameraProviderFuture.get();
 
-                // Preview
                 Preview preview = new Preview.Builder().build();
                 preview.setSurfaceProvider(viewFinder.getSurfaceProvider());
 
-                // Select back camera as a default
+                imageCapture = new ImageCapture.Builder()
+                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                        .build();
+
                 CameraSelector cameraSelector = new CameraSelector.Builder()
                         .requireLensFacing(CameraSelector.LENS_FACING_BACK)
                         .build();
 
-                // Unbind use cases before rebinding
                 cameraProvider.unbindAll();
 
-                // Bind use cases to camera
-                cameraProvider.bindToLifecycle(this, cameraSelector, preview);
+                cameraProvider.bindToLifecycle(
+                        this,
+                        cameraSelector,
+                        preview,
+                        imageCapture
+                );
             } catch (ExecutionException | InterruptedException e) {
-                // No errors need to be handled for this example
                 Log.e("CameraX App", "Use case binding failed", e);
             }
         }, ContextCompat.getMainExecutor(this));
     }
 
+    private void takePhoto() {
+        // Creating a file in the external storage directory
+        File photoFile = new File(getExternalFilesDir(Environment.DIRECTORY_PICTURES),
+                System.currentTimeMillis() + "_photo.jpg");
+
+        ImageCapture.OutputFileOptions outputFileOptions =
+                new ImageCapture.OutputFileOptions.Builder(photoFile).build();
+
+        imageCapture.takePicture(outputFileOptions, ContextCompat.getMainExecutor(this),
+                new ImageCapture.OnImageSavedCallback() {
+                    @Override
+                    public void onImageSaved(@NonNull ImageCapture.OutputFileResults outputFileResults) {
+                        Intent intent = new Intent(FoodCameraActivity.this, IngredientRecogniserActivity.class);
+                        String photoPath = photoFile.getAbsolutePath();
+                        intent.putExtra("photo_path", photoPath);
+                        startActivity(intent);
+                    }
+                    @Override
+                    public void onError(@NonNull ImageCaptureException exception) {
+                        Log.e("CameraX App", "Photo capture failed: " + exception.getMessage(), exception);
+                    }
+                });
+    }
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

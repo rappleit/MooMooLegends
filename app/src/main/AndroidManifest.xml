@@ -15,7 +15,6 @@
         android:name="android.permission.INTERNET"
         android:required="true" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -37,7 +36,7 @@
             android:name=".foodlogger.IngredientsListActivity"
             android:exported="false" />
         <activity
-            android:name=".foodlogger.ScannerLoaderActivity"
+            android:name=".foodlogger.IngredientRecogniserActivity"
             android:exported="false" />
         <activity
             android:name=".home.HomeActivity"
