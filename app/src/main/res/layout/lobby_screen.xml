@@ -6,13 +6,12 @@
     android:layout_height="match_parent"
     android:background="#60CB9E">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/background"
-        android:scaleType="centerCrop" />
+<!--    <ImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:src="@drawable/background"-->
+<!--        android:scaleType="centerCrop" />-->
 
-    <!-- Back Button -->
     <ImageButton
         android:id="@+id/backButton"
         android:layout_width="118dp"
@@ -26,22 +25,6 @@
         android:contentDescription="@string/back_btn_label"
         android:textColor="@color/white"
         android:textSize="14sp" />
-
-    <Button
-        android:id="@+id/start_game_button"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="30dp"
-        android:background="@drawable/rounded_btn_pink_bg"
-        android:elevation="2dp"
-        android:fontFamily="@font/pixeloid_sans"
-        android:text="@string/start_now"
-        android:textAlignment="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/white"
-        android:textSize="16sp" />
 
     <!-- Coins Display Frame -->
     <FrameLayout
@@ -61,12 +44,12 @@
             android:contentDescription="@string/coins_label" />
 
         <TextView
-            android:id="@+id/Current_coins"
+            android:id="@+id/coins"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="42dp"
             android:layout_marginTop="8.5dp"
-            android:fontFamily="@font/pixeloid_sans"
+            android:fontFamily="@font/pixeloidsans"
             android:textColor="#000000"
             android:textSize="14sp"
             android:text = "1000" />
@@ -74,108 +57,138 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/textViewRoomName"
-        android:layout_width="155dp"
+        android:id="@+id/roomName"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="135dp"
         android:text="Test"
-        android:fontFamily="@font/pixeloid_sans"
+        android:fontFamily="@font/pixeloidsans"
         android:gravity="center_horizontal|top"
         android:textSize="24sp"
         android:textColor="#FFFFFF" />
 
     <TextView
-        android:id="@+id/room_code"
-        android:layout_width="285dp"
+        android:id="@+id/roomCode"
+        android:layout_width="wrap_content"
         android:layout_height="75dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
         android:layout_marginTop="192dp"
+        android:layout_marginHorizontal="70dp"
         android:gravity="center"
-        android:fontFamily="@font/pixeloid_sans"
+        android:fontFamily="@font/pixeloidsans"
         android:textSize = "36sp"
         android:textColor = "#000000"
         android:background="@drawable/room_code_background"
         android:text="Hello" />
 
     <TextView
-        android:id="@+id/textViewNumPlayers"
-        android:layout_width="145dp"
+        android:id="@+id/numPlayers"
+        android:layout_width="wrap_content"
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="355dp"
-        android:fontFamily="@font/pixeloid_sans"
+        android:layout_marginTop="300dp"
+        android:fontFamily="@font/pixeloidsans"
         android:gravity="center_horizontal|top"
         android:textSize="24sp"
         android:textColor="#FFFFFF"
         android:text="Players (0)" />
 
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="350dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal">
+
     <TextView
-        android:id="@+id/player_1"
-        android:layout_width="285dp"
+        android:id="@+id/player1"
+        android:layout_width="wrap_content"
         android:layout_height="57dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="412dp"
         android:background="@drawable/player_background"
-        android:fontFamily="@font/pixeloid_sans"
+        android:fontFamily="@font/pixeloidsans"
         android:textColor="#000000"
+        android:layout_marginBottom="7dp"
+        android:layout_marginHorizontal="60dp"
         android:gravity="center"
         android:text="Test" />
 
     <TextView
-        android:id="@+id/player_2"
-        android:layout_width="285dp"
+        android:id="@+id/player2"
+        android:layout_width="wrap_content"
         android:layout_height="57dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="484dp"
         android:background="@drawable/player_background"
-        android:fontFamily="@font/pixeloid_sans"
+        android:fontFamily="@font/pixeloidsans"
         android:textColor="#000000"
+        android:layout_marginBottom="7dp"
+        android:layout_marginHorizontal="60dp"
         android:gravity="center"
         android:text="Test" />
 
     <TextView
-        android:id="@+id/player_3"
-        android:layout_width="285dp"
+        android:id="@+id/player3"
+        android:layout_width="wrap_content"
         android:layout_height="57dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="561dp"
         android:background="@drawable/player_background"
-        android:fontFamily="@font/pixeloid_sans"
+        android:fontFamily="@font/pixeloidsans"
         android:textColor="#000000"
+        android:layout_marginHorizontal="60dp"
+        android:layout_marginBottom="7dp"
         android:gravity="center"
         android:text="Test" />
 
     <TextView
-        android:id="@+id/player_4"
-        android:layout_width="285dp"
+        android:id="@+id/player4"
+        android:layout_width="wrap_content"
         android:layout_height="57dp"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="638dp"
         android:background="@drawable/player_background"
-        android:fontFamily="@font/pixeloid_sans"
+        android:fontFamily="@font/pixeloidsans"
         android:textColor="#000000"
+        android:layout_marginBottom="7dp"
+        android:layout_marginHorizontal="60dp"
         android:gravity="center"
         android:text="Test" />
 
     <TextView
-        android:id="@+id/player_5"
-        android:layout_width="285dp"
+        android:id="@+id/player5"
+        android:layout_width="wrap_content"
         android:layout_height="57dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="715dp"
         android:background="@drawable/player_background"
-        android:fontFamily="@font/pixeloid_sans"
+        android:fontFamily="@font/pixeloidsans"
         android:textColor="#000000"
         android:gravity="center"
+        android:layout_marginHorizontal="60dp"
         android:text="Test" />
+    </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/startGame"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_below="@+id/nestedLayout"
+        android:layout_centerInParent="true"
+        android:background="@drawable/rounded_btn_pink_bg"
+        android:fontFamily="@font/pixeloidsans"
+        android:padding="15dp"
+        android:layout_marginTop="7dp"
+        android:text="Start Room"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
 </RelativeLayout>

@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.csd.moomoolegends.R;
 import com.csd.moomoolegends.adaptors.PublicRoomViewAdapter;
+import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
 import com.csd.moomoolegends.models.Room;
+import com.csd.moomoolegends.models.RoomFirestore;
 import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 
@@ -18,7 +20,6 @@ public class ViewPublicRoomsActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ImageButton backButton;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,8 @@ public class ViewPublicRoomsActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.public_rooms_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        Log.d("Debug", RoomFirestore.getInstance().publicRooms.get(0).getRoomName());
+        recyclerView.setAdapter(new PublicRoomViewAdapter(RoomFirestore.getInstance().publicRooms));
 
         backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
@@ -37,22 +40,6 @@ public class ViewPublicRoomsActivity extends AppCompatActivity {
                 startActivity(intent);
                 Log.d("Debug", "Navigating back to MultiHomePageActivity.");
                 finish();
-            }
-        });
-
-        fetchPublicRooms();
-    }
-
-    private void fetchPublicRooms() {
-        // Fetch the list of public rooms from Firebase
-        db.collection("rooms").get().addOnCompleteListener(task -> {
-            if (task.isSuccessful()) {
-                List<Room> rooms = task.getResult().toObjects(Room.class);
-                Log.d("Debug", "Successfully got rooms, Rooms: " + rooms.toString());
-                // Set the adapter for the RecyclerView
-                recyclerView.setAdapter(new PublicRoomViewAdapter(rooms));
-            } else {
-                Log.e("ViewPublicRoomsActivity", "Error getting documents: ", task.getException());
             }
         });
     }

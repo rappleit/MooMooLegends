@@ -7,6 +7,7 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.AppCompatToggleButton;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -20,6 +21,8 @@ import com.csd.moomoolegends.models.Shop;
 import com.csd.moomoolegends.models.SignUpLoginFirestore;
 import com.csd.moomoolegends.models.User;
 import com.csd.moomoolegends.models.WeeklyRecords;
+import com.csd.moomoolegends.multiplayer_pages.LobbyScreenActivity;
+import com.csd.moomoolegends.multiplayer_pages.MultiHomePageActivity;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -91,7 +94,8 @@ public class APIsExample extends AppCompatActivity {
                         Log.d("Debug", message);
                         //Update UI/Go to next activity
                         //Messages are: "Login successful"
-
+                        Intent intent = new Intent(APIsExample.this, MultiHomePageActivity.class);
+                        startActivity(intent);
                     } else {
                         //Login failed
                         Log.d("Debug", message);

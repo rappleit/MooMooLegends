@@ -3,80 +3,84 @@ package com.csd.moomoolegends.multiplayer_pages;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.content.Intent;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import com.csd.moomoolegends.R;
+import com.csd.moomoolegends.models.OnRoomListenerChange;
+import com.csd.moomoolegends.models.RoomFirestore;
+import com.csd.moomoolegends.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
-public class LobbyScreenActivity extends AppCompatActivity {
+public class LobbyScreenActivity extends AppCompatActivity implements OnRoomListenerChange {
 
     ImageButton backButton;
+    Button startButton;
     TextView numberOfPlayers, player1, player2, player3, player4, player5, nextChallengeCountdownText, timeToNextChallenge;
     TextView currentCoins;
-
-    // List to keep track of the users
-    List<String> users = new ArrayList<>();
-
-    // Firestore and FirebaseAuth instances
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
-    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private TextView roomCode;
+    private TextView roomName;
+    private int currentSize;
+    String roomOwner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lobby_screen);
-
+        RoomFirestore.setOnRoomListenerChange(this);
         // Initialize all variables
-        backButton = (ImageButton) findViewById(R.id.backButton);
-        numberOfPlayers = (TextView) findViewById(R.id.textViewNumPlayers);
-        player1 = (TextView) findViewById(R.id.player_1);
-        player2 = (TextView) findViewById(R.id.player_2);
-        player3 = (TextView) findViewById(R.id.player_3);
-        player4 = (TextView) findViewById(R.id.player_4);
-        player5 = (TextView) findViewById(R.id.player_5);
+        backButton = findViewById(R.id.backButton);
+        startButton = findViewById(R.id.startGame);
+        numberOfPlayers = findViewById(R.id.numPlayers);
+        player1 =  findViewById(R.id.player1);
+        player2 =  findViewById(R.id.player2);
+        player3 =  findViewById(R.id.player3);
+        player4 =  findViewById(R.id.player4);
+        player5 =  findViewById(R.id.player5);
         // nextChallengeCountdownText = (TextView) findViewById(R.id.next_challenge_countdown_text);
         // timeToNextChallenge = (TextView) findViewById(R.id.time_to_next_challenge);
-        currentCoins = (TextView) findViewById(R.id.Current_coins);
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentCoins = findViewById(R.id.coins);
+        roomCode = findViewById(R.id.roomCode);
+        roomName = findViewById(R.id.roomName);
 
-        // Fetch the current user's coins from Firestore
-        String userId = currentUser.getUid();
-        if (userId == null) {
-            Log.d("LobbyScreenActivity", "User ID is null.");
-            return;
-        }
-        db.collection("users").document(userId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        numberOfPlayers.setText(String.valueOf(User.getRoom().getRoomCurrentSize()));
+        currentCoins.setText(String.valueOf(User.getCoins()));
+
+        User.getRoom().getRoomOwner().get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        int coins = Objects.requireNonNull(document.getLong("coins")).intValue();
-                        currentCoins.setText(String.valueOf(coins));
+                if (task.getResult().exists()){
+                    DocumentSnapshot user = task.getResult();
+                    roomOwner = String.valueOf(user.get("username"));
+                    roomCode.setText(String.valueOf(User.getRoom().getRoomCode()));
+                    roomName.setText(String.valueOf(User.getRoom().getRoomName()));
+                    try {
+                        updatePlayerSlots();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
                     }
                 }
             }
         });
-
-        // Initialize the host (player 1)
-        String hostUsername = mAuth.getCurrentUser().getDisplayName();
-        users.add(hostUsername);
-        player1.setText(hostUsername);
-
         // Initialize the back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,42 +92,117 @@ public class LobbyScreenActivity extends AppCompatActivity {
             }
         });
 
-        // Update the player slots
-        updatePlayerSlots();
+        startButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
-    private void updatePlayerSlots() {
+    private synchronized void updatePlayerSlots() throws InterruptedException {
         // Clear all player slots
-        player1.setText("");
-        player2.setText("");
-        player3.setText("");
-        player4.setText("");
-        player5.setText("");
+        CountDownLatch latch = new CountDownLatch(User.getRoom().getRoomCurrentSize());
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        currentSize = User.getRoom().getRoomCurrentSize();
+        Log.d("Debug", User.getRoom().toString());
+        player1.setText(roomOwner);
+        player2.setVisibility(View.VISIBLE);
+        player3.setVisibility(View.VISIBLE);
+        player4.setVisibility(View.VISIBLE);
+        player5.setVisibility(View.VISIBLE);
 
-        // Update the player slots based on the order of the users in the list
-        if (!users.isEmpty()) {
-            player1.setText(users.get(0));
-        }
-        if (users.size() > 1) {
-            player2.setText(users.get(1));
-        }
-        if (users.size() > 2) {
-            player3.setText(users.get(2));
-        }
-        if (users.size() > 3) {
-            player4.setText(users.get(3));
-        }
-        if (users.size() > 4) {
-            player5.setText(users.get(4));
+        Log.d("Debug", player1.getText().toString());
+
+        final int[] i = {1};
+
+        executor.execute(() -> {
+            for (DocumentReference userRef:User.getRoom().getRoomMembers()){
+                userRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.getResult().exists()){
+                            DocumentSnapshot user = task.getResult();
+                            Log.d("Debug","New username: " + user.get("username"));
+                            if (user.exists() && !Objects.equals(user.get("username"), roomOwner)){
+                                i[0] += 1;
+                                Log.d("Debug", "Loop " + i[0]);
+                                switch (i[0]) {
+                                    case 2:
+                                        player2.setText(user.get("username").toString());
+                                        break;
+                                    case 3:
+                                        player3.setText(user.get("username").toString());
+                                        break;
+                                    case 4:
+                                        player4.setText(user.get("username").toString());
+                                        break;
+                                    case 5:
+                                        player5.setText(user.get("username").toString());
+                                        break;
+                                }
+                            }
+                            latch.countDown();
+                        } else {
+                            latch.countDown();
+                        }
+                    }
+                });
+            }
+        });
+
+
+        executor.execute(() -> {
+            try {
+                latch.await();
+                updateRestNames(i[0]);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    public void updateRestNames(int players){
+        int emptySlots = User.getRoom().getRoomMaxSize() - players;
+        Log.d("Debug", emptySlots + " empty");
+        switch (emptySlots){
+            case 4:
+                player2.setVisibility(View.INVISIBLE);
+                player3.setVisibility(View.INVISIBLE);
+                player4.setVisibility(View.INVISIBLE);
+                player5.setVisibility(View.INVISIBLE);
+                break;
+            case 3:
+                player3.setVisibility(View.INVISIBLE);
+                player4.setVisibility(View.INVISIBLE);
+                player5.setVisibility(View.INVISIBLE);
+                break;
+            case 2:
+                player4.setVisibility(View.INVISIBLE);
+                player5.setVisibility(View.INVISIBLE);
+                break;
+            case 1:
+                player5.setVisibility(View.INVISIBLE);
+                break;
+            default:
+                break;
         }
 
         // Update the number of players
-        numberOfPlayers.setText(String.valueOf(users.size()));
+        String newNumber = "Number of players: " + currentSize;
+        numberOfPlayers.setText(newNumber);
+        Log.d("Debug", currentSize + "");
     }
 
-    // Call this method whenever a new player joins the room
-    public void onPlayerJoin(String username) {
-        users.add(username);
-        updatePlayerSlots();
+    @Override
+    public void onChange() {
+        numberOfPlayers.setText(String.valueOf(User.getRoom().getRoomCurrentSize()));
+        currentSize = User.getRoom().getRoomCurrentSize();
+
+        try{
+            updatePlayerSlots();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

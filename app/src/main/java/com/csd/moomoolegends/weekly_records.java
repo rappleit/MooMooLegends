@@ -1,43 +1,22 @@
 package com.csd.moomoolegends;
 
-import androidx.annotation.ContentView;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.graphics.Color;
-import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.ImageSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.csd.moomoolegends.models.WeeklyRecords;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.PercentFormatter;
-import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.material.tabs.TabLayout;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,10 +94,10 @@ public class weekly_records extends AppCompatActivity {
         pieData.setValueFormatter(new PercentFormatter());
         pieData.setValueTextSize(10f);
         pieData.setValueTextColor(Color.parseColor("#7F4C00"));
-        pieData.setValueTypeface(getResources().getFont(R.font.pixeloid_sans));
+        pieData.setValueTypeface(getResources().getFont(R.font.pixeloidsans));
         weekly.setData(pieData);
 
-        weekly.setEntryLabelTypeface(getResources().getFont(R.font.pixeloid_sans));
+        weekly.setEntryLabelTypeface(getResources().getFont(R.font.pixeloidsans));
         weekly.setEntryLabelColor(Color.parseColor("#7F4C00"));
         weekly.setEntryLabelTextSize(15f);
         weekly.setDrawHoleEnabled(false);

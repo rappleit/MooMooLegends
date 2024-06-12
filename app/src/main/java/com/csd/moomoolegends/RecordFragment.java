@@ -17,7 +17,6 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -112,7 +111,7 @@ public class RecordFragment extends Fragment {
             labels.add(list.get(i).getKey());
         }
         leBar.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-        leBar.getXAxis().setTypeface(getResources().getFont(R.font.pixeloid_sans));
+        leBar.getXAxis().setTypeface(getResources().getFont(R.font.pixeloidsans));
         leBar.getXAxis().setCenterAxisLabels(false);
         leBar.getXAxis().setDrawAxisLine(false);
         leBar.getXAxis().setDrawGridLines(false);

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.csd.moomoolegends.R;
+import com.csd.moomoolegends.adaptors.PublicRoomViewAdapter;
 import com.csd.moomoolegends.home.HomeActivity;
 import com.csd.moomoolegends.models.OnFirestoreCompleteCallback;
 import com.csd.moomoolegends.models.RoomFirestore;
@@ -92,11 +93,21 @@ public class MultiHomePageActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Intent to go to JoinPublicRoomActivity
                 Log.d("Debug", "Join Public Room Button Clicked");
-                Intent intent = new Intent(MultiHomePageActivity.this, ViewPublicRoomsActivity.class);
-                startActivity(intent);
-                Log.d("Debug", "Join Public Room Activity Started");
-                finish();
-                return;
+                RoomFirestore.getInstance().getAllPublicRooms(new OnFirestoreCompleteCallback() {
+                    @Override
+                    public void onFirestoreComplete(boolean success, String message) {
+                        if (success){
+                            Log.d("Debug", message);
+                            Log.d("Debug", RoomFirestore.getInstance().publicRooms.toString());
+                            Intent intent = new Intent(MultiHomePageActivity.this, ViewPublicRoomsActivity.class);
+                            startActivity(intent);
+                            Log.d("Debug", "Join Public Room Activity Started");
+                            finish();
+                        } else {
+                            Log.d("Debug", message);
+                        }
+                    }
+                });
             }
         });
     }

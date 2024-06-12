@@ -6,7 +6,7 @@
     </style>
 
     <style name="TabFont" parent="TextAppearance.Design.Tab">
-        <item name="android:fontFamily">@font/pixeloid_sans</item>
+        <item name="android:fontFamily">@font/pixeloidsans</item>
     </style>
 
 
