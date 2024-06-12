@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.csd.moomoolegends.R;
 import com.csd.moomoolegends.adaptors.PublicRoomViewAdapter;
@@ -25,8 +26,9 @@ public class ViewPublicRoomsActivity extends AppCompatActivity {
         setContentView(R.layout.view_public_rooms);
 
         recyclerView = findViewById(R.id.public_rooms_recycler_view);
-        backButton = findViewById(R.id.backButton);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        backButton = findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -1,5 +1,50 @@
 <resources>
     <string name="app_name">Moo Moo Legends</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="default_weekly_carbon_banner">0 kg CO2e\nthis week</string>
+
+    <!-- Home Activity -->
+    <string name="menu_btn_desc">Menu Button</string>
+    <string name="record_btn_label">Records</string>
+    <string name="record_btn_desc">Records Page Button</string>
+    <string name="shop_btn_label">Shop</string>
+    <string name="shop_btn_desc">Shop Page Button</string>
+    <string name="recommend_btn_label">Recos</string>
+    <string name="recommend_btn_desc">Recommendations Page Button</string>
+    <string name="carbon_label">XX kg / XX kg</string>
+    <string name="room_label">Random12345678\'s\nRoom Footprint</string>
+    <string name="solo_label">Your Footprint</string>
+    <string name="week_label">9 June - 15 June</string>
+    <string name="coins_label">Coins:</string>
+    <string name="coins_template">2200</string>
+    <string name="join_room">Join Room</string>
+    <string name="view_room">View Room</string>
+    <string name="cows_label">XX cows</string>
+    <string name="log_btn_label">New Log</string>
+
+    <!-- Explore Activity -->
+    <string name="back_btn_arrow_label">&lt; Back</string>
+    <string name="back_btn_label">Back</string>
+    <string name="recommendations_label">Recommendations</string>
+    <string name="location_label">Your Location:</string>
+    <string name="top_results_label">Showing Top 5 Results</string>
+    <string name="refresh_label"><u>Refresh</u></string>
+    <string name="dish_name_template_label">Chicken Rice</string>
+    <string name="dish_photo">Dish Photo</string>
+    <string name="stall_name_template_label">Lai Lai Chicken Rice Pte Ltd</string>
+    <string name="distance_template_label">350m away</string>
+    <string name="carbon_template_label">3kg CO2e</string>
+    <string name="map_label">View Map</string>
+    <string name="directions_label"><u>Directions</u></string>
+    <string name="title_activity_map_dialog">MapDialog</string>
+    <string name="close_map_label">Close Map</string>
+
+    <string name="community_challenge">Community Challenge</string>
+    <string name="next_challenge_starting_in">Next Challenge Starting In</string>
+    <string name="enter_room_code">Enter Room Code</string>
+    <string name="type_here">Type Here</string>
+    <string name="start_now">[Dev] Start!</string>
+
+    <string name="how_it_works"><u>How it works</u></string>
+    <string name="share_code"><u>Share Code</u></string>
+    <string name="leave_room"><u>Leave Room</u></string>
 </resources>

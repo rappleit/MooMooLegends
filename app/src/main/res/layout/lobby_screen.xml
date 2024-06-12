@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:src="@drawable/background"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop" />
 
     <!-- Back Button -->
     <ImageButton
@@ -23,7 +23,25 @@
         android:layout_alignParentTop="true"
         android:elevation="4dp"
         android:background="@drawable/back_button"
-        />
+        android:contentDescription="@string/back_btn_label"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/start_game_button"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_btn_pink_bg"
+        android:elevation="2dp"
+        android:fontFamily="@font/pixeloid_sans"
+        android:text="@string/start_now"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
     <!-- Coins Display Frame -->
     <FrameLayout
@@ -39,7 +57,8 @@
             android:id="@+id/coins_display_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/coins_display" />
+            android:src="@drawable/coins_display"
+            android:contentDescription="@string/coins_label" />
 
         <TextView
             android:id="@+id/Current_coins"
@@ -49,13 +68,13 @@
             android:layout_marginTop="8.5dp"
             android:fontFamily="@font/pixeloid_sans"
             android:textColor="#000000"
-            android:textSize="14dp"
-            android:text = "1000"
-            />
+            android:textSize="14sp"
+            android:text = "1000" />
+
     </FrameLayout>
 
     <TextView
-        android:id="@+id/room_name"
+        android:id="@+id/textViewRoomName"
         android:layout_width="155dp"
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"
@@ -65,11 +84,7 @@
         android:fontFamily="@font/pixeloid_sans"
         android:gravity="center_horizontal|top"
         android:textSize="24sp"
-        android:textColor="#FFFFFF"
-        />
-
-
-
+        android:textColor="#FFFFFF" />
 
     <TextView
         android:id="@+id/room_code"
@@ -83,11 +98,10 @@
         android:textSize = "36sp"
         android:textColor = "#000000"
         android:background="@drawable/room_code_background"
-        android:text="Hello"
+        android:text="Hello" />
 
-        />
     <TextView
-        android:id="@+id/number_of_players"
+        android:id="@+id/textViewNumPlayers"
         android:layout_width="145dp"
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"
@@ -97,8 +111,7 @@
         android:gravity="center_horizontal|top"
         android:textSize="24sp"
         android:textColor="#FFFFFF"
-        android:text="Players (0)"
-        />
+        android:text="Players (0)" />
 
     <TextView
         android:id="@+id/player_1"
@@ -111,10 +124,7 @@
         android:fontFamily="@font/pixeloid_sans"
         android:textColor="#000000"
         android:gravity="center"
-        android:text="Test"
-        />
-
-
+        android:text="Test" />
 
     <TextView
         android:id="@+id/player_2"
@@ -127,10 +137,7 @@
         android:fontFamily="@font/pixeloid_sans"
         android:textColor="#000000"
         android:gravity="center"
-        android:text="Test"
-        />
-
-
+        android:text="Test" />
 
     <TextView
         android:id="@+id/player_3"
@@ -143,8 +150,7 @@
         android:fontFamily="@font/pixeloid_sans"
         android:textColor="#000000"
         android:gravity="center"
-        android:text="Test"
-        />
+        android:text="Test" />
 
     <TextView
         android:id="@+id/player_4"
@@ -157,10 +163,7 @@
         android:fontFamily="@font/pixeloid_sans"
         android:textColor="#000000"
         android:gravity="center"
-        android:text="Test"
-        />
-
-
+        android:text="Test" />
 
     <TextView
         android:id="@+id/player_5"
@@ -173,23 +176,6 @@
         android:fontFamily="@font/pixeloid_sans"
         android:textColor="#000000"
         android:gravity="center"
-        android:text="Test"
-
-
-        />
-    <Button
-        android:id="@+id/start_game_button"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="815dp"
-        android:text="Start!"
-        android:fontFamily="@font/pixeloid_sans"
-        android:textSize="24sp"
-        android:textColor="#000000"
-        android:background="@drawable/start_button_background"
-        />
-
+        android:text="Test" />
 
 </RelativeLayout>

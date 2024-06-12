@@ -1,14 +1,12 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.MooMooLegends" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Theme.MooMooLegends" parent="Theme.MaterialComponents.DayNight.NoActionBar.Bridge">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.MooMooLegends" parent="Base.Theme.MooMooLegends" />
-
     <style name="TabFont" parent="TextAppearance.Design.Tab">
-        <item name="android:fontFamily">@font/pixeloidsans</item>
+        <item name="android:fontFamily">@font/pixeloid_sans</item>
     </style>
 
 

@@ -17,13 +17,12 @@
         android:id="@+id/backButton"
         android:layout_width="118dp"
         android:layout_height="40dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="23dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:elevation="4dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/back_button"
-        />
+        android:elevation="4dp" />
 
     <!-- Coins Display Frame -->
     <FrameLayout
@@ -32,8 +31,8 @@
         android:layout_height="40dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="23dp"
-        android:layout_marginEnd="21dp">
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp">
 
         <ImageView
             android:id="@+id/coins_display_background"
@@ -48,10 +47,9 @@
             android:layout_marginStart="42dp"
             android:layout_marginTop="8.5dp"
             android:fontFamily="@font/pixeloid_sans"
+            android:text="1000"
             android:textColor="#000000"
-            android:textSize="14dp"
-            android:text = "1000"
-            />
+            android:textSize="14dp" />
     </FrameLayout>
 
     <!-- Cow Image with Shadow -->
@@ -61,9 +59,8 @@
         android:layout_height="131dp"
         android:layout_below="@id/coins_display"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="120dp"
-        android:src="@drawable/cow_w_shadow_2"
-        />
+        android:layout_marginTop="100dp"
+        android:src="@drawable/cow_w_shadow_2" />
 
     <!-- Community Challenge Text -->
     <TextView
@@ -120,12 +117,11 @@
         android:layout_below="@id/join_public_room"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-        android:text="@string/next_challenge_starting_in"
         android:fontFamily="@font/pixeloid_sans"
-        android:gravity="center_horizontal"
-        android:textSize="24sp"
+        android:gravity="center"
+        android:text="@string/next_challenge_starting_in"
         android:textColor="#000000"
-        />
+        android:textSize="22sp" />
 
     <!-- Time to Next Challenge -->
     <TextView
@@ -136,8 +132,21 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="15dp"
         android:fontFamily="@font/pixeloid_sans"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:text="Test"
         android:textColor="#FFFFFF"
-        android:textSize="24sp" />
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/textViewHowItWorks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/pixeloid_sans"
+        android:gravity="center"
+        android:text="@string/how_it_works"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp" />
 </RelativeLayout>

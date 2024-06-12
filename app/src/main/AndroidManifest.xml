@@ -15,20 +15,30 @@
 
         <activity
             android:name=".APIsExample"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            android:exported="true" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity
+            android:name=".multiplayer_pages.MultiHomePageActivity"
+            android:exported="true" />
+        <activity
+            android:name=".multiplayer_pages.JoinPrivateRoomActivity"
+            android:exported="true" />
+        <activity
+            android:name=".multiplayer_pages.LobbyScreenActivity"
+            android:exported="true" />
+        <activity
+            android:name=".multiplayer_pages.ViewPublicRoomsActivity"
+            android:exported="true" />
 
         <activity
             android:name=".weekly_records"
+            android:exported="true" />
+
+        <activity
+            android:name=".home.HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

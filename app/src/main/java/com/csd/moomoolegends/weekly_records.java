@@ -115,10 +115,10 @@ public class weekly_records extends AppCompatActivity {
         pieData.setValueFormatter(new PercentFormatter());
         pieData.setValueTextSize(10f);
         pieData.setValueTextColor(Color.parseColor("#7F4C00"));
-        pieData.setValueTypeface(getResources().getFont(R.font.pixeloidsans));
+        pieData.setValueTypeface(getResources().getFont(R.font.pixeloid_sans));
         weekly.setData(pieData);
 
-        weekly.setEntryLabelTypeface(getResources().getFont(R.font.pixeloidsans));
+        weekly.setEntryLabelTypeface(getResources().getFont(R.font.pixeloid_sans));
         weekly.setEntryLabelColor(Color.parseColor("#7F4C00"));
         weekly.setEntryLabelTextSize(15f);
         weekly.setDrawHoleEnabled(false);

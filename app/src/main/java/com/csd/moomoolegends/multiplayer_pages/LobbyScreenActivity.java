@@ -42,14 +42,14 @@ public class LobbyScreenActivity extends AppCompatActivity {
 
         // Initialize all variables
         backButton = (ImageButton) findViewById(R.id.backButton);
-        numberOfPlayers = (TextView) findViewById(R.id.number_of_players);
+        numberOfPlayers = (TextView) findViewById(R.id.textViewNumPlayers);
         player1 = (TextView) findViewById(R.id.player_1);
         player2 = (TextView) findViewById(R.id.player_2);
         player3 = (TextView) findViewById(R.id.player_3);
         player4 = (TextView) findViewById(R.id.player_4);
         player5 = (TextView) findViewById(R.id.player_5);
-        nextChallengeCountdownText = (TextView) findViewById(R.id.next_challenge_countdown_text);
-        timeToNextChallenge = (TextView) findViewById(R.id.time_to_next_challenge);
+        // nextChallengeCountdownText = (TextView) findViewById(R.id.next_challenge_countdown_text);
+        // timeToNextChallenge = (TextView) findViewById(R.id.time_to_next_challenge);
         currentCoins = (TextView) findViewById(R.id.Current_coins);
         FirebaseUser currentUser = mAuth.getCurrentUser();
 

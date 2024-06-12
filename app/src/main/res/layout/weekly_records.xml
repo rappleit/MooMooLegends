@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/tripleCows"
                 android:layout_centerHorizontal="true"
-                android:fontFamily="@font/pixeloidsans_bold"
+                android:fontFamily="@font/pixeloid_sans_bold"
                 android:gravity="center"
                 android:paddingTop="10dp"
                 android:paddingBottom="5dp"

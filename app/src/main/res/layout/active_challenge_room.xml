@@ -55,7 +55,7 @@
     </FrameLayout>
 
     <TextView
-        android:id="@+id/room_name"
+        android:id="@+id/textViewRoomName"
         android:layout_width="155dp"
         android:layout_height="30dp"
         android:layout_centerHorizontal="true"

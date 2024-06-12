@@ -11,6 +11,7 @@ import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.csd.moomoolegends.R;
+import com.csd.moomoolegends.multiplayer_pages.LobbyScreenActivity;
+import com.csd.moomoolegends.multiplayer_pages.MultiHomePageActivity;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import java.util.Random;
@@ -43,7 +46,7 @@ public class HomeActivity extends AppCompatActivity {
     private final static String LOG_TAG = "LOGCAT_HomeActivity";
 
     // TODO: replace with user / room variables
-    private final boolean inRoom = true;
+    private final boolean inRoom = false;
     private final int numCows = 5;
     private final int roomPersons = 5;
     private final int currCarbonSolo = 20;
@@ -83,7 +86,8 @@ public class HomeActivity extends AppCompatActivity {
         LinearLayout layoutShop = (LinearLayout) findViewById(R.id.layoutShop);
         LinearLayout layoutRecos = (LinearLayout) findViewById(R.id.layoutRecommendations);
         ((CardView) findViewById(R.id.cardViewRoomBtn)).setOnClickListener(view -> {
-            // TODO call explicit intent to room activity
+            Intent intent = new Intent(this, inRoom ? LobbyScreenActivity.class : MultiHomePageActivity.class);
+            startActivity(intent);
         });
         ((LinearLayout) findViewById(R.id.layoutLog)).setOnClickListener(view -> {
             // TODO call explicit intent to food logger activity
