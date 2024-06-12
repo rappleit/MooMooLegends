@@ -48,7 +48,7 @@ public class JoinPrivateRoomActivity extends AppCompatActivity {
         joinRoomButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (roomCodeInput.getText().toString().isEmpty() || roomCodeInput.getText().toString().length() != 5 || !roomCodeInput.getText().toString().matches("[0-9]+")) {
+                if (roomCodeInput.getText().toString().isEmpty() || roomCodeInput.getText().toString().length() != 5 || !roomCodeInput.getText().toString().matches("[a-z]+[A-Z]") ) {
                     roomCodeInput.setError("Please enter a valid room code.");
                     Log.d("Room Code Input", "Invalid room code entered.");
                     return;
