@@ -14,6 +14,9 @@ import com.csd.moomoolegends.home.HomeActivity;
 import com.csd.moomoolegends.models.Cow;
 import com.csd.moomoolegends.models.User;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class ShopActivity extends AppCompatActivity {
 
     private ImageView imageViewNature, imageViewIce, imageViewFire, imageViewDiamond, imageViewGold;
@@ -87,7 +90,7 @@ public class ShopActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        // Enable cows if they are unlocked
+        // HashSet<String> cowTypes = new HashSet<>();
         for (Cow cow : User.getUserCows()) {
             switch (cow.getName()) {
                 case Cow.DIAMOND_COW_NAME:
@@ -110,6 +113,11 @@ public class ShopActivity extends AppCompatActivity {
                     imageViewNature.setImageResource(R.drawable.nature_cow);
                     textViewNature.setText(R.string.nature_cow);
             }
+            //cowTypes.add(cow.getName());
         }
+
+        /*((TextView) findViewById(R.id.textViewCowsOwned))
+                .setText(getString(R.string.cows_owned_template)
+                        .replace("X", String.valueOf(cowTypes.size())));*/
     }
 }

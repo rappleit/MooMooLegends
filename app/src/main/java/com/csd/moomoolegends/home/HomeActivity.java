@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity {
 
     private static Handler handler;
 
-    private final static int CARBON_THRESHOLD = 35;
+    private final static int CARBON_THRESHOLD = 50;
     private final static int ANIM_DURATION_MS = 250;
     private final static int COWS_ALLOWED = 8;
     private final static String LOG_TAG = "LOGCAT_HomeActivity";
@@ -71,10 +71,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         inRoom = User.getInRoom();
-        numCows = User.getUserCows().size();
         if (inRoom){
             roomPersons = User.getRoom().getRoomCurrentSize();
-
+            numCows = User.getUserCows().size();
             currCarbonRoom = Math.round(User.getRoom().getRoomCarbonFootprint() * 100.0f) / 100.0f;
         }
 
@@ -228,7 +227,7 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         // Draw cows
-        for (int cow = 1; cow <= Math.min(COWS_ALLOWED, numCows); cow++) {
+        for (int cow = 0; cow < Math.min(COWS_ALLOWED, numCows); cow++) {
             startAnimationFromBackgroundThread(R.drawable.cow, cow);
         }
     }
@@ -240,6 +239,10 @@ public class HomeActivity extends AppCompatActivity {
         // Reset progress bar animations so that onResume() can display them again
         linearProgressMain.setProgress(0, true);
         linearProgressSolo.setProgress(0, true);
+
+        for (int i = 0; i < cowLayout.getChildCount(); i++) {
+            ((ConstraintLayout) cowLayout.getChildAt(i)).removeAllViews();
+        }
     }
 
 

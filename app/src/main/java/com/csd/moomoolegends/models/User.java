@@ -58,7 +58,17 @@ public class User extends UserFirestore{
             if (userCowsObj == null) {
                 User.userCows = new ArrayList<>();
             } else {
-                User.userCows = (ArrayList<Cow>) userCowsObj;
+                Log.d("Debug", "UserCows: " + userCowsObj);
+                if (userCowsObj instanceof ArrayList){
+                    ArrayList<HashMap<String, Object>> hashMapList = (ArrayList<HashMap<String, Object>>) userCowsObj;
+                    User.userCows = new ArrayList<>();
+                    for (HashMap<String, Object> hashMap : hashMapList) {
+                        Cow cow = new Cow((String) hashMap.get("name"), (String) hashMap.get("rarity"), (String) hashMap.get("imageName"));
+                        User.userCows.add(cow);
+                    }
+                } else {
+                    User.userCows = new ArrayList<>();
+                }
             }
             User.userDoc = userDoc;
 
