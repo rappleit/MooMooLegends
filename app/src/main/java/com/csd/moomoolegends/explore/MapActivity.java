@@ -9,6 +9,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -22,12 +23,14 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Objects;
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
 
-    private LatLng currLocation;
+    private LatLng currLocation, destination;
+    private String stallName;
 
     public final static String IMAGE_KEY = "imageKey";
     public final static String NAME_KEY = "nameKey";
@@ -35,6 +38,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
     public final static String DISTANCE_KEY = "distanceKey";
     public final static String CARBON_KEY = "carbonKey";
     public final static String LOCATION_KEY = "locationKey";
+    public final static String LOCATION_KEY_2 = "locationKey2";
 
     public final static String LOG_TAG = "LOGCAT_MapActivity";
 
@@ -53,10 +57,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         byte[] bytes = Objects.requireNonNull(intent.getExtras()).getByteArray(IMAGE_KEY);
         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, Objects.requireNonNull(bytes).length);
         currLocation = intent.getParcelableExtra(LOCATION_KEY);
+        destination = intent.getParcelableExtra(LOCATION_KEY_2);
 
+        stallName = intent.getStringExtra(STALL_KEY);
+        Log.d(LOG_TAG, stallName);
         ((ImageView) findViewById(R.id.imageView)).setImageBitmap(bitmap);
         ((TextView) findViewById(R.id.textViewName)).setText(intent.getStringExtra(NAME_KEY));
-        ((TextView) findViewById(R.id.textViewStall)).setText(intent.getStringExtra(STALL_KEY));
+        ((TextView) findViewById(R.id.textViewStall)).setText(stallName);
         ((TextView) findViewById(R.id.textViewDistance)).setText(intent.getStringExtra(DISTANCE_KEY));
         ((TextView) findViewById(R.id.textViewCarbon)).setText(intent.getStringExtra(CARBON_KEY));
         ((ImageButton) findViewById(R.id.imageBtnMap)).setVisibility(View.GONE);
@@ -76,7 +83,7 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         googleMap.clear();
 
         // Obtain and display current location
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 15));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currLocation, 14));
         googleMap.addCircle(new CircleOptions()
                 .center(currLocation)
                 .radius(50)
@@ -85,10 +92,10 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         );
 
         // TODO Display target location
-        /*googleMap.addMarker(new MarkerOptions()
-                .position(currLocation)
-                .title("Current Location")
-        );*/
+        googleMap.addMarker(new MarkerOptions()
+                .position(destination)
+                .title(stallName)
+        );
     }
 
     @Override

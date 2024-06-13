@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,6 +28,8 @@ public class RecordFragment extends Fragment {
     String foodType;
     BarChart leBar;
     Map foodMap;
+    TextView leFrancais;
+
 
     public RecordFragment(String foodType) {
         this.foodType=foodType;
@@ -41,6 +45,7 @@ public class RecordFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         leBar = view.findViewById(R.id.weekly_bar);
+        leFrancais = view.findViewById(R.id.weekly_tips);
         barGraphInit();
 
     }
@@ -48,18 +53,23 @@ public class RecordFragment extends Fragment {
         switch (foodType) {
             case "Meat":
                 foodMap=WeeklyRecords.getMeat();
+                leFrancais.setText("Swap out beef for lower-impact options like chicken or pork for an aMOOzing reduction in your carbon footprint!");
                 break;
             case "Dairy":
                 foodMap=WeeklyRecords.getDairy();
+                leFrancais.setText("Great job choosing almond milk! For an even Cowrazier boost to your carbon footprint, try swapping cheese for tofu.");
                 break;
             case "Carbs":
                 foodMap=WeeklyRecords.getCarbs();
+                leFrancais.setText("Good job! Potatoes and bread have a lower carbon footprint compared to rice and Moodles.");
                 break;
             case "Veg":
                 foodMap=WeeklyRecords.getVeg();
+                leFrancais.setText("For vegetables, opt for local produce when possible, which have a lower carbon footprint!");
                 break;
             case "Seafood":
                 foodMap=WeeklyRecords.getSeafood();
+                leFrancais.setText("Moovelous! Did you know that seafood is a lower carbon alternative to common meats like beef and pork?");
                 break;
         }
 

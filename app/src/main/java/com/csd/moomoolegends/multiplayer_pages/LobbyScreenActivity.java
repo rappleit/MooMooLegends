@@ -104,12 +104,17 @@ public class LobbyScreenActivity extends AppCompatActivity implements OnRoomList
                 @Override
                 public void onClick(View v) {
                     Log.d("Debug", "Start button");
+                    RoomFirestore.unregisterRoomListener();
                     RoomFirestore.getInstance().startRoom(new OnFirestoreCompleteCallback() {
                         @Override
                         public void onFirestoreComplete(boolean success, String message) {
                             if (success){
                                 Log.d("Debug", message);
                                 startCountdown();
+                                RoomFirestore.setOnRoomListenerChange(LobbyScreenActivity.this);
+                                Intent intent = new Intent(LobbyScreenActivity.this, LobbyScreenActivity.class);
+                                intent.putExtra("alreadyInRoom", true);
+                                startActivity(intent);
                             } else {
                                 Log.d("Debug", message);
                                 Toast.makeText(LobbyScreenActivity.this, "Failed to start room.", Toast.LENGTH_SHORT).show();

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.csd.moomoolegends.R;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.ByteArrayOutputStream;
 
@@ -27,6 +28,7 @@ public class ExploreCard extends RecyclerView.Adapter<ExploreCard.ViewHolder> {
     private final int[] distances;
     private final double[] carbonFootprints;
     private final int[] photoDrawables;
+    private final LatLng[] locations;
 
     private static final String LOG_TAG = "LOGCAT_ExploreCard";
     private static final int EXPLORE_COUNT = 5;
@@ -36,13 +38,15 @@ public class ExploreCard extends RecyclerView.Adapter<ExploreCard.ViewHolder> {
             @NonNull String[] stalls,
             @NonNull int[] distances,
             @NonNull double[] carbonFootprints,
-            @NonNull int[] photoDrawables
+            @NonNull int[] photoDrawables,
+            @NonNull LatLng[] locations
     ) {
         this.dishes = dishes;
         this.stalls = stalls;
         this.distances = distances;
         this.carbonFootprints = carbonFootprints;
         this.photoDrawables = photoDrawables;
+        this.locations = locations;
     }
 
     @NonNull
@@ -65,7 +69,8 @@ public class ExploreCard extends RecyclerView.Adapter<ExploreCard.ViewHolder> {
                 this.stalls[position],
                 this.distances[position],
                 this.carbonFootprints[position],
-                this.photoDrawables[position]
+                this.photoDrawables[position],
+                this.locations[position]
         );
     }
 
@@ -85,6 +90,7 @@ public class ExploreCard extends RecyclerView.Adapter<ExploreCard.ViewHolder> {
         private final TextView textViewCarbon;
 
         private int imageDrawable;
+        private LatLng location;
 
         public ViewHolder(View view) {
             super(view);
@@ -100,8 +106,9 @@ public class ExploreCard extends RecyclerView.Adapter<ExploreCard.ViewHolder> {
         }
 
         @SuppressLint("SetTextI18n")
-        public void bind(String dishName, String stall, int distance, double carbon, int imageDrawable) {
+        public void bind(String dishName, String stall, int distance, double carbon, int imageDrawable, LatLng location) {
             this.imageDrawable = imageDrawable;
+            this.location = location;
 
             imageView.setImageResource(imageDrawable);
             textViewName.setText(dishName);
@@ -130,6 +137,7 @@ public class ExploreCard extends RecyclerView.Adapter<ExploreCard.ViewHolder> {
             intent.putExtra(MapActivity.DISTANCE_KEY, textViewDistance.getText().toString());
             intent.putExtra(MapActivity.CARBON_KEY, textViewCarbon.getText().toString());
             intent.putExtra(MapActivity.LOCATION_KEY, ((ExploreActivity) context).getCurrLocation());
+            intent.putExtra(MapActivity.LOCATION_KEY_2, this.location);
 
             context.startActivity(intent);
         }
