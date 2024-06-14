@@ -64,11 +64,11 @@ public class LoggerResultsActivity extends AppCompatActivity {
 
                     int newCoins = User.getCoins() + 10;
                     User.setCoins(newCoins);
-
-                    Intent intent2 = new Intent(LoggerResultsActivity.this, HomeActivity.class);
-                    startActivity(intent2);
                 }
             });
+
+            Intent intent2 = new Intent(LoggerResultsActivity.this, HomeActivity.class);
+            startActivity(intent2);
         });
 
         if (carbonData != null && !carbonData.isEmpty()) {
