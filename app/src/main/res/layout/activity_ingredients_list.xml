@@ -42,10 +42,12 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Edit"
+                android:text="Add"
                 android:fontFamily="@font/pixeloidsans"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black" />
+                android:background="@color/white"
+                android:textColor="@color/black"
+                android:id="@+id/addIngredientsButton"
+                />
         </LinearLayout>
     </LinearLayout>
 
